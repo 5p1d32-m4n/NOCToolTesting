@@ -15,10 +15,16 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import *
+from api.views import (
+    ReportListAPIView, ReportCreateAPIView, ReportUpdateAPIView,
+    ReportDetailAPIView)
 
 
 urlpatterns = [
+    path('report-create', ReportCreateAPIView.as_view(), name='report-create'),
+    path('report-detail/<str:pk>',
+         ReportDetailAPIView.as_view(), name='report-detail'),
     path('report-list', ReportListAPIView.as_view(), name='report-list'),
-    path('report-create', ReportCreateAPIView.as_view(), name='report-create')
+    path('report-update/<str:pk>',
+         ReportUpdateAPIView.as_view(), name='report-update'),
 ]

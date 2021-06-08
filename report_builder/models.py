@@ -1,6 +1,6 @@
 from django.db import models
-from datetime import date, time
-from django.db.models.expressions import F
+from datetime import date
+# from django.db.models.expressions import F
 
 
 class Services(models.Model):
@@ -56,7 +56,7 @@ class Report(models.Model):
     noc_ticket = models.CharField(
         max_length=15, primary_key=True, unique=True, default=None)
     third_party_ticket = models.CharField(
-        max_length=15, unique=True, blank=True)
+        max_length=15, unique=True, blank=True, null=True)
     date_of_outage = models.DateField(
         verbose_name='Fecha de Evento', default=date.today)
     time_of_outage = models.TimeField(
@@ -73,7 +73,7 @@ class Report(models.Model):
     clients = models.ManyToManyField(Clients, blank=True)
     client_amount = models.ManyToManyField(ClientAmount, blank=True)
     outage_type = models.ManyToManyField(OutageType, blank=True)
-    cause = models.ManyToManyField(Cause, blank=True)
+    causes = models.ManyToManyField(Cause, blank=True)
 
     def __str__(self):
         return f'Evento: {self.noc_ticket}, en la fecha {self.date_of_outage}'
