@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "f4ad0b141bab23726745f37b1ed47c48210a706b2966f2ece23bb91bac60889b"
+            "sha256": "278edc70a60470846bc14217003f8de0fcacaa5204d80680c9b62f9a0ba402e1"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -26,11 +26,11 @@
         },
         "django": {
             "hashes": [
-                "sha256:13ac78dbfd189532cad8f383a27e58e18b3d33f80009ceb476d7fcbfc5dcebd8",
-                "sha256:7e0a1393d18c16b503663752a8b6790880c5084412618990ce8a81cc908b4962"
+                "sha256:66c9d8db8cc6fe938a28b7887c1596e42d522e27618562517cc8929eb7e7f296",
+                "sha256:ea735cbbbb3b2fba6d4da4784a0043d84c67c92f1fdf15ad6db69900e792c10f"
             ],
             "index": "pypi",
-            "version": "==3.2.3"
+            "version": "==3.2.4"
         },
         "djangorestframework": {
             "hashes": [
@@ -39,6 +39,13 @@
             ],
             "index": "pypi",
             "version": "==3.12.4"
+        },
+        "drf-writable-nested": {
+            "hashes": [
+                "sha256:b96d30aca953f4dba313bb5697da4022470dc63fb2dbe68c93d38d389ec63ac2"
+            ],
+            "index": "pypi",
+            "version": "==0.6.3"
         },
         "pytz": {
             "hashes": [

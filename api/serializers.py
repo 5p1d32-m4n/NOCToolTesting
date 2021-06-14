@@ -1,4 +1,5 @@
 from rest_framework import serializers
+from drf_writable_nested.serializers import WritableNestedModelSerializer
 from report_builder.models import (
     Report, Clients, ClientAmount, Services, ServiceAmount, OutageType, Cause)
 
@@ -42,7 +43,7 @@ class CauseSerializer(serializers.ModelSerializer):
         fields = ['causes']
 
 
-class ReportSerializer(serializers.ModelSerializer):
+class ReportSerializer(WritableNestedModelSerializer):
     services = ServicesSerializer(many=True)
     service_amount = ServiceAmountSerializer(many=True)
     clients = ClientsSerializer(many=True)
@@ -66,42 +67,43 @@ class ReportSerializer(serializers.ModelSerializer):
                   'outage_type',
                   'causes']
 
-    def create(self, validated_data):
-        services_data = validated_data.pop('services')
-        service_amount_data = validated_data.pop('service_amount')
-        clients_data = validated_data.pop('clients')
-        client_amount_data = validated_data.pop('client_amount')
-        outage_type_data = validated_data.pop('outage_type')
-        causes_data = validated_data.pop('causes')
+    # def create(self, validated_data):
+    #     services_data = validated_data.pop('services')
+    #     service_amount_data = validated_data.pop('service_amount')
+    #     clients_data = validated_data.pop('clients')
+    #     client_amount_data = validated_data.pop('client_amount')
+    #     outage_type_data = validated_data.pop('outage_type')
+    #     causes_data = validated_data.pop('causes')
 
-        report = Report.objects.create(**validated_data)
+    #     report = Report.objects.create(**validated_data)
 
-        for data in services_data:
-            service = Services.objects.create(**data)
-            report.services.add(service)
-        for data in service_amount_data:
-            service_amount = ServiceAmount.objects.create(
-                **data)
-            report.service_amount.add(service_amount)
-        for data in clients_data:
-            clients = Clients.objects.create(**data)
-            report.clients.add(clients)
-        for data in client_amount_data:
-            client_amount = ClientAmount.objects.create(**data)
-            report.client_amount.add(client_amount)
-        for data in outage_type_data:
-            outage_type = OutageType.objects.create(**data)
-            report.outage_type.add(outage_type)
-        for data in causes_data:
-            causes = Cause.objects.create(**data)
-            report.causes.add(causes)
+    #     for data in services_data:
+    #         service = Services.objects.create(**data)
+    #         report.services.add(service)
+    #     for data in service_amount_data:
+    #         service_amount = ServiceAmount.objects.create(
+    #             **data)
+    #         report.service_amount.add(service_amount)
+    #     for data in clients_data:
+    #         clients = Clients.objects.create(**data)
+    #         report.clients.add(clients)
+    #     for data in client_amount_data:
+    #         client_amount = ClientAmount.objects.create(**data)
+    #         report.client_amount.add(client_amount)
+    #     for data in outage_type_data:
+    #         outage_type = OutageType.objects.create(**data)
+    #         report.outage_type.add(outage_type)
+    #     for data in causes_data:
+    #         causes = Cause.objects.create(**data)
+    #         report.causes.add(causes)
 
-        return report
+    #     return report
 
-    def update(self, instance, validated_data):
-        instance.services = validated_data['services']
-        instance = super().update(instance, validated_data)
-        return instance
+    # def update(self, instance, validated_data):
+    #     instance.services = validated_data['services']
+    #     instance = super().update(instance, validated_data)
+    #     return instance
+
 
 '''
 update from hindu
@@ -141,4 +143,3 @@ Update from blog post
 #         service = service.services.set(service)
 #         service.save()
 #     return instance
-
