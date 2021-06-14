@@ -97,3 +97,48 @@ class ReportSerializer(serializers.ModelSerializer):
             report.causes.add(causes)
 
         return report
+
+    def update(self, instance, validated_data):
+        instance.services = validated_data['services']
+        instance = super().update(instance, validated_data)
+        return instance
+
+'''
+update from hindu
+'''
+# def update(self, instance, validated_data):
+#     services = validated_data.pop('services')
+#     keep_services = []
+
+#     for service in services:
+#         if "id" in service.keys():
+#             if Services.objects.filter(id=service["id"]).exists():
+#                 s = Services.objects.get(id=service["id"])
+#                 s.services = service.get('services', s.services)
+#                 s.save()
+#                 keep_services.append(s.id)
+#             else:
+#                 continue
+#         else:
+#             s = Services.objects.create(**service, report=instance)
+#             keep_services.append(s.id)
+#     for service in services:
+#         if service.id not in keep_services:
+#             service.delete()
+#     return instance
+'''
+Update from blog post
+'''
+# def update(self, instance, validated_data):
+#     services_data = validated_data.pop('services')
+#     service = (instance.services).all()
+#     service = list(service)
+#     instance.services = validated_data.get('services', instance.services)
+#     instance.save()
+
+#     for service_data in services_data:
+#         service = service.pop(service_data)
+#         service = service.services.set(service)
+#         service.save()
+#     return instance
+

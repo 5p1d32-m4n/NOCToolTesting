@@ -1,10 +1,11 @@
 from django.db import models
 from datetime import date
+from django.contrib.auth.models import User
 # from django.db.models.expressions import F
 
 
 class Services(models.Model):
-    services = models.CharField(max_length=50)
+    services = models.CharField(max_length=50, primary_key=False)
 
     def __str__(self):
         return f'Servicios afectados: {self.services}'
@@ -77,3 +78,14 @@ class Report(models.Model):
 
     def __str__(self):
         return f'Evento: {self.noc_ticket}, en la fecha {self.date_of_outage}'
+
+
+class Comment(models.Model):
+    comment = models.TextField()
+    report = models.ForeignKey(
+        Report, on_delete=models.DO_NOTHING, null=True, blank=True)
+    user = models.ForeignKey(
+        User, on_delete=models.DO_NOTHING, null=True, blank=True)
+
+    def __str__(self):
+        return self.comment
