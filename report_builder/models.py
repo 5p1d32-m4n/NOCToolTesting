@@ -1,35 +1,38 @@
 from django.db import models
 from datetime import date
-from django.contrib.auth.models import User
+# from django.contrib.auth.models import User
+from users.models import CustomUser
 # from django.db.models.expressions import F
 
 
 class Services(models.Model):
     services = models.CharField(max_length=50, primary_key=False)
-
-    def __str__(self):
-        return f'Servicios afectados: {self.services}'
-
-
-class ServiceAmount(models.Model):
     service_amount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f'Cantidad de servicios afectados: {self.service_amount}'
+        return f'Servicios afectados: {self.services} a cantidad de servicios: {self.service_amount}'
+
+
+# class ServiceAmount(models.Model):
+#     service_amount = models.PositiveIntegerField(default=0)
+
+#     def __str__(self):
+#         return f'Cantidad de servicios afectados: {self.service_amount}'
 
 
 class Clients(models.Model):
     clients = models.CharField(max_length=50)
-
-    def __str__(self):
-        return f'Clientes afectados: {self.clients}'
-
-
-class ClientAmount(models.Model):
     client_amount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f'Cantidad de clientes afectados: {self.client_amount}'
+        return f'Clientes afectados: {self.clients}, a cantidad de clientes: {self.client_amount}'
+
+
+# class ClientAmount(models.Model):
+#     client_amount = models.PositiveIntegerField(default=0)
+
+#     def __str__(self):
+#         return f'Cantidad de clientes afectados: {self.client_amount}'
 
 
 class OutageType(models.Model):
@@ -70,9 +73,9 @@ class Report(models.Model):
     """
 
     services = models.ManyToManyField(Services, blank=True)
-    service_amount = models.ManyToManyField(ServiceAmount, blank=True)
+    # service_amount = models.ManyToManyField(ServiceAmount, blank=True)
     clients = models.ManyToManyField(Clients, blank=True)
-    client_amount = models.ManyToManyField(ClientAmount, blank=True)
+    # client_amount = models.ManyToManyField(ClientAmount, blank=True)
     outage_type = models.ManyToManyField(OutageType, blank=True)
     causes = models.ManyToManyField(Cause, blank=True)
 
@@ -85,7 +88,7 @@ class Comment(models.Model):
     report = models.ForeignKey(
         Report, on_delete=models.DO_NOTHING, null=True, blank=True)
     user = models.ForeignKey(
-        User, on_delete=models.DO_NOTHING, null=True, blank=True)
+        CustomUser, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
         return self.comment

@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -37,9 +38,19 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
+    'django.contrib.sites',
+
+    'users',
     'report_builder',
+
     'rest_framework',
+    'rest_auth.registration',
+    'rest_auth',
+
+    'allauth',
+    'allauth.socialaccount',
+    'allauth.account',
+    'crispy_forms'
 ]
 
 MIDDLEWARE = [
@@ -57,7 +68,7 @@ ROOT_URLCONF = 'NOCTool.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates'),],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -116,6 +127,9 @@ USE_L10N = True
 
 USE_TZ = True
 
+LOGIN_URL = "accounts/login/"
+LOGIN_REDIRECT = "/"
+LOGOUT_REDIRECT = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -126,3 +140,24 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Custom User Model
+AUTH_USER_MODEL = "users.CustomUser"
+
+#  Crispy forms
+CRIPSY_TEMPLATE_PACK = "bootstrap4"
+
+# django.contrib.sites
+SITE_ID = 1
+
+# django allauth
+ACCOUNT_EMAIL_VERIFICATION = "none"
+ACCOUNT_EMAIL_REQUIRED = (True)
+
+# Django-REST-Framework
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework.authentication.TokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+    )
+}

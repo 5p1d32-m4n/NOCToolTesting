@@ -1,16 +1,16 @@
 from rest_framework import generics
 from report_builder.models import (Services,
-                                   ServiceAmount,
+                                   #    ServiceAmount,
                                    Clients,
-                                   ClientAmount,
+                                   #    ClientAmount,
                                    OutageType,
                                    Cause,
                                    Report)
 # from rest_framework.response import Response
 from api.serializers import (ClientsSerializer,
-                             ClientAmountSerializer,
+                             #  ClientAmountSerializer,
                              ServicesSerializer,
-                             ServiceAmountSerializer,
+                             #  ServiceAmountSerializer,
                              OutageTypeSerializer,
                              CauseSerializer,
                              ReportSerializer)
