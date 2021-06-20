@@ -1,43 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
-      integrity="undefined"
-      crossorigin="anonymous"
-    />
+{% extends 'base.html' %}
+{% block style %}
+<style>
+  .login-form-container {
+    width: 600px;
+    margin: auto;
+    margin-top: 15%;
+  }
 
-    <title>NOC Tool Authentication</title>
-    <style>
-      .login-form-container {
-        width: 300px;
-        margin: auto;
-      }
+  body{
+    background-color: red;
+  }
 
-      .registration-form-container {
-        width: 400px;
-        margin: auto;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="auth-box text-center">
-      {% block content %} {% endblock content %}
-    </div>
+  .registration-form-container {
+    width: 400px;
+    margin: auto;
+  }
+</style>
+{% endblock style %} 
 
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.min.js"
-      integrity="undefined"
-      crossorigin="anonymous"
-    ></script>
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
-      integrity="undefined"
-      crossorigin="anonymous"
-    ></script>
-  </body>
-</html>
+{% block content%}
+<div class="containter bg-danger">
+{% block auth %} {% endblock auth %}
+</div>
+ {% endblock content%} 

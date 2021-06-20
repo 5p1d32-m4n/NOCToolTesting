@@ -1,11 +1,29 @@
-{% extends 'auth_layout.html' %} {% load crispy_forms_tags %} 
-{% block content %}
-<h1>Login</h1>
-<div class="login-form-container">
-  <form method="POST">
-    {% csrf_token %} 
-    {{form| crispy}}
-    <button type="submit" class="btn btn-sm btn-outline-primary">Login</button>
-  </form>
+{% extends 'auth_layout.html' %}
+{% load crispy_forms_tags %} 
+{% block style %}
+<style>
+.login-bg{
+  background-color: red;
+}
+</style>
+{% endblock style %}
+{% block auth %}
+<div id="login-bg" class="container">
+<div class="login-form-container bg-light ">
+  <div class="container-fluid justify-content-center card">
+    <div class="card-body">
+    <h1 class="text-center card-title">Login</h1>
+    <div class="row col justify-content-center modal-dialog">
+      <form method="POST" >
+        {% csrf_token %} 
+        {{form| crispy}}
+        <button type="submit" class="btn btn-sm btn-outline-primary">
+          Login
+        </button>
+      </form>
+    </div>
+  </div>
+  </div>
+</div>
 </div>
 {% endblock %}

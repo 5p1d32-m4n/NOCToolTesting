@@ -15,16 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from api.views import (
-    ReportListAPIView, ReportCreateAPIView, ReportUpdateAPIView,
-    ReportDetailAPIView)
+from rest_framework.routers import DefaultRouter
+from report_builder.api import views as rv
 
+
+router = DefaultRouter()
+# router.register(r"reports", rv.ReportViewSet)
 
 urlpatterns = [
-    path('report-create', ReportCreateAPIView.as_view(), name='report-create'),
+    path('report-create', rv.ReportCreateAPIView.as_view(), name='report-create'),
     path('report-detail/<str:pk>',
-         ReportDetailAPIView.as_view(), name='report-detail'),
-    path('report-list', ReportListAPIView.as_view(), name='report-list'),
+         rv.ReportDetailAPIView.as_view(), name='report-detail'),
+    path('report-list', rv.ReportListAPIView.as_view(), name='report-list'),
     path('report-update/<str:pk>',
-         ReportUpdateAPIView.as_view(), name='report-update'),
+         rv.ReportUpdateAPIView.as_view(), name='report-update'),
 ]
