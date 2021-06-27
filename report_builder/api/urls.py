@@ -23,10 +23,11 @@ router = DefaultRouter()
 # router.register(r"reports", rv.ReportViewSet)
 
 urlpatterns = [
-    path('report-create', rv.ReportCreateAPIView.as_view(), name='report-create'),
+    path('report-create', rv.ReportCreateAPIView.as_view(),
+         name='report-create'),
     path('report-detail/<str:pk>',
          rv.ReportDetailAPIView.as_view(), name='report-detail'),
     path('report-list', rv.ReportListAPIView.as_view(), name='report-list'),
-    path('report-update/<str:pk>',
-         rv.ReportUpdateAPIView.as_view(), name='report-update'),
+    path('report-update-list',
+         rv.ReportUpdateListAPIView.as_view(), name='report-update'),
 ]

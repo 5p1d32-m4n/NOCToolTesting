@@ -1,4 +1,5 @@
 from rest_framework import generics, viewsets
+
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from report_builder.models import (
@@ -36,6 +37,8 @@ class ReportListAPIView(generics.ListAPIView):
     serializer_class = ReportSerializer
 
 
-class ReportUpdateAPIView(generics.RetrieveUpdateAPIView):
-    queryset = Report.objects.all()
+class ReportUpdateListAPIView(generics.RetrieveUpdateAPIView):
+    unfiltered = Report.objects.all()
+    filtered = unfiltered.exclude(report_type__exact="Final")
+    queryset = filtered
     serializer_class = ReportSerializer

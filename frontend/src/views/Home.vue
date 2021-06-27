@@ -2,14 +2,14 @@
   <div class="home">
     <div class="container">
       <div class="container-fluid">
-        <h1 class="mt-4">Dashboard</h1>
+        <h1 class="mt-4">Tablero</h1>
         <ol class="breadcrumb mb-4">
-          <li class="breadcrumb-item active">Dashboard</li>
+          <li class="breadcrumb-item active">Tablero</li>
         </ol>
         <div class="row">
           <div class="col-xl-3 col-md-6">
             <div class="card bg-primary text-white mb-4">
-              <div class="card-body">Report Archive</div>
+              <div class="card-body">Archivo de Reportes</div>
               <div
                 class="
                   card-footer
@@ -29,7 +29,7 @@
           </div>
           <div class="col-xl-3 col-md-6">
             <div class="card bg-danger text-white mb-4">
-              <div class="card-body">Initial Report</div>
+              <div class="card-body">Iniciar Reporte</div>
               <div
                 class="
                   card-footer
@@ -49,7 +49,7 @@
           </div>
           <div class="col-xl-3 col-md-6">
             <div class="card bg-warning text-white mb-4">
-              <div class="card-body">Report Update</div>
+              <div class="card-body">Actualizar Reporte</div>
               <div
                 class="
                   card-footer
@@ -58,8 +58,8 @@
                   justify-content-between
                 "
               >
-                <a class="small text-white stretched-link" href=""
-                  >View Details</a
+                <router-link class="small text-white stretched-link" :to="{name:'listUpdate', params:{reports:reports}}"
+                  >View Details</router-link
                 >
                 <div class="small text-white">
                   <i class="fas fa-angle-right"></i>
@@ -69,7 +69,7 @@
           </div>
           <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
-              <div class="card-body" href="">Finalize Report</div>
+              <div class="card-body" href="">Finalizar Reporte</div>
               <div
                 class="
                   card-footer
@@ -94,17 +94,17 @@
             <table class="table table-hover table-bordered">
               <thead>
                 <tr>
-                  <th scope="col">TSRM Ticket</th>
-                  <th scope="col">Type Of Outage</th>
-                  <th scope="col">Amount of Affected Clients</th>
-                  <th scope="col">Impacted Municipalities</th>
+                  <th scope="col">NOC Ticket</th>
+                  <th scope="col">Tipo de Averia</th>
+                  <th scope="col">Cantidad de Cliente Impactados</th>
+                  <th scope="col">Municipios Impactados</th>
                 </tr>
               </thead>
 
               <tbody>
                 <!-- start making the for loop here -->
                 <tr v-for="report in reports" :key="report.pk">
-                  <td>
+                  <td id="report-noc-ticket">
                     <router-link
                       :to="{
                         name: 'detail',
@@ -128,21 +128,24 @@
                     >
                   </td>
 
-                  <td v-for="outage in report.outage_type" :key="outage.id">
-                    {{ outage.outage_type }}
+                  <td id="report-outage-type">
+                    <p v-for="outage in report.outage_type" :key="outage.id">
+                      {{ outage.outage_type }}
+                    </p>
                   </td>
-                  <td
-                    v-for="client_amount in report.clients"
-                    :key="client_amount.id"
-                  >
-                    {{ client_amount.client_amount }}
+                  <td id="report-cient-amount">
+                    <p v-for="amount in report.clients" :key="amount.id">
+                      {{ amount.client_amount }},
+                    </p>
                   </td>
 
-                  <td
-                    v-for="municipality in report.municipalities.split('+')"
-                    :key="municipality"
-                  >
-                    {{ municipality }},
+                  <td id="report-municipalities">
+                    <p
+                      v-for="municipality in report.municipalities.split('+')"
+                      :key="municipality"
+                    >
+                      {{ municipality }},
+                    </p>
                   </td>
                 </tr>
                 <!-- End it here. -->
