@@ -37,8 +37,13 @@ class ReportListAPIView(generics.ListAPIView):
     serializer_class = ReportSerializer
 
 
-class ReportUpdateListAPIView(generics.RetrieveUpdateAPIView):
+class ReportUpdateListAPIView(generics.ListAPIView):
     unfiltered = Report.objects.all()
     filtered = unfiltered.exclude(report_type__exact="Final")
     queryset = filtered
     serializer_class = ReportSerializer
+
+
+class ReportUpdateAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = ReportSerializer
+

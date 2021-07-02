@@ -58,7 +58,9 @@
                   justify-content-between
                 "
               >
-                <router-link class="small text-white stretched-link" :to="{name:'listUpdate', params:{reports:reports}}"
+                <router-link
+                  class="small text-white stretched-link"
+                  :to="{ name: 'listUpdate', params: { results: results } }"
                   >View Details</router-link
                 >
                 <div class="small text-white">
@@ -103,28 +105,16 @@
 
               <tbody>
                 <!-- start making the for loop here -->
-                <tr v-for="report in reports" :key="report.pk">
+                <tr v-for="report in results" :key="report.noc_ticket">
                   <td id="report-noc-ticket">
                     <router-link
+                      v-for="report in resutls"
+                      :key="report.noc_ticket"
                       :to="{
                         name: 'detail',
-                        params: {
-                          report_type: report.report_type,
-                          noc_ticket: report.noc_ticket,
-                          third_party_ticket: report.third_party_ticket,
-                          date_of_outage: report.date_of_outage,
-                          time_of_outage: report.time_of_outage,
-                          notes: report.notes,
-                          municipalities: report.municipalities,
-                          services: report.services,
-                          clients: report.clients,
-                          outage_type: report.outage_type,
-                          causes: report.causes,
-                          report: report,
-                        },
+                        params: { noc_ticket: report.noc_ticket },
                       }"
-                    >
-                      {{ report.noc_ticket }}</router-link
+                      >{{ report.noc_ticket }}</router-link
                     >
                   </td>
 
@@ -141,7 +131,7 @@
 
                   <td id="report-municipalities">
                     <p
-                      v-for="municipality in report.municipalities.split('+')"
+                      v-for="municipality in report.municipalities"
                       :key="municipality"
                     >
                       {{ municipality }},
@@ -167,24 +157,33 @@
 <script>
 // @ is an alias to /src
 import { apiService } from "../common/api.service.js";
+import { getAPI } from "../common/axios-api";
 export default {
   name: "Home",
   data() {
     return {
-      reports: [],
+      results: [],
     };
   },
   methods: {
     getReports() {
-      let endpoint = `api/report-list`;
+      let endpoint = `/api/report-list/`;
       apiService(endpoint).then((data) => {
-        this.reports.push(...data);
+        this.results(...data);
       });
     },
   },
   created() {
-    this.getReports();
-    console.log(this.reports);
+    getAPI
+      .get("/api/report-list/")
+      .then((response) => {
+        console.log("API Data recieved");
+        this.results = response.data.results;
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+    console.log(this.results);
   },
 };
 </script>

@@ -19,7 +19,7 @@ from rest_framework.routers import DefaultRouter
 from report_builder.api import views as rv
 
 
-router = DefaultRouter()
+# router = DefaultRouter()
 # router.register(r"reports", rv.ReportViewSet)
 
 urlpatterns = [
@@ -29,5 +29,7 @@ urlpatterns = [
          rv.ReportDetailAPIView.as_view(), name='report-detail'),
     path('report-list', rv.ReportListAPIView.as_view(), name='report-list'),
     path('report-update-list',
-         rv.ReportUpdateListAPIView.as_view(), name='report-update'),
+         rv.ReportUpdateListAPIView.as_view(), name='report-update-list'),
+    path('report-update/<str:pk>',
+         rv.ReportUpdateAPIView.as_view(), name='report-update')
 ]

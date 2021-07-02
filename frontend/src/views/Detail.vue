@@ -94,16 +94,16 @@
 // @ is an alias to /src
 import { apiService } from "../common/api.service.js";
 export default {
-  name: "Report",
+  name: "detail",
   props: {
     report_type: {
       type: String,
       required: false,
     },
     noc_ticket: {
-      type: String,
-      required: false,
-    },
+       type: String
+    }
+    ,
     third_party_ticket: {
       type: String,
       required: false,
@@ -151,7 +151,7 @@ export default {
       let endpoint = `/api/report-detail/${this.noc_ticket}/`;
       apiService(endpoint).then((data) => {
         Object.assign(this.report, data);
-        // this.report = data;
+        this.report = data;
         console.log(this.report);
       });
     },
