@@ -22,21 +22,23 @@ from core.views import IndexTemplateView
 urlpatterns = [
     # django URLs
     path('admin/', admin.site.urls),
-    path("accounts/registration/",
-         RegistrationView.as_view(form_class=CustomUserForm, success_url='/'),
-         name="django_registration_register"),
-    path("accounts/", include("django_registration.backends.one_step.urls")),
-    path("accounts/", include("django.contrib.auth.urls")),
+    path('/api/', include('djoser.urls')),
+    path('/api/', include('djoser.urls.authtoken')),
+    # path("accounts/registration/",
+    #      RegistrationView.as_view(form_class=CustomUserForm, success_url='/'),
+    #      name="django_registration_register"),
+    # path("accounts/", include("django_registration.backends.one_step.urls")),
+    # path("accounts/", include("django.contrib.auth.urls")),
     # Report Builder URLs
     path('', include('report_builder.urls')),
 
     # API and rest related URLs
     path('api/', include('users.api.urls')),
     path('api/', include('report_builder.api.urls')),
-    path('api-auth', include('rest_framework.urls')),
-    path('api/rest-auth', include('rest_auth.urls')),
-    path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
+    # path('api-auth', include('rest_framework.urls')),
+    # path('api/rest-auth', include('rest_auth.urls')),
+    # path('api/rest-auth/registration/', include('rest_auth.registration.urls')),
 
     # catch all regex url.
-    re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point")
+    # re_path(r"^.*$", IndexTemplateView.as_view(), name="entry-point")
 ]

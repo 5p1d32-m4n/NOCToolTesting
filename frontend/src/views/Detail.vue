@@ -1,175 +1,126 @@
 <template>
   <div class="detail">
-    <div class="jumbotron jumbotron-fluid">
-      <div class="container">
-        <h1 class="display-4">Report Details: {{ noc_ticket }}</h1>
-        <p class="lead">Highlighted Report Table</p>
+    <div class="hero is-small is-gray is-light mb-2">
+      <div class="hero-body has-text-centered">
+        <p class="title mb-4">Reporte De Averia Mayor</p>
+        <p class="subtitle mt-4">
+          Reporte Identificado: {{ report.noc_ticket }}
+        </p>
       </div>
     </div>
-    <div class="card-deck container-fluid" id="table-card">
-      <div class="card">
-        <div class="card-body float-left">
-          <table class="table-hover table-bordered container-fluid">
-            <tbody class="table-striped">
-              <tr>
-                <th scope="col">Taquilla de NOC:</th>
-                <td>{{ noc_ticket }}</td>
-              </tr>
-              <tr>
-                <th scope="col">Taquilla de tercero:</th>
-                <td>{{ third_party_ticket }}</td>
-              </tr>
-              <tr>
-                <th scope="col">Estado de Reporte:</th>
-                <td>{{ report_type }}</td>
-              </tr>
-              <tr>
-                <th scope="col">Fecha de Evento:</th>
-                <td>{{ date_of_outage }}</td>
-              </tr>
-              <tr>
-                <th scope="col">Tiempo de Evento:</th>
-                <td>{{ time_of_outage }}</td>
-              </tr>
-              <tr>
-                <th scope="col">Municipios Impactados:</th>
-                <td>{{ municipalities }}</td>
-              </tr>
-              <tr>
-                <th scope="col">Clientes Impactados</th>
-                <!-- this is going to be a v-for -->
-                <td>
-                  <p v-for="client in clients" :key="client">
-                    {{ client.clients }}: {{ client.client_amount }}
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <th scope="col">Servicios Impactados:</th>
-                <td>
-                  <p v-for="service in services" :key="service">
-                    {{ service.services }}: {{ service.service_amount }}
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <th scope="col">Typo de Averia:</th>
-                <td>
-                  <p v-for="item in outage_type" :key="item">
-                    {{ item.outage_type }}
-                  </p>
-                </td>
-              </tr>
-              <tr>
-                <th scope="col">Causas de Averia:</th>
-                <td>
-                  <p v-for="cause in causes" :key="cause">{{ cause.causes }}</p>
-                </td>
-              </tr>
-              <tr>
-                <th scope="col">Notas:</th>
-                <td>{{ notes }}</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+    <div class="columns">
+      <div class="column" id="table-column">
+        <p class="title">
+          <strong>Tabla de Reporte:</strong>
+        </p>
+        <table class="table is-bordered is-striped is-hoverable">
+          <tbody>
+            <tr>
+              <td class="is-narrow">Taquilla del NOC:</td>
+              <td>{{ report.noc_ticket }}</td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Ultimo Estado de Reporte:</td>
+              <td>
+                <p>{{ report.report_type }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Taquilla de Tercero:</td>
+              <td>
+                <p>{{ report.third_party_ticket }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Fecha de Averia:</td>
+              <td>
+                <p>{{ report.date_of_outage }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Tiempo de Averia:</td>
+              <td>
+                <p>{{ report.time_of_outage }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Municipios Impactados:</td>
+              <td>
+                <p>{{ report.municipalities }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Clientes Impactados</td>
+              <td>
+                <p v-for="client in report.clients" v-bind:key="client">{{ client.clients }}: {{client.client_amount}}</p>
+                <p><strong>Total:</strong></p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Tipo de Averia:</td>
+              <td>
+                <p v-for="type in report.outage_type" v-bind:key="type">{{ type.outage_type }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Causa de Averia:</td>
+              <td>
+                <p v-for="cause in report.causes" v-bind:key="cause">{{ cause.causes }}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Equipos Impactados:</td>
+              <td>
+                <p v-for="service in report.services" v-bind:key="service">{{ service.services }}:{{service.service_amount}}</p>
+              </td>
+            </tr>
+            <tr>
+              <td class="is-narrow">Descripcion de la Averia</td>
+              <td>
+                <p>{{ report.notes }}</p>
+              </td>
+            </tr>
+            <!-- <tr>
+                <td class="is-narrow">Field</td>
+                <td> <p>{{report.}}</p> </td>
+            </tr> -->
+          </tbody>
+        </table>
       </div>
-      <div class="card align-self-center" id="map-card">
-        <div class="card-image">
-          <div class="container">
-            <img
-              id="pr-map"
-              src="https://upload.wikimedia.org/wikipedia/commons/thumb/f/ff/USA_Puerto_Rico_labeled.svg/800px-USA_Puerto_Rico_labeled.svg.png"
-              style=""
-            />
-          </div>
-        </div>
+      <div class="column" id="map column">
+        <strong class="title">Mapa de Impacto Municipal:</strong>
       </div>
     </div>
-    <div class="card container-fluid" id="comment-card"></div>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import { apiService } from "../common/api.service.js";
+import axios from "axios";
+// import axios from "axios";
 export default {
-  name: "detail",
-  props: {
-    report_type: {
-      type: String,
-      required: false,
-    },
-    noc_ticket: {
-       type: String
-    }
-    ,
-    third_party_ticket: {
-      type: String,
-      required: false,
-    },
-    date_of_outage: {
-      type: String,
-      required: false,
-    },
-    time_of_outage: {
-      type: String,
-      required: false,
-    },
-    notes: {
-      type: String,
-      required: false,
-    },
-    municipalities: {
-      type: String,
-      required: false,
-    },
-    services: {
-      type: Array,
-      required: false,
-    },
-    clients: {
-      type: Array,
-      required: false,
-    },
-    outage_type: {
-      type: Array,
-      required: false,
-    },
-    causes: {
-      type: Array,
-      required: false,
-    },
-  },
+  name: "Detail",
   data() {
     return {
       report: {},
     };
   },
+  mounted() {
+    this.getReportData();
+    document.title = `Detalles de Reporte ${this.$route.params.noc_ticket}`
+  },
   methods: {
     getReportData() {
-      let endpoint = `/api/report-detail/${this.noc_ticket}/`;
-      apiService(endpoint).then((data) => {
-        Object.assign(this.report, data);
-        this.report = data;
-        console.log(this.report);
-      });
+      const noc_ticket_url = this.$route.params.noc_ticket;
+
+      axios
+        .get(`/api/report-detail/${noc_ticket_url}/`)
+        .then((response) => {
+          this.report = response.data;
+        })
+        .catch((error) => {
+          console.log(error);
+        });
     },
-  },
-  created() {
-    this.getReportData();
   },
 };
 </script>
-
-<style scoped>
-#pr-map {
-  /* -webkit-transform: rotate(90deg);
-  -moz-transform: rotate(90deg);
-  -o-transform: rotate(90deg);
-  -ms-transform: rotate(90deg);
-  transform: rotate(90deg); */
-
-  object-fit: cover;
-}
-</style>

@@ -12,6 +12,7 @@ django-allauth = "*"
 django-crispy-forms = "*"
 django-registration = "*"
 django-webpack-loader = "*"
+djoser = "*"
 
 [dev-packages]
 autopep8 = "*"

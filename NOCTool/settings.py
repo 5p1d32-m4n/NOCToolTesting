@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-f-k8n$mq__$*4$(v16vsj)!r@2j7vpql2@bi+m=uok-i#l59+u
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -44,16 +44,26 @@ INSTALLED_APPS = [
     'report_builder',
 
     'rest_framework',
+    'rest_framework.authtoken',
     'rest_auth.registration',
     'rest_auth',
+    'corsheaders',
+    'djoser',
 
     'allauth',
     'allauth.socialaccount',
     'allauth.account',
     'crispy_forms',
     'webpack_loader',
-    'corsheaders',
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    'http://localhost:8000',
+    'http://127.0.0.1:8000',
+    'http://localhost:8080'
+]
+
+CORS_ALLOW_ALL_ORIGINS = True
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -69,10 +79,6 @@ MIDDLEWARE = [
 
 # CORS ORIGIN WHITELIST
 
-CORS_ORIGIN_WHITELIST = (
-    'http://localhost:8000',
-    'http://127.0.0.1:8000'
-)
 
 ROOT_URLCONF = 'NOCTool.urls'
 
@@ -138,9 +144,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-LOGIN_URL = "accounts/login/"
-LOGIN_REDIRECT = "/"
-LOGOUT_REDIRECT = "/"
+# LOGIN_URL = "accounts/login/"
+# LOGIN_REDIRECT = "/"
+# LOGOUT_REDIRECT = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -167,13 +173,13 @@ ACCOUNT_EMAIL_REQUIRED = (True)
 
 # Django-REST-Framework
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework.authentication.TokenAuthentication',
-        'rest_framework.authentication.SessionAuthentication',
-    ),
-    'DEFAULT_PERMISSION_CLASSES': (
-        'rest_framework.permissions.IsAuthenticated',
-    ),
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'rest_framework.authentication.TokenAuthentication',
+    #     'rest_framework.authentication.SessionAuthentication',
+    # ),
+    # 'DEFAULT_PERMISSION_CLASSES': (
+    #     'rest_framework.permissions.IsAuthenticated',
+    # ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 10
 }

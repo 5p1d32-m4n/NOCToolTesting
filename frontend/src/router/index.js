@@ -1,11 +1,7 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
-import Detail from "../views/Detail.vue";
-import ListUpdate from '../views/ListUpdate.vue';
-
-Vue.use(VueRouter);
-
+import Detail from "../views/Detail.vue"
+import UpdateList from "../views/UpdateList.vue"
 const routes = [
   {
     path: "/",
@@ -14,21 +10,27 @@ const routes = [
   },
   {
     path: "/report-detail/:noc_ticket/",
-    name: "detail",
+    name: "Detail",
     component: Detail,
-    props: true,
   },
   {
     path: "/report-update-list/",
-    name: "listUpdate",
-    component: ListUpdate,
-    props: true,
+    name: "UpdateList",
+    component: UpdateList,
+  },
+  {
+    path: "/about",
+    name: "About",
+    // route level code-splitting
+    // this generates a separate chunk (about.[hash].js) for this route
+    // which is lazy-loaded when the route is visited.
+    component: () =>
+      import(/* webpackChunkName: "about" */ "../views/About.vue"),
   },
 ];
 
-const router = new VueRouter({
-  mode: "history",
-  base: '/',
+const router = createRouter({
+  history: createWebHistory(process.env.BASE_URL),
   routes,
 });
 

@@ -1,189 +1,117 @@
 <template>
-  <div class="home">
-    <div class="container">
-      <div class="container-fluid">
-        <h1 class="mt-4">Tablero</h1>
-        <ol class="breadcrumb mb-4">
-          <li class="breadcrumb-item active">Tablero</li>
-        </ol>
-        <div class="row">
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-primary text-white mb-4">
-              <div class="card-body">Archivo de Reportes</div>
-              <div
-                class="
-                  card-footer
-                  d-flex
-                  align-items-center
-                  justify-content-between
-                "
-              >
-                <a class="small text-white stretched-link" href=""
-                  >View Details</a
-                >
-                <div class="small text-white">
-                  <i class="fas fa-angle-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-danger text-white mb-4">
-              <div class="card-body">Iniciar Reporte</div>
-              <div
-                class="
-                  card-footer
-                  d-flex
-                  align-items-center
-                  justify-content-between
-                "
-              >
-                <a class="small text-white stretched-link" href=""
-                  >View Details</a
-                >
-                <div class="small text-white">
-                  <i class="fas fa-angle-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-warning text-white mb-4">
-              <div class="card-body">Actualizar Reporte</div>
-              <div
-                class="
-                  card-footer
-                  d-flex
-                  align-items-center
-                  justify-content-between
-                "
-              >
-                <router-link
-                  class="small text-white stretched-link"
-                  :to="{ name: 'listUpdate', params: { results: results } }"
-                  >View Details</router-link
-                >
-                <div class="small text-white">
-                  <i class="fas fa-angle-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="col-xl-3 col-md-6">
-            <div class="card bg-success text-white mb-4">
-              <div class="card-body" href="">Finalizar Reporte</div>
-              <div
-                class="
-                  card-footer
-                  d-flex
-                  align-items-center
-                  justify-content-between
-                "
-              >
-                <a class="small text-white stretched-link" href=""
-                  >View Details</a
-                >
-                <div class="small text-white">
-                  <i class="fas fa-angle-right"></i>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="row">
-          <h1>Summary Table</h1>
-          <div class="container container-fluid">
-            <table class="table table-hover table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">NOC Ticket</th>
-                  <th scope="col">Tipo de Averia</th>
-                  <th scope="col">Cantidad de Cliente Impactados</th>
-                  <th scope="col">Municipios Impactados</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <!-- start making the for loop here -->
-                <tr v-for="report in results" :key="report.noc_ticket">
-                  <td id="report-noc-ticket">
-                    <router-link
-                      v-for="report in resutls"
-                      :key="report.noc_ticket"
-                      :to="{
-                        name: 'detail',
-                        params: { noc_ticket: report.noc_ticket },
-                      }"
-                      >{{ report.noc_ticket }}</router-link
-                    >
-                  </td>
-
-                  <td id="report-outage-type">
-                    <p v-for="outage in report.outage_type" :key="outage.id">
-                      {{ outage.outage_type }}
-                    </p>
-                  </td>
-                  <td id="report-cient-amount">
-                    <p v-for="amount in report.clients" :key="amount.id">
-                      {{ amount.client_amount }},
-                    </p>
-                  </td>
-
-                  <td id="report-municipalities">
-                    <p
-                      v-for="municipality in report.municipalities"
-                      :key="municipality"
-                    >
-                      {{ municipality }},
-                    </p>
-                  </td>
-                </tr>
-                <!-- End it here. -->
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <div class="row">
-          <h1>
-            <!-- {#            Mini Charts go here.#} -->
-          </h1>
+  <div class="home is-centered">
+    <div class="hero is-small is-grey is-light mb-2">
+      <div class="hero-body has-text-centered">
+        <p class="title mb-4">Tablero Principal De NOC Claro</p>
+      </div>
+    </div>
+    <div
+      id="button-row"
+      class="
+        level
+        buttons
+        is-centered
+        is-grouped
+        mt-4
+        mb-4
+        is-size-4
+        text-center
+      "
+    >
+      <div class="button has-background-info has-text-white">
+        <div class="card-content font-weight-bolder">
+          <span><p class="media-content">Archivos de Reporte</p></span>
         </div>
       </div>
+      <div class="button has-background-danger has-text-white ">
+        <div class="card-content font-weight-bolder">
+          <span><p class="media-content">Iniciar Reporte</p></span>
+        </div>
+      </div>
+      <div class="button has-background-warning has-text-white ">
+        <div class="card-content font-weight-bolder">
+          <router-link
+            :to="{ name: 'UpdateList' }"
+            class="media-content has-text-white-bis"
+            >Actualizar Reporte</router-link
+          >
+        </div>
+      </div>
+      <div class="button has-background-success has-text-white ">
+        <div class="card-content font-weight-bolder">
+          <p class="media-content">Finalizar Reporte</p>
+        </div>
+      </div>
+    </div>
+    <div class="table-container is-centered ">
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <tr>
+          <th>Taquilla NOC</th>
+          <th>Boleto de Tercero</th>
+          <th>Municipios Impactados</th>
+          <th>Total de Clientes Impactados</th>
+        </tr>
+        <tr
+          v-for="report in reportList"
+          :key="report.noc_ticket"
+          v-bind:report="report"
+        >
+          <td>
+            <router-link
+              v-bind:to="{
+                name: 'Detail',
+                params: { noc_ticket: report.noc_ticket },
+              }"
+            >
+              {{ report.noc_ticket }}
+            </router-link>
+          </td>
+          <td>{{ report.third_party_ticket }}</td>
+          <td>{{ report.municipalities }}</td>
+          <td>
+            <p
+              v-for="outage_type in report.outage_type"
+              :key="outage_type.outage_type"
+            >
+              {{ outage_type.outage_type }}
+            </p>
+          </td>
+        </tr>
+      </table>
     </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import { apiService } from "../common/api.service.js";
-import { getAPI } from "../common/axios-api";
+// import HelloWorld from "@/components/HelloWorld.vue";
+import axios from "axios";
 export default {
   name: "Home",
   data() {
     return {
-      results: [],
+      reportList: [],
     };
   },
+  components: {},
   methods: {
-    getReports() {
-      let endpoint = `/api/report-list/`;
-      apiService(endpoint).then((data) => {
-        this.results(...data);
-      });
+    getReportList() {
+      axios
+        .get("/api/report-list/")
+        .then((response) => {
+          this.reportList = response.data;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
     },
   },
-  created() {
-    getAPI
-      .get("/api/report-list/")
-      .then((response) => {
-        console.log("API Data recieved");
-        this.results = response.data.results;
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-    console.log(this.results);
+  mounted() {
+    document.title = "Herramienta de Reporte del Claro NOC";
+    this.getReportList();
   },
 };
 </script>
+
+<style scoped>
+</style>

@@ -2,6 +2,8 @@ from rest_framework import generics, viewsets
 
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
+from rest_framework.response import Response
+from rest_framework.views import APIView
 from report_builder.models import (
     Services,
     #    ServiceAmount,
@@ -31,10 +33,16 @@ class ReportDetailAPIView(generics.RetrieveAPIView):
     serializer_class = ReportSerializer
 
 
-class ReportListAPIView(generics.ListAPIView):
+class ReportListAPIView(APIView):
 
-    queryset = Report.objects.all()
-    serializer_class = ReportSerializer
+    # queryset = Report.objects.all()
+    # serializer_class = ReportSerializer
+
+    def get(self, request, format=None):
+        reports = Report.objects.all()
+        serializer = ReportSerializer(reports, many=True)
+
+        return Response(serializer.data)
 
 
 class ReportUpdateListAPIView(generics.ListAPIView):
@@ -46,4 +54,3 @@ class ReportUpdateListAPIView(generics.ListAPIView):
 
 class ReportUpdateAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = ReportSerializer
-

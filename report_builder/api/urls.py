@@ -23,13 +23,13 @@ from report_builder.api import views as rv
 # router.register(r"reports", rv.ReportViewSet)
 
 urlpatterns = [
-    path('report-create', rv.ReportCreateAPIView.as_view(),
+    path('report-create/', rv.ReportCreateAPIView.as_view(),
          name='report-create'),
-    path('report-detail/<str:pk>',
+    path('report-detail/<str:pk>/',
          rv.ReportDetailAPIView.as_view(), name='report-detail'),
-    path('report-list', rv.ReportListAPIView.as_view(), name='report-list'),
-    path('report-update-list',
+    path('report-list/', rv.ReportListAPIView.as_view(), name='report-list'),
+    path('report-update-list/',
          rv.ReportUpdateListAPIView.as_view(), name='report-update-list'),
-    path('report-update/<str:pk>',
+    path('report-update/<str:pk>/',
          rv.ReportUpdateAPIView.as_view(), name='report-update')
 ]
