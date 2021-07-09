@@ -46,10 +46,14 @@ class ReportListAPIView(APIView):
 
 
 class ReportUpdateListAPIView(generics.ListAPIView):
-    unfiltered = Report.objects.all()
-    filtered = unfiltered.exclude(report_type__exact="Final")
-    queryset = filtered
-    serializer_class = ReportSerializer
+    # unfiltered = Report.objects.all()
+    # filtered = unfiltered.exclude(report_type__exact="Final")
+    # queryset = filtered
+    # serializer_class = ReportSerializer
+    def get(self, request, format=None):
+        reports = Report.objects.all().exclude(report_type__exact="Final")
+        serializer = ReportSerializer(reports, many=True)
+        return Response(serializer.data)
 
 
 class ReportUpdateAPIView(generics.RetrieveUpdateAPIView):

@@ -2,6 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import Home from "../views/Home.vue";
 import Detail from "../views/Detail.vue"
 import UpdateList from "../views/UpdateList.vue"
+import InitialForm from "../views/InitialForm.vue"
+
 const routes = [
   {
     path: "/",
@@ -17,6 +19,11 @@ const routes = [
     path: "/report-update-list/",
     name: "UpdateList",
     component: UpdateList,
+  },
+  {
+    path: "/report-create/",
+    name: "InitialForm",
+    component: InitialForm,
   },
   {
     path: "/about",

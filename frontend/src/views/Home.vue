@@ -18,17 +18,17 @@
         text-center
       "
     >
-      <div class="button has-background-info has-text-white">
+      <div class="button has-background-info has-text-white is-large">
         <div class="card-content font-weight-bolder">
           <span><p class="media-content">Archivos de Reporte</p></span>
         </div>
       </div>
-      <div class="button has-background-danger has-text-white ">
+      <div class="button has-background-danger has-text-white is-large">
         <div class="card-content font-weight-bolder">
-          <span><p class="media-content">Iniciar Reporte</p></span>
+          <span><router-link class="media-content has-text-white-bis" :to="{name: 'InitialForm'}">Iniciar Reporte</router-link></span>
         </div>
       </div>
-      <div class="button has-background-warning has-text-white ">
+      <div class="button has-background-warning has-text-white is-large">
         <div class="card-content font-weight-bolder">
           <router-link
             :to="{ name: 'UpdateList' }"
@@ -37,7 +37,7 @@
           >
         </div>
       </div>
-      <div class="button has-background-success has-text-white ">
+      <div class="button has-background-success has-text-white is-large">
         <div class="card-content font-weight-bolder">
           <p class="media-content">Finalizar Reporte</p>
         </div>
