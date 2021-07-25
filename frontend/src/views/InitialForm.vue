@@ -129,31 +129,57 @@
       <!-- AM4 Map chart -->
       <div class="columns">
         <div class="column">
-          <div id="mapchart" @click="appendToMunicipalitiesList"></div>
+          <!-- <div id="mapchart" @click="appendToMunicipalitiesList"></div> -->
+
+          <!-- using the mapchart as a component -->
         </div>
         <!-- List of Municipality Checkboxesw -->
         <div class="column">
-          <div id="municipality-talbe">
+          <!-- <div id="municipality-talbe">
             <table class="table is-bordered is-fullwidth overflow-scroll">
               <thead>
                 <th>Municipios Impactados</th>
               </thead>
-              
+
               <tbody>
-                <tr v-for="(country) in listOfMunicipalities" v-bind:key="country">
+                <tr
+                  v-for="country in listOfMunicipalities"
+                  v-bind:key="country"
+                >
                   <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          value="country"
-                        />{{country}}</label
-                      >
-                    </div>
+                    <label
+                      ><input type="checkbox" name="map" value="country" />{{
+                        country
+                      }}</label
+                    >
+                  </div>
                 </tr>
               </tbody>
             </table>
-          </div>
+          </div> -->
+
+          <!-- testing portion. -->
+          <!-- <div
+            v-bind:listOfMunicipalities="listOfMunicipalities"
+          >
+            <div
+              class="btn-group" 
+              role="group" 
+              aria-label="Selector de Municipios"
+              id="municipality-checkbox"
+              name= "flavour"
+              @change="changeStateOfMunicipality($event)"
+              >
+
+                <ul>
+                  <li v-for="(country) in listOfMunicipalities" v-bind:key="country">
+                    <input type="checkbox" name="{{country}}" id="{{country}}">
+                    <label for="{{country}}">{{country}}</label>
+                  </li>
+                </ul>
+            </div>
+          </div> -->
+          <!-- End of testing portion. -->
         </div>
       </div>
     </form>
@@ -181,15 +207,15 @@ export default {
     return {
       report: {},
       listOfMunicipalities: [],
-      selected: this.listOfMunicipalities
+      selected: this.listOfMunicipalities,
     };
   },
-  watch:{
-    listOfMunicipalities:{
+  watch: {
+    listOfMunicipalities: {
       immediate: true,
-      handler(){
-        this.changeStateOfCountry()
-      }
+      handler() {
+        this.changeStateOfMunicipality();
+      },
     },
   },
   methods: {
@@ -204,21 +230,20 @@ export default {
           console.log(error);
         });
     },
-    changeStateOfCountry(countries) {
-      this.listOfMunicipalities = countries;
+    changeStateOfMunicipality(municipalities) {
+      this.listOfMunicipalities = municipalities;
     },
-    appendToMunicipalitiesList: function(event){
+    appendToMunicipalitiesList: function (event) {
       event.target.isActive = !event.target.isActive;
       let municipality = event.target.dataItem.dataContext.name;
-      if ( event.target.isActive === true){
+      if (event.target.isActive === true) {
         this.listOfMunicipalities.push(municipality);
         console.log(this.listOfMunicipalities);
-      }else{
+      } else {
         this.listOfMunicipalities.pop(municipality);
         console.log(this.listOfMunicipalities);
       }
-    }
-
+    },
   },
 
   mounted() {
@@ -254,10 +279,9 @@ export default {
     polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
 
     // console.log(polygonSeries.datal)
-    
-    let polyData = polygonSeries.data
-    console.log(polyData)
-    
+
+    let polyData = polygonSeries.data;
+    console.log(polyData);
 
     // let listFields = polygonSeries.dataFields
     // let arrayPR = []
