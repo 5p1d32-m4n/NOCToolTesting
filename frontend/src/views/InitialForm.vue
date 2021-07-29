@@ -130,11 +130,13 @@
       <div class="columns">
         <div class="column">
           <!-- <div id="mapchart" @click="appendToMunicipalitiesList"></div> -->
-
+          <MunicipalityMap />
           <!-- using the mapchart as a component -->
         </div>
+
         <!-- List of Municipality Checkboxesw -->
-        <div class="column">
+        <!-- <div class="column"> -->
+          <!-- <MunicipalityList /> -->
           <!-- <div id="municipality-talbe">
             <table class="table is-bordered is-fullwidth overflow-scroll">
               <thead>
@@ -180,7 +182,7 @@
             </div>
           </div> -->
           <!-- End of testing portion. -->
-        </div>
+        <!-- </div> -->
       </div>
     </form>
   </div>
@@ -191,32 +193,35 @@
 import axios from "axios";
 // amcharts imports
 
-import * as am4core from "@amcharts/amcharts4/core";
-import * as am4maps from "@amcharts/amcharts4/maps";
+// import * as am4core from "@amcharts/amcharts4/core";
+// import * as am4maps from "@amcharts/amcharts4/maps";
 // import am4themes_animated from "@amcharts/amcharts4/themes/animated";
-import am4geodata_puertoRicoHigh from "@amcharts/amcharts4-geodata/puertoRicoHigh";
+// import am4geodata_puertoRicoHigh from "@amcharts/amcharts4-geodata/puertoRicoHigh";
 // am4core.useTheme(am4themes_animated)
-
 // Free SVG stand alone component
-
+import MunicipalityMap from "../components/MunicipalityMap";
+// import MunicipalityList from "../components/MunicipalityList.vue";
 // default exports
 export default {
   name: "InitialForm",
-  components: {},
+  components: {
+    MunicipalityMap,
+    // MunicipalityList,
+  },
   data() {
     return {
       report: {},
-      listOfMunicipalities: [],
-      selected: this.listOfMunicipalities,
+      // listOfMunicipalities: [],
+      // selected: this.listOfMunicipalities,
     };
   },
   watch: {
-    listOfMunicipalities: {
-      immediate: true,
-      handler() {
-        this.changeStateOfMunicipality();
-      },
-    },
+    // listOfMunicipalities: {
+    //   immediate: true,
+    //   handler() {
+    //     this.changeStateOfMunicipality();
+    //   },
+    // },
   },
   methods: {
     // TODO: Make sure that this has the parts it needs to process report objects properly
@@ -230,9 +235,9 @@ export default {
           console.log(error);
         });
     },
-    changeStateOfMunicipality(municipalities) {
-      this.listOfMunicipalities = municipalities;
-    },
+    // changeStateOfMunicipality(municipalities) {
+    //   this.listOfMunicipalities = municipalities;
+    // },
     appendToMunicipalitiesList: function (event) {
       event.target.isActive = !event.target.isActive;
       let municipality = event.target.dataItem.dataContext.name;
@@ -251,37 +256,37 @@ export default {
     document.title = "Formulario de Reporte Inicial";
 
     // geo map portion
-    let map = am4core.create("mapchart", am4maps.MapChart);
-    map.geodata = am4geodata_puertoRicoHigh;
-    map.projection = new am4maps.projections.Miller();
-    let polygonSeries = map.series.push(new am4maps.MapPolygonSeries());
-    polygonSeries.useGeodata = true;
+    // let map = am4core.create("mapchart", am4maps.MapChart);
+    // map.geodata = am4geodata_puertoRicoHigh;
+    // map.projection = new am4maps.projections.Miller();
+    // let polygonSeries = map.series.push(new am4maps.MapPolygonSeries());
+    // polygonSeries.useGeodata = true;
 
     // Configure Template
-    let polygonTemplate = polygonSeries.mapPolygons.template;
-    polygonTemplate.tooltipText = "{name}";
-    polygonTemplate.fill = am4core.color("#74B266");
+    // let polygonTemplate = polygonSeries.mapPolygons.template;
+    // polygonTemplate.tooltipText = "{name}";
+    // polygonTemplate.fill = am4core.color("#74B266");
 
     // Create hover state for the map
-    let hoverState = polygonTemplate.states.create("hover");
-    hoverState.properties.fill = am4core.color("#367B25");
+    // let hoverState = polygonTemplate.states.create("hover");
+    // hoverState.properties.fill = am4core.color("#367B25");
 
     // Zooom Controls for the map
-    map.seriesContainer.wheelable = false;
-    map.seriesContainer.draggable = false;
-    map.maxZoomLevel = 1;
+    // map.seriesContainer.wheelable = false;
+    // map.seriesContainer.draggable = false;
+    // map.maxZoomLevel = 1;
 
     // configuration for active state in map.
-    let activeState = polygonTemplate.states.create("active");
-    activeState.properties.fill = am4core.color("#FF0000");
+    // let activeState = polygonTemplate.states.create("active");
+    // activeState.properties.fill = am4core.color("#FF0000");
 
     // event to switch active state.
-    polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
+    // polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
 
     // console.log(polygonSeries.datal)
 
-    let polyData = polygonSeries.data;
-    console.log(polyData);
+    // let polyData = polygonSeries.data;
+    // console.log(polyData);
 
     // let listFields = polygonSeries.dataFields
     // let arrayPR = []
