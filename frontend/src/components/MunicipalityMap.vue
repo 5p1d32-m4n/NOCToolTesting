@@ -1,7 +1,7 @@
 <template>
   <div id="municipality-map">
-    <div id="mapchart"></div>
-    <div>
+    <div id="mapchart" class="column"></div>
+    <div id="municipality-list" class="column">
       <MunicipalityList
         v-bind:listOfMunicipalities="listOfMunicipalities"
         :changeStateOfMunicipality="changeStateOfMunicipality"
@@ -23,7 +23,9 @@ export default {
   },
   data() {
     return {
-      listOfMunicipalities: [],
+      listOfMunicipalities: [
+        
+      ],
     };
   },
   mounted() {
@@ -36,14 +38,6 @@ export default {
     map.projection = new am4maps.projections.Miller();
     let polygonSeries = map.series.push(new am4maps.MapPolygonSeries());
     polygonSeries.useGeodata = true;
-
-    // testing legends.
-    map.legend = new am4maps.Legend();
-    let legend = map.legend
-    legend.data=polygonSeries.data
-    legend.position = 'left'
-    legend.valign = 'top'
-    legend.scrollable = true
 
     // Configure Template
     let polygonTemplate = polygonSeries.mapPolygons.template;
