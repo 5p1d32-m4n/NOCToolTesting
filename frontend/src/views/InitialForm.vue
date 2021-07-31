@@ -193,311 +193,630 @@
                 <table class="table table-hover table-striped">
                     <tbody>
                         <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-AK">Alaska</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-AL">Alabama</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-AR">Arkansas</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-AZ">Arizona</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-CA">California</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-CO">Colorado</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-CT">Connecticut</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-DC">Washington,
-                                        DC</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-DE">Delaware</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-FL">Florida</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-GA">Georgia</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-HI">Hawaii</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-IA">Iowa</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-ID">Idaho</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-IL">Illinois</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-IN">Indiana</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-KS">Kansas</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-KY">Kentucky</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-LA">Louisiana</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-MA">Massachusetts</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-MD">Maryland</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-ME">Maine</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-MI">Michigan</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-MN">Minnesota</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-MO">Missouri</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-MS">Mississippi</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-MT">Montana</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-NC">North
-                                        Carolina</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-ND">North
-                                        Dakota</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-NE">Nebraska</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-NH">New
-                                        Hampshire</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-NJ">New
-                                        Jersey</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-NM">New
-                                        Mexico</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-NV">Nevada</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-NY">New
-                                        York</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-OH">Ohio</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-OK">Oklahoma</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-OR">Oregon</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-PA">Pennsylvania</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-RI">Rhode
-                                        Island</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-SC">South
-                                        Carolina</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-SD">South
-                                        Dakota</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-TN">Tennessee</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-TX">Texas</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-UT">Utah</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-VA">Virginia</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-VT">Vermont</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-WA">Washington</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-WI">Wisconsin</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map" value="US-WV">West
-                                        Virginia</label></div>
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>
-                                <div class="checkbox"><label><input type="checkbox" name="map"
-                                            value="US-WY">Wyoming</label></div>
-                            </td>
-                        </tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-YU" />Yauco</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-YB" />Yabucoa</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-VL" />Villalba</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-VQ" />Vieques</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-VB" />Vega Baja</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-VA" />Vega Alta</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-UT" />Utuado</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-TJ" />Trujillo Alto</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-TB" />Toa Baja</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-TA" />Toa Alta</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-SI" />Santa Isabel</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-SS" />San Sebastián</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-SL" />San Lorenzo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-SJ" />San Juan</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-SG" />San Germán</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-SA" />Salinas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-SB" />Sabana Grande</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-RG" />Río Grande</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-RC" />Rincón</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-QB" />Quebradillas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-PO" />Ponce</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-PN" />Peñuelas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-PT" />Patillas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-OR" />Orocovis</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-NR" />Naranjito</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-NG" />Naguabo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-MV" />Morovis</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-MC" />Moca</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-MG" />Mayagüez</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-MB" />Maunabo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-MR" />Maricao</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-MT" />Manatí</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-LQ" />Luquillo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-LZ" />Loíza</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-LP" />Las Piedras</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-LM" />Las Marías</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-LR" />Lares</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-LJ" />Lajas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-JC" />Juncos</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-JD" />Juana Díaz</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-JY" />Jayuya</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-IS" />Isabela</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-HU" />Humacao</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-HO" />Hormigueros</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-HA" />Hatillo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-GR" />Gurabo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-GB" />Guaynabo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-GL" />Guayanilla</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-GM" />Guayama</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-GC" />Guánica</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-FL" />Florida</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-FJ" />Fajardo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-DO" />Dorado</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CU" />Culebra</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CZ" />Corozal</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CM" />Comerío</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CO" />Coamo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CD" />Cidra</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CL" />Ciales</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CB" />Ceiba</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CY" />Cayey</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CT" />Cataño</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CN" />Carolina</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CV" />Canóvanas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CA" />Camuy</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CG" />Caguas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-CR" />Cabo Rojo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-BY" />Bayamón</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-BQ" />Barranquitas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-BC" />Barceloneta</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AR" />Arroyo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AC" />Arecibo</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AN" />Añasco</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AI" />Aibonito</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AB" />Aguas Buenas</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AL" />Aguadilla</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AD" />Aguada</label>
+    </div>
+  </td>
+</tr>
+
+<tr>
+  <td>
+    <div class="checkbox">
+      <label><input type="checkbox" name="map" value="PR-AJ" />Adjuntas</label>
+    </div>
+  </td>
+</tr>
+
+                        
                     </tbody>
                 </table>
             </div>
@@ -606,20 +925,27 @@ export default {
     activeState.properties.fill = am4core.color("#FF0000");
 
     // event to switch active state.
-    polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
+    // polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
+    polygonTemplate.events.on("hit", function (ev) {
+      let clickedMapID = ev.target.dataItem.dataContext;
+      // Create an event to toggle "active" state
+      ev.target.isActive = !ev.target.isActive;
+      console.log(clickedMapID.id + " " + ev.target.isActive)
+      let checkboxClone = document.getElementById(clickedMapID.id); 
+      if (ev.target.isActive === true){
+        console.log("The checkbox for " + clickedMapID.name + ", " + checkboxClone)
+      }else{
+        console.log("deactivated")
+      }
+    })
 
     // console.log(polygonSeries.datal)
 
     let polyData = polygonSeries.dataItems;
     console.log(polyData);
 
-    let listFields = polygonSeries.dataFields
+    let listFields = polygonSeries.data
     let arrayPR = []
-    for (let entry = 0; entry < arrayPR.length; entry ++){
-      arrayPR.push(arrayPR[entry].name)
-      console.log(arrayPR[entry].value.name)
-      console.log("in the loop")
-    }
     console.log(arrayPR)
     // console.log(listOfPR)
     console.log(listFields)
