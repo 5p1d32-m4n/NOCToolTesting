@@ -1557,60 +1557,6 @@ import am4geodata_puertoRicoHigh from "@amcharts/amcharts4-geodata/puertoRicoHig
 // import MunicipalityList from "../components/MunicipalityList.vue";
 // default exports
 
-// RAW JS for amcharts because nobody works it with vue 3
-
-let map = am4core.create("mapchart", am4maps.MapChart);
-map.geodata = am4geodata_puertoRicoHigh;
-map.projection = new am4maps.projections.Miller();
-let polygonSeries = map.series.push(new am4maps.MapPolygonSeries());
-polygonSeries.useGeodata = true;
-
-// Configure Template
-let polygonTemplate = polygonSeries.mapPolygons.template;
-polygonTemplate.tooltipText = "{name}";
-polygonTemplate.fill = am4core.color("#74B266");
-
-// Create hover state for the map
-let hoverState = polygonTemplate.states.create("hover");
-hoverState.properties.fill = am4core.color("#367B25");
-
-// Zooom Controls for the map
-map.seriesContainer.wheelable = false;
-map.seriesContainer.draggable = false;
-map.maxZoomLevel = 1;
-
-// configuration for active state in map.
-let activeState = polygonTemplate.states.create("active");
-activeState.properties.fill = am4core.color("#FF0000");
-let tempArray = [];
-
-// event to switch active state.
-// polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
-polygonTemplate.events.on("hit", function (ev) {
-  let clickedMapID = ev.target.dataItem.dataContext;
-  // Create an event to toggle "active" state
-  ev.target.isActive = !ev.target.isActive;
-  console.log(clickedMapID.id + " " + ev.target.isActive);
-  if (ev.target.isActive === true) {
-    console.log("The checkbox for " + clickedMapID.name);
-    // fucnction call with clickedMapID.id as an argument
-    tempArray.push(clickedMapID.id);
-    console.log("So far you've selected: " + tempArray);
-    document.getElementById(clickedMapID.id).checked = true;
-  } else {
-    console.log("deactivated" + clickedMapID.name);
-    // selected[clickedMapID.name]
-    for (let index = 0; index < tempArray.length; index++) {
-      if (tempArray[index] === clickedMapID.id) {
-        tempArray.splice(index, 1);
-      }
-    }
-    console.log("So far you've selected: " + tempArray);
-    document.getElementById(clickedMapID.id).checked = false;
-  }
-});
-// Endo of struggle-o
-
 export default {
   name: "InitialForm",
   components: {
@@ -1622,7 +1568,7 @@ export default {
       report: {},
       selected: this.tempArray,
       municipality: String,
-      map: am4core.create("other-map", am4maps.MapChart),
+      map:{}
     };
   },
   computed: {
@@ -1631,13 +1577,11 @@ export default {
       selectedMunicipalitiesComp = this.tempArray;
       return selectedMunicipalitiesComp;
     },
-    mapData() {
-      return this.map;
-    },
+
   },
   watch: {
     // selected(newArray, oldArray){
-    // }
+    // },
   },
   methods: {
     // TODO: Make sure that this has the parts it needs to process report objects properly
@@ -1651,66 +1595,69 @@ export default {
           console.log(error);
         });
     },
-    mapConfig() {
-      this.map.geodata = am4geodata_puertoRicoHigh;
-      this.map.projection = new am4maps.projections.Miller();
-      let polygonSeries = this.map.series.push(new am4maps.MapPolygonSeries());
-      polygonSeries.useGeodata = true;
-
-      // Configure Template
-      let polygonTemplate = polygonSeries.mapPolygons.template;
-      polygonTemplate.tooltipText = "{name}";
-      polygonTemplate.fill = am4core.color("#74B266");
-
-      // Create hover state for the map
-      let hoverState = polygonTemplate.states.create("hover");
-      hoverState.properties.fill = am4core.color("#367B25");
-
-      // Zooom Controls for the map
-      this.map.seriesContainer.wheelable = false;
-      this.map.seriesContainer.draggable = false;
-      this.map.maxZoomLevel = 1;
-
-      // configuration for active state in this.map.
-      let activeState = polygonTemplate.states.create("active");
-      activeState.properties.fill = am4core.color("#FF0000");
-      let tempArray = [];
-
-      // event to switch active state.
-      // polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
-      polygonTemplate.events.on("hit", function (ev) {
-        let clickedMapID = ev.target.dataItem.dataContext;
-        // Create an event to toggle "active" state
-        ev.target.isActive = !ev.target.isActive;
-        console.log(clickedMapID.id + " " + ev.target.isActive);
-        if (ev.target.isActive === true) {
-          console.log("The checkbox for " + clickedMapID.name);
-          // fucnction call with clickedMapID.id as an argument
-          tempArray.push(clickedMapID.id);
-          console.log("So far you've selected: " + tempArray);
-          document.getElementById(clickedMapID.id).checked = true;
-        } else {
-          console.log("deactivated" + clickedMapID.name);
-          // selected[clickedMapID.name]
-          for (let index = 0; index < tempArray.length; index++) {
-            if (tempArray[index] === clickedMapID.id) {
-              tempArray.splice(index, 1);
-            }
-          }
-          console.log("So far you've selected: " + tempArray);
-          document.getElementById(clickedMapID.id).checked = false;
-        }
-      });
-    },
+    mapClick(){
+      this.map
+    }
   },
 
-  mounted: function () {
+  mounted() {
     // Setting the Doc Tittle
     document.title = "Formulario de Reporte Inicial";
+    let map = am4core.create("mapchart", am4maps.MapChart);
+    map.geodata = am4geodata_puertoRicoHigh;
+    map.projection = new am4maps.projections.Miller();
+    let polygonSeries = map.series.push(new am4maps.MapPolygonSeries());
+    polygonSeries.useGeodata = true;
+
+    // Configure Template
+    let polygonTemplate = polygonSeries.mapPolygons.template;
+    polygonTemplate.tooltipText = "{name}";
+    polygonTemplate.fill = am4core.color("#74B266");
+
+    // Create hover state for the map
+    let hoverState = polygonTemplate.states.create("hover");
+    hoverState.properties.fill = am4core.color("#367B25");
+
+    // Zooom Controls for the map
+    map.seriesContainer.wheelable = false;
+    map.seriesContainer.draggable = false;
+    map.maxZoomLevel = 1;
+
+    // configuration for active state in map.
+    let activeState = polygonTemplate.states.create("active");
+    activeState.properties.fill = am4core.color("#FF0000");
+    let tempArray = [];
+
+    // event to switch active state.
+    // polygonTemplate.events.on("hit", this.appendToMunicipalitiesList);
+    polygonTemplate.events.on("hit", function (ev) {
+      let clickedMapID = ev.target.dataItem.dataContext;
+      // Create an event to toggle "active" state
+      ev.target.isActive = !ev.target.isActive;
+      console.log(clickedMapID.id + " " + ev.target.isActive);
+      if (ev.target.isActive === true) {
+        console.log("The checkbox for " + clickedMapID.name);
+        // fucnction call with clickedMapID.id as an argument
+        tempArray.push(clickedMapID.id);
+        console.log("So far you've selected: " + tempArray);
+        document.getElementById(clickedMapID.id).checked = true;
+      } else {
+        console.log("deactivated" + clickedMapID.name);
+        // selected[clickedMapID.name]
+        for (let index = 0; index < tempArray.length; index++) {
+          if (tempArray[index] === clickedMapID.id) {
+            tempArray.splice(index, 1);
+          }
+        }
+        console.log("So far you've selected: " + tempArray);
+        document.getElementById(clickedMapID.id).checked = false;
+      }
+    });
+    // Endo of struggle-o
   },
 };
 
-// dropdown configurations
+// RAW JS for amcharts because nobody works it with vue 3
 </script>
 <style scoped>
 #mapchart {
