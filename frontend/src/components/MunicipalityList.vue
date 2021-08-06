@@ -1,53 +1,28 @@
 <template>
-  <div id="municipality-list">
-    <div class="form-check">
-      <ul>
-        <li
-          v-for="municipality in listOfMunicipalitie"
-          v-bind:key="municipality"
-        >
-          <input
-            type="checkbox"
-            name="{{municipality}}"
-            id="{{municipality}}"
-            value="{{municipality}}"
-          />
-          <label for="{{municipality}}">{{ municipality }}</label>
-        </li>
-      </ul>
+  <div class="municipality">
+    <div class="checkbox">
+      <label for="{{municipality}}">
+        <input
+          type="checkbox"
+          name="map"
+          id="{{municipality.id}}"
+          value="{{municipality.name}}"
+          v-if="municipality"
+        />{{ municipality.name }}
+      </label>
     </div>
   </div>
 </template>
 
 <script>
+// import * as am4core from "@amcharts/amcharts4/core";
+// import * as am4maps from "@amcharts/amcharts4/maps";
+// import am4themes_animated from "@amcharts/amcharts4/themes/animated";
+// import am4geodata_puertoRicoHigh from "@amcharts/amcharts4-geodata/puertoRicoHigh";
 export default {
   name: "MunicipalityList",
-  deta() {
-    return {
-      selected: this.listOfMunicipalities, //this is an array reference.
-      opetions: [
-        { text: "Spanish", value: "ES" },
-        { text: "Puerto Rico", value: "PR" },
-      ],
-      
-    };
-  },
-  watch: {
-    listOfMunicipalities: {
-      immediate: true,
-      handler() {
-        this.changeValueSelection();
-      },
-    },
-  },
-  methods: {
-    changeValueSelection() {
-      this.selected = this.listOfMunicipalities;
-    },
-  },
   props: {
-    listOfMunicipalities: Array,
-    changeStateOfMunicipality: Function,
+    municipality: Object,
   },
 };
 </script>

@@ -2,5 +2,5 @@
     "python.linting.pylintEnabled": false,
     "python.linting.flake8Enabled": true,
     "python.linting.enabled": true,
-    "python.pythonPath": "c:\\Users\\Brandon Baker\\.virtualenvs\\NOCTool-e9sYrsPY\\Scripts\\python.exe"
+    "python.defaultInterpreterPath": "/home/spider/.local/share/virtualenvs/NOCTool-_fCcZH5D/bin/activate"
 }

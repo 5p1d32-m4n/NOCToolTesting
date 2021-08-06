@@ -3,8 +3,9 @@
     <div id="mapchart" class="column"></div>
     <div id="municipality-list" class="column">
       <MunicipalityList
-        v-bind:listOfMunicipalities="listOfMunicipalities"
-        :changeStateOfMunicipality="changeStateOfMunicipality"
+        v-for="municipality in municipalities"
+        :key="municipality.id"
+        :municipality="municipality"
       />
     </div>
   </div>
@@ -23,9 +24,7 @@ export default {
   },
   data() {
     return {
-      listOfMunicipalities: [
-        
-      ],
+      municipalities: [],
     };
   },
   mounted() {
@@ -65,11 +64,11 @@ export default {
     // let polyData = polygonSeries.data;
     // console.log(polyData);
   },
-  methods:{
-    changeStateOfMunicipality(municipalities){
+  methods: {
+    changeStateOfMunicipality(municipalities) {
       this.listOfMunicipalities = municipalities;
     },
-  }
+  },
 };
 </script>
 
