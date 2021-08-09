@@ -1,17 +1,29 @@
 <template>
-  <div class="municipality">
-    <div class="checkbox">
-      <label for="{{municipality}}">
-        <input
-          type="checkbox"
-          name="map"
-          id="{{municipality.id}}"
-          value="{{municipality.name}}"
-          v-if="municipality"
-        />{{ municipality.name }}
-      </label>
-    </div>
-  </div>
+  <table class="table is-bordered is-fullwidth overflow-scroll">
+    <thead>
+      Municipios Impactados:
+    </thead>
+    <tbody>
+      <tr
+        v-for="municipality in municipalities.slice().reverse()"
+        :key="municipality.id"
+      >
+        <td>
+          <div class="checkbox">
+            <label for="{{municipality.id}}">
+              <input
+                type="checkbox"
+                name="map"
+                id="{{municipality.id}}"
+                value="{{municipality.name}}"
+                ref="{{municipality.id}}"
+              />{{ municipality.name }}
+            </label>
+          </div>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <script>
@@ -22,7 +34,12 @@
 export default {
   name: "MunicipalityList",
   props: {
-    municipality: Object,
+    municipalities: Array,
+  },
+  data() {
+    return {
+      selectedMunicipalities: [],
+    };
   },
 };
 </script>
