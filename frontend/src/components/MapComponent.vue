@@ -647,9 +647,7 @@
       </div>
     </div>
     <div class="column" id="municipality-table">
-      <MunicipalityList
-        :municipalities="municipalities"
-      />
+      <MunicipalityList />
     </div>
   </div>
 </template>
