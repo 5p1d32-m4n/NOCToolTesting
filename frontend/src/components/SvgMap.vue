@@ -14,7 +14,7 @@
 
 <script>
 import SvgMapPath from "../components/SvgMapPath.vue";
-import { MUNICIPALITIES } from "../assets/puertoRicoHigh";
+import  MUNICIPALITIES  from "../assets/puertoRicoHigh";
 export default {
   name: "SvgMap",
   components: {
