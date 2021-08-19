@@ -127,6 +127,7 @@
       </div>
       <div class="columns" >
         <MunicipalityList />
+        <SvgMap />
       </div>
     </form>
   </div>
@@ -138,11 +139,13 @@ import axios from "axios";
 // amcharts imports
 // import MapComponent from "../components/MapComponent.vue";
 import MunicipalityList from "../components/MunicipalityList.vue";
+import SvgMap from "../components/SvgMap.vue"
 
 export default {
   name: "InitialForm",
   components: {
     MunicipalityList,
+    SvgMap
   },
   data() {
     return {
