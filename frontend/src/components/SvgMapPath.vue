@@ -1,5 +1,5 @@
 <template lang="pug">
-  g.SvgMapPath
+g.SvgMapPath
     path(
       :id="id",
       :d="d"
