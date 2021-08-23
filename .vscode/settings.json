@@ -1,7 +1,0 @@
-{
-    "python.linting.pylintEnabled": false,
-    "python.linting.flake8Enabled": true,
-    "python.linting.enabled": true,
-    "python.defaultInterpreterPath": "/home/spider/.local/share/virtualenvs/NOCTool-_fCcZH5D/bin/activate",
-    "todo-tree.tree.showBadges": true
-}
