@@ -1,29 +1,14 @@
-import { createRouter, createWebHistory } from "vue-router";
+import Vue from "vue";
+import VueRouter from "vue-router";
 import Home from "../views/Home.vue";
-import Detail from "../views/Detail.vue"
-import UpdateList from "../views/UpdateList.vue"
-import InitialForm from "../views/InitialForm.vue"
+
+Vue.use(VueRouter);
 
 const routes = [
   {
     path: "/",
     name: "Home",
     component: Home,
-  },
-  {
-    path: "/report-detail/:noc_ticket/",
-    name: "Detail",
-    component: Detail,
-  },
-  {
-    path: "/report-update-list/",
-    name: "UpdateList",
-    component: UpdateList,
-  },
-  {
-    path: "/report-create/",
-    name: "InitialForm",
-    component: InitialForm,
   },
   {
     path: "/about",
@@ -36,8 +21,9 @@ const routes = [
   },
 ];
 
-const router = createRouter({
-  history: createWebHistory(process.env.BASE_URL),
+const router = new VueRouter({
+  mode: "history",
+  base: process.env.BASE_URL,
   routes,
 });
 
