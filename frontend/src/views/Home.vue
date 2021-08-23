@@ -1,18 +1,117 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+  <div class="home is-centered">
+    <div class="hero is-small is-grey is-light mb-2">
+      <div class="hero-body has-text-centered">
+        <p class="title mb-4">Tablero Principal De NOC Claro</p>
+      </div>
+    </div>
+    <div
+      id="button-row"
+      class="
+        level
+        buttons
+        is-centered
+        is-grouped
+        mt-4
+        mb-4
+        is-size-4
+        text-center
+      "
+    >
+      <div class="button has-background-info has-text-white is-large">
+        <div class="card-content font-weight-bolder">
+          <span><p class="media-content">Archivos de Reporte</p></span>
+        </div>
+      </div>
+      <div class="button has-background-danger has-text-white is-large">
+        <div class="card-content font-weight-bolder">
+          <span><router-link class="media-content has-text-white-bis" :to="{name: 'InitialForm'}">Iniciar Reporte</router-link></span>
+        </div>
+      </div>
+      <div class="button has-background-warning has-text-white is-large">
+        <div class="card-content font-weight-bolder">
+          <router-link
+            :to="{ name: 'UpdateList' }"
+            class="media-content has-text-white-bis"
+            >Actualizar Reporte</router-link
+          >
+        </div>
+      </div>
+      <div class="button has-background-success has-text-white is-large">
+        <div class="card-content font-weight-bolder">
+          <p class="media-content">Finalizar Reporte</p>
+        </div>
+      </div>
+    </div>
+    <div class="table-container is-centered ">
+      <table class="table is-bordered is-striped is-hoverable is-fullwidth">
+        <tr>
+          <th>Taquilla NOC</th>
+          <th>Boleto de Tercero</th>
+          <th>Municipios Impactados</th>
+          <th>Total de Clientes Impactados</th>
+        </tr>
+        <tr
+          v-for="report in reportList"
+          :key="report.noc_ticket"
+          v-bind:report="report"
+        >
+          <td>
+            <router-link
+              v-bind:to="{
+                name: 'Detail',
+                params: { noc_ticket: report.noc_ticket },
+              }"
+            >
+              {{ report.noc_ticket }}
+            </router-link>
+          </td>
+          <td>{{ report.third_party_ticket }}</td>
+          <td>{{ report.municipalities }}</td>
+          <td>
+            <p
+              v-for="outage_type in report.outage_type"
+              :key="outage_type.outage_type"
+            >
+              {{ outage_type.outage_type }}
+            </p>
+          </td>
+        </tr>
+      </table>
+    </div>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
+// import HelloWorld from "@/components/HelloWorld.vue";
+import axios from "axios";
 export default {
   name: "Home",
-  components: {
-    HelloWorld,
+  data() {
+    return {
+      reportList: [],
+    };
+  },
+  components: {},
+  methods: {
+    getReportList() {
+      axios
+        .get("/api/report-list/")
+        .then((response) => {
+          this.reportList = response.data;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+  },
+  mounted() {
+    document.title = "Herramienta de Reporte del Claro NOC";
+    this.getReportList();
   },
 };
 </script>
+
+<style scoped>
+</style>

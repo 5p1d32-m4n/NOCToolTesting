@@ -1,14 +1,55 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view />
+  <div id="wrapper">
+    <nav class="navbar is-danger">
+      <div class="navbar-brand">
+        <router-link to="/" class="navbar-item"
+          ><strong>Claro NOC</strong></router-link
+        >
+
+        <a
+          class="navbar-burger"
+          aria-label="menu"
+          aria-expanded="false"
+          data-target="navbar-menu"
+          @click="showMobileMenu = !showMobileMenu"
+        >
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+          <span aria-hidden="true"></span>
+        </a>
+      </div>
+      <div
+        class="navbar-menu"
+        id="navbar-menu"
+        v-bind:class="{ 'is-active': showMobileMenu }"
+      >
+        <div class="navbar-end">
+          <!-- TODO: Replace these links with router-link-->
+          <a href="" class="navbar-item">Notificacion</a>
+          <a href="" class="navbar-item">Manejo de Usuarios</a>
+          <a href="" class="navbar-item">Cuenta</a>
+        </div>
+      </div>
+    </nav>
+    <section class="section">
+      <router-view />
+    </section>
+    <footer class="footer">Footer Space for Claro</footer>
   </div>
 </template>
 
+<script>
+export default {
+  data() {
+    return {
+      showMobileMenu: false,
+    };
+  },
+};
+</script>
+
 <style lang="scss">
+@import "~bulma";
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

@@ -1252,16 +1252,10 @@
       </tbody>
     </table>
   </div>
-  <div class="column">
-    <span>Selected Municipalities:{{ selected }}</span>
-    <MunicipalityMap />
-  </div>
 </template>
 
 <script>
-import MunicipalityMap from '../components/MunicipalityMap.vue';
 export default {
-  components: { MunicipalityMap },
   name: "MunicipalityList",
   props: {},
   data() {
