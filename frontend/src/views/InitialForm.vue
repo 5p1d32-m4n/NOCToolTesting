@@ -126,7 +126,12 @@
         </div>
       </div>
       <div class="columns" >
-        <MunicipalityList />
+        <div class="column">
+          <MunicipalityList />
+        </div>
+        <div class="column">
+          <MunicipalityMap />
+        </div>
       </div>
     </form>
   </div>
@@ -135,11 +140,12 @@
 <script>
 import axios from "axios";
 import MunicipalityList from "../components/MunicipalityList.vue";
-
+import MunicipalityMap from "../components/MunicipalityMap.vue"
 export default {
   name: "InitialForm",
   components: {
     MunicipalityList,
+    MunicipalityMap
   },
   data() {
     return {

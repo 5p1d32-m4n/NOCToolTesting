@@ -1,5 +1,5 @@
 <template>
-  <div class="column overflow-auto" id="municipality-table">
+  <div class=" overflow-auto" id="municipality-table">
     <table class="table table-hover table-striped table-bordered">
       <tbody>
         <tr>
