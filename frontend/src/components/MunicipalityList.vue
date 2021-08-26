@@ -1257,10 +1257,12 @@
 <script>
 export default {
   name: "MunicipalityList",
-  props: {},
+  props: {
+    selected: []
+  },
   data() {
     return {
-      selected: [],
+      // selected: [],
     };
   },
 };

@@ -1,31 +1,54 @@
 <template>
   <div>
-    <CheckboxSvgMap v-model="selected" :map="PuertoRico" />
+    <CheckboxSvgMap
+      v-model="selectedLocations"
+      :map="PuertoRico"
+      @mouseover="pointLocation"
+      @mouseout="unpointLocation"
+      @focus="focusLocation"
+      @blur="blurLocation"
+    />
+    <div class="tooltip-inner">
+      Municipio Apuntado: <p>{{ pointedLocation }}</p>
+    </div>
   </div>
 </template>
 
 <script>
 import { CheckboxSvgMap } from "vue-svg-map";
-import PuertoRico from "../assets/puerto-rico"
+import PuertoRico from "../assets/puerto-rico";
+import { getLocationName, getSelectedLocationName } from "../utilities";
+
 export default {
   name: "MunicipalityMap",
   components: {
-    CheckboxSvgMap
+    CheckboxSvgMap,
   },
   data() {
     return {
-        PuertoRico,
-        selected: [],
+      PuertoRico,
+      selectedLocations: [],
+      pointedLocation: null,
+      focusedLocation: null,
     };
   },
   methods: {
-
+    pointLocation(event) {
+      this.pointedLocation = getLocationName(event.target);
+    },
+    unpointLocation() {
+      this.pointedLocation = null;
+    },
+    focusLocation(event) {
+      this.focusedLocation = getLocationName(event.target);
+    },
+    blurLocation() {
+      this.focusedLocation = null;
+    },
+    getSelectedLocationName,
   },
-  mounted() {
-  },
-  watch: {
-
-  },
+  mounted() {},
+  watch: {},
 };
 </script>
 

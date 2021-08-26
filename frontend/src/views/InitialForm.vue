@@ -27,8 +27,6 @@
             class="input"
           />
         </div>
-        <!-- Dropdowns -->
-        <!-- TODO: -Add the checkbox and integer inputs -->
         <div
           class="column field is-grouped btn-group-vertical"
           id="service-specific"
@@ -127,7 +125,8 @@
       </div>
       <div class="columns" >
         <div class="column">
-          <MunicipalityList />
+          <MunicipalityList :selected="selectedLocations" />
+          <p>{{selected}}</p>
         </div>
         <div class="column">
           <MunicipalityMap />
@@ -150,9 +149,6 @@ export default {
   data() {
     return {
       report: {},
-      map: {},
-      polygonTemplate: {},
-      polygonSeries: {},
       municipalities: [
         { id: "PR-YU", name: "Yauco" },
         { id: "PR-YB", name: "Yabucoa" },
@@ -233,7 +229,8 @@ export default {
         { id: "PR-AD", name: "Aguada" },
         { id: "PR-AJ", name: "Adjuntas" },
       ],
-      selected: [],
+      // TODO: make selectedLocations a prompt for MunicipalityList and MunicipalityMap Componentes.
+      selectedLocations: [],
     };
   },
   methods: {
@@ -258,10 +255,5 @@ export default {
 // RAW JS for amcharts because nobody works it with vue 3
 </script>
 <style scoped>
-#mapchart {
-  width: 100%;
-  height: 400px;
-}
-
 
 </style>
