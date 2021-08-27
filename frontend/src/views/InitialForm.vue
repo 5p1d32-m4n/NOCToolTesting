@@ -123,10 +123,10 @@
           </div>
         </div>
       </div>
-      <div class="columns" >
+      <div class="columns">
         <div class="column">
-          <MunicipalityList :selected="selectedLocations" />
-          <p>{{selected}}</p>
+          <MunicipalityList v-model="selectedLocations" :selectedLocations="selectedLocations" />
+          <p>{{ selectedLocations }}</p>
         </div>
         <div class="column">
           <MunicipalityMap />
@@ -139,96 +139,16 @@
 <script>
 import axios from "axios";
 import MunicipalityList from "../components/MunicipalityList.vue";
-import MunicipalityMap from "../components/MunicipalityMap.vue"
+import MunicipalityMap from "../components/MunicipalityMap.vue";
 export default {
   name: "InitialForm",
   components: {
     MunicipalityList,
-    MunicipalityMap
+    MunicipalityMap,
   },
   data() {
     return {
       report: {},
-      municipalities: [
-        { id: "PR-YU", name: "Yauco" },
-        { id: "PR-YB", name: "Yabucoa" },
-        { id: "PR-VL", name: "Villalba" },
-        { id: "PR-VQ", name: "Vieques" },
-        { id: "PR-VB", name: "Vega Baja" },
-        { id: "PR-VA", name: "Vega Alta" },
-        { id: "PR-UT", name: "Utuado" },
-        { id: "PR-TJ", name: "Trujillo Alto" },
-        { id: "PR-TB", name: "Toa Baja" },
-        { id: "PR-TA", name: "Toa Alta" },
-        { id: "PR-SI", name: "Santa Isabel" },
-        { id: "PR-SS", name: "San Sebastián" },
-        { id: "PR-SL", name: "San Lorenzo" },
-        { id: "PR-SJ", name: "San Juan" },
-        { id: "PR-SG", name: "San Germán" },
-        { id: "PR-SA", name: "Salinas" },
-        { id: "PR-SB", name: "Sabana Grande" },
-        { id: "PR-RG", name: "Río Grande" },
-        { id: "PR-RC", name: "Rincón" },
-        { id: "PR-QB", name: "Quebradillas" },
-        { id: "PR-PO", name: "Ponce" },
-        { id: "PR-PN", name: "Peñuelas" },
-        { id: "PR-PT", name: "Patillas" },
-        { id: "PR-OR", name: "Orocovis" },
-        { id: "PR-NR", name: "Naranjito" },
-        { id: "PR-NG", name: "Naguabo" },
-        { id: "PR-MV", name: "Morovis" },
-        { id: "PR-MC", name: "Moca" },
-        { id: "PR-MG", name: "Mayagüez" },
-        { id: "PR-MB", name: "Maunabo" },
-        { id: "PR-MR", name: "Maricao" },
-        { id: "PR-MT", name: "Manatí" },
-        { id: "PR-LQ", name: "Luquillo" },
-        { id: "PR-LZ", name: "Loíza" },
-        { id: "PR-LP", name: "Las Piedras" },
-        { id: "PR-LM", name: "Las Marías" },
-        { id: "PR-LR", name: "Lares" },
-        { id: "PR-LJ", name: "Lajas" },
-        { id: "PR-JC", name: "Juncos" },
-        { id: "PR-JD", name: "Juana Díaz" },
-        { id: "PR-JY", name: "Jayuya" },
-        { id: "PR-IS", name: "Isabela" },
-        { id: "PR-HU", name: "Humacao" },
-        { id: "PR-HO", name: "Hormigueros" },
-        { id: "PR-HA", name: "Hatillo" },
-        { id: "PR-GR", name: "Gurabo" },
-        { id: "PR-GB", name: "Guaynabo" },
-        { id: "PR-GL", name: "Guayanilla" },
-        { id: "PR-GM", name: "Guayama" },
-        { id: "PR-GC", name: "Guánica" },
-        { id: "PR-FL", name: "Florida" },
-        { id: "PR-FJ", name: "Fajardo" },
-        { id: "PR-DO", name: "Dorado" },
-        { id: "PR-CU", name: "Culebra" },
-        { id: "PR-CZ", name: "Corozal" },
-        { id: "PR-CM", name: "Comerío" },
-        { id: "PR-CO", name: "Coamo" },
-        { id: "PR-CD", name: "Cidra" },
-        { id: "PR-CL", name: "Ciales" },
-        { id: "PR-CB", name: "Ceiba" },
-        { id: "PR-CY", name: "Cayey" },
-        { id: "PR-CT", name: "Cataño" },
-        { id: "PR-CN", name: "Carolina" },
-        { id: "PR-CV", name: "Canóvanas" },
-        { id: "PR-CA", name: "Camuy" },
-        { id: "PR-CG", name: "Caguas" },
-        { id: "PR-CR", name: "Cabo Rojo" },
-        { id: "PR-BY", name: "Bayamón" },
-        { id: "PR-BQ", name: "Barranquitas" },
-        { id: "PR-BC", name: "Barceloneta" },
-        { id: "PR-AR", name: "Arroyo" },
-        { id: "PR-AC", name: "Arecibo" },
-        { id: "PR-AN", name: "Añasco" },
-        { id: "PR-AI", name: "Aibonito" },
-        { id: "PR-AB", name: "Aguas Buenas" },
-        { id: "PR-AL", name: "Aguadilla" },
-        { id: "PR-AD", name: "Aguada" },
-        { id: "PR-AJ", name: "Adjuntas" },
-      ],
       // TODO: make selectedLocations a prompt for MunicipalityList and MunicipalityMap Componentes.
       selectedLocations: [],
     };
@@ -248,12 +168,10 @@ export default {
   },
   mounted() {
     document.title = "Formulario de Reporte Inicial";
-    
   },
 };
 
 // RAW JS for amcharts because nobody works it with vue 3
 </script>
 <style scoped>
-
 </style>
