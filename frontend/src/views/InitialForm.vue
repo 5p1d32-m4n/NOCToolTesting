@@ -1392,9 +1392,10 @@
             />
             <div class="tooltip-inner">
               Municipio Apuntado:
-              <p>{{ pointedLocation }}</p>
+              <div>
+                <span class="b-tooltip tool">{{ pointedLocation }}</span>
+              </div>
             </div>
-            <div>{{ selectedMunicipalities }}</div>
           </div>
         </div>
       </div>
@@ -1448,9 +1449,7 @@ export default {
     },
     getSelectedLocationName,
   },
-  watch:{
-
-  },
+  watch: {},
   mounted() {
     document.title = "Formulario de Reporte Inicial";
   },
