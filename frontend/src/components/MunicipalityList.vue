@@ -11,8 +11,9 @@
                   name="map"
                   ref="PR-YU"
                   id= "PR-AJ"
+                  @change="$emit('update',newLocations)"
                   value="Adjuntas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Adjuntas</label>
             </div>
           </td>
@@ -27,8 +28,9 @@
                   name="map"
                   ref="PR-YB"
                   id= "PR-AD"
+                  @change="$emit('update',newLocations)"
                   value="Aguada"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Aguada</label>
             </div>
           </td>
@@ -43,8 +45,9 @@
                   name="map"
                   ref="PR-VL"
                   id= "PR-AL"
+                  @change="$emit('update',newLocations)"
                   value="Aguadilla"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Aguadilla</label>
             </div>
           </td>
@@ -59,8 +62,9 @@
                   name="map"
                   ref="PR-VQ"
                   id= "PR-AB"
+                  @change="$emit('update',newLocations)"
                   value="Aguas Buenas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Aguas Buenas</label>
             </div>
           </td>
@@ -75,8 +79,9 @@
                   name="map"
                   ref="PR-VB"
                   id= "PR-AI"
+                  @change="$emit('update',newLocations)"
                   value="Aibonito"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Aibonito</label>
             </div>
           </td>
@@ -91,8 +96,9 @@
                   name="map"
                   ref="PR-VA"
                   id= "PR-AN"
+                  @change="$emit('update',newLocations)"
                   value="Añasco"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Añasco</label>
             </div>
           </td>
@@ -107,8 +113,9 @@
                   name="map"
                   ref="PR-UT"
                   id= "PR-AC"
+                  @change="$emit('update',newLocations)"
                   value="Arecibo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Arecibo</label>
             </div>
           </td>
@@ -123,8 +130,9 @@
                   name="map"
                   ref="PR-TJ"
                   id= "PR-AR"
+                  @change="$emit('update',newLocations)"
                   value="Arroyo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Arroyo</label>
             </div>
           </td>
@@ -139,8 +147,9 @@
                   name="map"
                   ref="PR-TB"
                   id= "PR-BC"
+                  @change="$emit('update',newLocations)"
                   value="Barceloneta"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Barceloneta</label>
             </div>
           </td>
@@ -155,8 +164,9 @@
                   name="map"
                   ref="PR-TA"
                   id= "PR-BQ"
+                  @change="$emit('update',newLocations)"
                   value="Barranquitas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Barranquitas</label>
             </div>
           </td>
@@ -171,8 +181,9 @@
                   name="map"
                   ref="PR-SI"
                   id= "PR-BY"
+                  @change="$emit('update',newLocations)"
                   value="Bayamón"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Bayamón</label>
             </div>
           </td>
@@ -187,8 +198,9 @@
                   name="map"
                   ref="PR-SS"
                   id= "PR-CR"
+                  @change="$emit('update',newLocations)"
                   value="Cabo Rojo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Cabo Rojo</label>
             </div>
           </td>
@@ -203,8 +215,9 @@
                   name="map"
                   ref="PR-SL"
                   id= "PR-CG"
+                  @change="$emit('update',newLocations)"
                   value="Caguas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Caguas</label>
             </div>
           </td>
@@ -219,8 +232,9 @@
                   name="map"
                   ref="PR-SJ"
                   id= "PR-CA"
+                  @change="$emit('update',newLocations)"
                   value="Camuy"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Camuy</label>
             </div>
           </td>
@@ -235,8 +249,9 @@
                   name="map"
                   ref="PR-SG"
                   id= "PR-CV"
+                  @change="$emit('update',newLocations)"
                   value="Canóvanas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Canóvanas</label>
             </div>
           </td>
@@ -251,8 +266,9 @@
                   name="map"
                   ref="PR-SA"
                   id= "PR-CN"
+                  @change="$emit('update',newLocations)"
                   value="Carolina"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Carolina</label>
             </div>
           </td>
@@ -267,8 +283,9 @@
                   name="map"
                   ref="PR-SB"
                   id= "PR-CT"
+                  @change="$emit('update',newLocations)"
                   value="Cataño"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Cataño</label>
             </div>
           </td>
@@ -283,8 +300,9 @@
                   name="map"
                   ref="PR-RG"
                   id= "PR-CY"
+                  @change="$emit('update',newLocations)"
                   value="Cayey"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Cayey</label>
             </div>
           </td>
@@ -299,8 +317,9 @@
                   name="map"
                   ref="PR-RC"
                   id= "PR-CB"
+                  @change="$emit('update',newLocations)"
                   value="Ceiba"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Ceiba</label>
             </div>
           </td>
@@ -315,8 +334,9 @@
                   name="map"
                   ref="PR-QB"
                   id= "PR-CL"
+                  @change="$emit('update',newLocations)"
                   value="Ciales"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Ciales</label>
             </div>
           </td>
@@ -331,8 +351,9 @@
                   name="map"
                   ref="PR-PO"
                   id= "PR-CD"
+                  @change="$emit('update',newLocations)"
                   value="Cidra"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Cidra</label>
             </div>
           </td>
@@ -347,8 +368,9 @@
                   name="map"
                   ref="PR-PN"
                   id= "PR-CO"
+                  @change="$emit('update',newLocations)"
                   value="Coamo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Coamo</label>
             </div>
           </td>
@@ -363,8 +385,9 @@
                   name="map"
                   ref="PR-PT"
                   id= "PR-CM"
+                  @change="$emit('update',newLocations)"
                   value="Comerío"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Comerío</label>
             </div>
           </td>
@@ -379,8 +402,9 @@
                   name="map"
                   ref="PR-OR"
                   id= "PR-CZ"
+                  @change="$emit('update',newLocations)"
                   value="Corozal"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Corozal</label>
             </div>
           </td>
@@ -395,8 +419,9 @@
                   name="map"
                   ref="PR-NR"
                   id= "PR-CU"
+                  @change="$emit('update',newLocations)"
                   value="Culebra"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Culebra</label>
             </div>
           </td>
@@ -411,8 +436,9 @@
                   name="map"
                   ref="PR-NG"
                   id= "PR-DO"
+                  @change="$emit('update',newLocations)"
                   value="Dorado"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Dorado</label>
             </div>
           </td>
@@ -427,8 +453,9 @@
                   name="map"
                   ref="PR-MV"
                   id= "PR-FJ"
+                  @change="$emit('update',newLocations)"
                   value="Fajardo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Fajardo</label>
             </div>
           </td>
@@ -443,8 +470,9 @@
                   name="map"
                   ref="PR-MC"
                   id= "PR-FL"
+                  @change="$emit('update',newLocations)"
                   value="Florida"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Florida</label>
             </div>
           </td>
@@ -459,8 +487,9 @@
                   name="map"
                   ref="PR-MG"
                   id= "PR-GC"
+                  @change="$emit('update',newLocations)"
                   value="Guánica"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Guánica</label>
             </div>
           </td>
@@ -475,8 +504,9 @@
                   name="map"
                   ref="PR-MB"
                   id= "PR-GM"
+                  @change="$emit('update',newLocations)"
                   value="Guayama"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Guayama</label>
             </div>
           </td>
@@ -491,8 +521,9 @@
                   name="map"
                   ref="PR-MR"
                   id= "PR-GL"
+                  @change="$emit('update',newLocations)"
                   value="Guayanilla"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Guayanilla</label>
             </div>
           </td>
@@ -507,8 +538,9 @@
                   name="map"
                   ref="PR-MT"
                   id= "PR-GB"
+                  @change="$emit('update',newLocations)"
                   value="Guaynabo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Guaynabo</label>
             </div>
           </td>
@@ -523,8 +555,9 @@
                   name="map"
                   ref="PR-LQ"
                   id= "PR-GR"
+                  @change="$emit('update',newLocations)"
                   value="Gurabo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Gurabo</label>
             </div>
           </td>
@@ -539,8 +572,9 @@
                   name="map"
                   ref="PR-LZ"
                   id= "PR-HA"
+                  @change="$emit('update',newLocations)"
                   value="Hatillo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Hatillo</label>
             </div>
           </td>
@@ -555,8 +589,9 @@
                   name="map"
                   ref="PR-LP"
                   id= "PR-HO"
+                  @change="$emit('update',newLocations)"
                   value="Hormigueros"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Hormigueros</label>
             </div>
           </td>
@@ -571,8 +606,9 @@
                   name="map"
                   ref="PR-LM"
                   id= "PR-HU"
+                  @change="$emit('update',newLocations)"
                   value="Humacao"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Humacao</label>
             </div>
           </td>
@@ -587,8 +623,9 @@
                   name="map"
                   ref="PR-LR"
                   id= "PR-IS"
+                  @change="$emit('update',newLocations)"
                   value="Isabela"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Isabela</label>
             </div>
           </td>
@@ -603,8 +640,9 @@
                   name="map"
                   ref="PR-LJ"
                   id= "PR-JY"
+                  @change="$emit('update',newLocations)"
                   value="Jayuya"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Jayuya</label>
             </div>
           </td>
@@ -619,8 +657,9 @@
                   name="map"
                   ref="PR-JC"
                   id= "PR-JD"
+                  @change="$emit('update',newLocations)"
                   value="Juana Díaz"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Juana Díaz</label>
             </div>
           </td>
@@ -635,8 +674,9 @@
                   name="map"
                   ref="PR-JD"
                   id= "PR-JC"
+                  @change="$emit('update',newLocations)"
                   value="Juncos"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Juncos</label>
             </div>
           </td>
@@ -651,8 +691,9 @@
                   name="map"
                   ref="PR-JY"
                   id= "PR-LJ"
+                  @change="$emit('update',newLocations)"
                   value="Lajas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Lajas</label>
             </div>
           </td>
@@ -667,8 +708,9 @@
                   name="map"
                   ref="PR-IS"
                   id= "PR-LR"
+                  @change="$emit('update',newLocations)"
                   value="Lares"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Lares</label>
             </div>
           </td>
@@ -683,8 +725,9 @@
                   name="map"
                   ref="PR-HU"
                   id= "PR-LM"
+                  @change="$emit('update',newLocations)"
                   value="Las Marías"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Las Marías</label>
             </div>
           </td>
@@ -699,8 +742,9 @@
                   name="map"
                   ref="PR-HO"
                   id= "PR-LP"
+                  @change="$emit('update',newLocations)"
                   value="Las Piedras"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Las Piedras</label>
             </div>
           </td>
@@ -715,8 +759,9 @@
                   name="map"
                   ref="PR-HA"
                   id= "PR-LZ"
+                  @change="$emit('update',newLocations)"
                   value="Loíza"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Loíza</label>
             </div>
           </td>
@@ -731,8 +776,9 @@
                   name="map"
                   ref="PR-GR"
                   id= "PR-LQ"
+                  @change="$emit('update',newLocations)"
                   value="Luquillo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Luquillo</label>
             </div>
           </td>
@@ -747,8 +793,9 @@
                   name="map"
                   ref="PR-GB"
                   id= "PR-MT"
+                  @change="$emit('update',newLocations)"
                   value="Manatí"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Manatí</label>
             </div>
           </td>
@@ -763,8 +810,9 @@
                   name="map"
                   ref="PR-GL"
                   id= "PR-MR"
+                  @change="$emit('update',newLocations)"
                   value="Maricao"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Maricao</label>
             </div>
           </td>
@@ -779,8 +827,9 @@
                   name="map"
                   ref="PR-GM"
                   id= "PR-MB"
+                  @change="$emit('update',newLocations)"
                   value="Maunabo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Maunabo</label>
             </div>
           </td>
@@ -795,8 +844,9 @@
                   name="map"
                   ref="PR-GC"
                   id= "PR-MG"
+                  @change="$emit('update',newLocations)"
                   value="Mayagüez"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Mayagüez</label>
             </div>
           </td>
@@ -811,8 +861,9 @@
                   name="map"
                   ref="PR-FL"
                   id= "PR-MC"
+                  @change="$emit('update',newLocations)"
                   value="Moca"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Moca</label>
             </div>
           </td>
@@ -827,8 +878,9 @@
                   name="map"
                   ref="PR-FJ"
                   id= "PR-MV"
+                  @change="$emit('update',newLocations)"
                   value="Morovis"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Morovis</label>
             </div>
           </td>
@@ -843,8 +895,9 @@
                   name="map"
                   ref="PR-DO"
                   id= "PR-NG"
+                  @change="$emit('update',newLocations)"
                   value="Naguabo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Naguabo</label>
             </div>
           </td>
@@ -859,8 +912,9 @@
                   name="map"
                   ref="PR-CU"
                   id= "PR-NR"
+                  @change="$emit('update',newLocations)"
                   value="Naranjito"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Naranjito</label>
             </div>
           </td>
@@ -875,8 +929,9 @@
                   name="map"
                   ref="PR-CZ"
                   id= "PR-OR"
+                  @change="$emit('update',newLocations)"
                   value="Orocovis"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Orocovis</label>
             </div>
           </td>
@@ -891,8 +946,9 @@
                   name="map"
                   ref="PR-CM"
                   id= "PR-PT"
+                  @change="$emit('update',newLocations)"
                   value="Patillas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Patillas</label>
             </div>
           </td>
@@ -907,8 +963,9 @@
                   name="map"
                   ref="PR-CO"
                   id= "PR-PN"
+                  @change="$emit('update',newLocations)"
                   value="Peñuelas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Peñuelas</label>
             </div>
           </td>
@@ -923,8 +980,9 @@
                   name="map"
                   ref="PR-CD"
                   id= "PR-PO"
+                  @change="$emit('update',newLocations)"
                   value="Ponce"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Ponce</label>
             </div>
           </td>
@@ -939,8 +997,9 @@
                   name="map"
                   ref="PR-CL"
                   id= "PR-QB"
+                  @change="$emit('update',newLocations)"
                   value="Quebradillas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Quebradillas</label>
             </div>
           </td>
@@ -955,8 +1014,9 @@
                   name="map"
                   ref="PR-CB"
                   id= "PR-RC"
+                  @change="$emit('update',newLocations)"
                   value="Rincón"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Rincón</label>
             </div>
           </td>
@@ -971,8 +1031,9 @@
                   name="map"
                   ref="PR-CY"
                   id= "PR-RG"
+                  @change="$emit('update',newLocations)"
                   value="Río Grande"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Río Grande</label>
             </div>
           </td>
@@ -987,8 +1048,9 @@
                   name="map"
                   ref="PR-CT"
                   id= "PR-SB"
+                  @change="$emit('update',newLocations)"
                   value="Sabana Grande"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Sabana Grande</label>
             </div>
           </td>
@@ -1003,8 +1065,9 @@
                   name="map"
                   ref="PR-CN"
                   id= "PR-SA"
+                  @change="$emit('update',newLocations)"
                   value="Salinas"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Salinas</label>
             </div>
           </td>
@@ -1019,8 +1082,9 @@
                   name="map"
                   ref="PR-CV"
                   id= "PR-SG"
+                  @change="$emit('update',newLocations)"
                   value="San Germán"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />San Germán</label>
             </div>
           </td>
@@ -1035,8 +1099,9 @@
                   name="map"
                   ref="PR-CA"
                   id= "PR-SJ"
+                  @change="$emit('update',newLocations)"
                   value="San Juan"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />San Juan</label>
             </div>
           </td>
@@ -1051,8 +1116,9 @@
                   name="map"
                   ref="PR-CG"
                   id= "PR-SL"
+                  @change="$emit('update',newLocations)"
                   value="San Lorenzo"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />San Lorenzo</label>
             </div>
           </td>
@@ -1067,8 +1133,9 @@
                   name="map"
                   ref="PR-CR"
                   id= "PR-SS"
+                  @change="$emit('update',newLocations)"
                   value="San Sebastián"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />San Sebastián</label>
             </div>
           </td>
@@ -1083,8 +1150,9 @@
                   name="map"
                   ref="PR-BY"
                   id= "PR-SI"
+                  @change="$emit('update',newLocations)"
                   value="Santa Isabel"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Santa Isabel</label>
             </div>
           </td>
@@ -1099,8 +1167,9 @@
                   name="map"
                   ref="PR-BQ"
                   id= "PR-TA"
+                  @change="$emit('update',newLocations)"
                   value="Toa Alta"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Toa Alta</label>
             </div>
           </td>
@@ -1115,8 +1184,9 @@
                   name="map"
                   ref="PR-BC"
                   id= "PR-TB"
+                  @change="$emit('update',newLocations)"
                   value="Toa Baja"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Toa Baja</label>
             </div>
           </td>
@@ -1131,8 +1201,9 @@
                   name="map"
                   ref="PR-AR"
                   id= "PR-TJ"
+                  @change="$emit('update',newLocations)"
                   value="Trujillo Alto"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Trujillo Alto</label>
             </div>
           </td>
@@ -1147,8 +1218,9 @@
                   name="map"
                   ref="PR-AC"
                   id= "PR-UT"
+                  @change="$emit('update',newLocations)"
                   value="Utuado"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Utuado</label>
             </div>
           </td>
@@ -1163,8 +1235,9 @@
                   name="map"
                   ref="PR-AN"
                   id= "PR-VA"
+                  @change="$emit('update',newLocations)"
                   value="Vega Alta"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Vega Alta</label>
             </div>
           </td>
@@ -1179,8 +1252,9 @@
                   name="map"
                   ref="PR-AI"
                   id= "PR-VB"
+                  @change="$emit('update',newLocations)"
                   value="Vega Baja"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Vega Baja</label>
             </div>
           </td>
@@ -1195,8 +1269,9 @@
                   name="map"
                   ref="PR-AB"
                   id= "PR-VQ"
+                  @change="$emit('update',newLocations)"
                   value="Vieques"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Vieques</label>
             </div>
           </td>
@@ -1211,8 +1286,9 @@
                   name="map"
                   ref="PR-AL"
                   id= "PR-VL"
+                  @change="$emit('update',newLocations)"
                   value="Villalba"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Villalba</label>
             </div>
           </td>
@@ -1227,8 +1303,9 @@
                   name="map"
                   ref="PR-AD"
                   id= "PR-YB"
+                  @change="$emit('update',newLocations)"
                   value="Yabucoa"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Yabucoa</label>
             </div>
           </td>
@@ -1243,8 +1320,9 @@
                   name="map"
                   ref="PR-AJ"
                   id= "PR-YU"
+                  @change="$emit('update',newLocations)"
                   value="Yauco"
-                  v-model="selected"
+                  v-model="newSelectedLocations"
                 />Yauco</label>
             </div>
           </td>
@@ -1257,14 +1335,23 @@
 <script>
 export default {
   name: "MunicipalityList",
-  props: {
-    selected: []
-  },
+  props:{
+    selectedLocation: Array,
+    },
   data() {
     return {
-      // selected: [],
     };
   },
+  methods:{
+    update(){
+      return this.selectedLocation
+    }
+  },
+  computed:{
+    newSelectedLocations: function(){
+      return this.selectedLocation
+    }
+  }
 };
 </script>
 

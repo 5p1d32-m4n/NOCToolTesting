@@ -125,10 +125,12 @@
       </div>
       <div class="columns" >
         <div class="column">
-          <MunicipalityList :selected="selectedLocations" />
-          <p>{{selected}}</p>
+          <MunicipalityList
+          :selectedLocation="computedLocations"
+          />
+          <p>{{selectedLocation}}</p>
         </div>
-        <div class="column">
+        <div class="column" :selectedLocation="selectedLocation">
           <MunicipalityMap />
         </div>
       </div>
@@ -230,7 +232,6 @@ export default {
         { id: "PR-AJ", name: "Adjuntas" },
       ],
       // TODO: make selectedLocations a prompt for MunicipalityList and MunicipalityMap Componentes.
-      selectedLocations: [],
     };
   },
   methods: {
@@ -245,6 +246,13 @@ export default {
           console.log(error);
         });
     },
+
+  },
+  computed:{
+    computedLocations: function(){
+      let computedLocations = []
+      return computedLocations
+    }
   },
   mounted() {
     document.title = "Formulario de Reporte Inicial";

@@ -1,7 +1,7 @@
 <template>
   <div>
     <CheckboxSvgMap
-      v-model="selectedLocations"
+      v-model="selectedLocation"
       :map="PuertoRico"
       @mouseover="pointLocation"
       @mouseout="unpointLocation"
@@ -9,8 +9,10 @@
       @blur="blurLocation"
     />
     <div class="tooltip-inner">
-      Municipio Apuntado: <p>{{ pointedLocation }}</p>
+      Municipio Apuntado:
+      <p>{{ pointedLocation }}</p>
     </div>
+    <div>{{selectedLocation}}</div>
   </div>
 </template>
 
@@ -24,10 +26,12 @@ export default {
   components: {
     CheckboxSvgMap,
   },
+  props: {
+    selectedLocation: Array,
+  },
   data() {
     return {
       PuertoRico,
-      selectedLocations: [],
       pointedLocation: null,
       focusedLocation: null,
     };
@@ -47,7 +51,7 @@ export default {
     },
     getSelectedLocationName,
   },
-  mounted() {},
+  computed:{},
   watch: {},
 };
 </script>
