@@ -34,7 +34,6 @@
     <section class="section">
       <router-view />
     </section>
-    <footer class="footer">Footer Space for Claro</footer>
   </div>
 </template>
 
