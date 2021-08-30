@@ -1,8 +1,6 @@
 from django.db import models
 from datetime import date
-# from django.contrib.auth.models import User
 from users.models import CustomUser
-# from django.db.models.expressions import F
 
 
 class Services(models.Model):
@@ -13,26 +11,12 @@ class Services(models.Model):
         return f'Servicios afectados: {self.services} a cantidad de servicios: {self.service_amount}'
 
 
-# class ServiceAmount(models.Model):
-#     service_amount = models.PositiveIntegerField(default=0)
-
-#     def __str__(self):
-#         return f'Cantidad de servicios afectados: {self.service_amount}'
-
-
 class Clients(models.Model):
     clients = models.CharField(max_length=50)
     client_amount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
         return f'Clientes afectados: {self.clients}, a cantidad de clientes: {self.client_amount}'
-
-
-# class ClientAmount(models.Model):
-#     client_amount = models.PositiveIntegerField(default=0)
-
-#     def __str__(self):
-#         return f'Cantidad de clientes afectados: {self.client_amount}'
 
 
 class OutageType(models.Model):
