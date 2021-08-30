@@ -106,6 +106,9 @@
         <!-- Beginning of Municipality Checkbox. -->
         <b-col>
           <div class="overflow-auto" id="municipality-table">
+            <b-table striped hover>
+
+            </b-table>
             <table class="table table-hover table-striped table-bordered">
               <tbody>
                 <tr>
