@@ -1,131 +1,110 @@
 <template>
-  <div id="initial-form">
+  <b-container fluid>
     <form>
-      <div class="columns">
-        <div class="column" id="report-specific">
-          <label for="noc_ticket">Taquilla del NOC:</label>
-          <input type="text" name="noc_ticket" id="noc_ticket" class="input" />
-          <label for="third_party_ticket">Taquilla de Tercero:</label>
-          <input
-            type="text"
-            name="has-text-white-bis"
-            id="has-text-white-bis"
-            class="input"
-          />
-          <label for="dateOfEvent">Fecha de Averia:</label>
-          <input
+      <!-- First Row of Form (No more than 2 cols per row.) -->
+      <b-row>
+        <b-col id="report-specific">
+          <!-- NOC Ticket Input -->
+          <label for="noc-ticket">Taquilla del NOC:</label>
+          <b-form-input
+            placeholder="E.g: GD09RG8S0E97F7E"
+            id="noc-ticket"
+          ></b-form-input>
+          <!-- NOC Ticket Input End. -->
+
+          <!-- Third Party Ticket Input -->
+          <label for="third-ticket">Taquilla de Tercero:</label>
+          <b-form-input
+            placeholder="E.g: G8S0E97F7E"
+            id="third-ticket"
+          ></b-form-input>
+          <!-- Third Party Ticket Input End -->
+
+          <!-- Event Date Input -->
+          <label for="event-date">Fecha de Averia:</label>
+          <b-form-input
+            placeholder="E.g: 10/10/2020"
+            id="event-date"
             type="date"
-            name="dateOfEvent"
-            id="dateOfEvent"
-            class="input"
-          />
-          <label for="timeOfEvent">Tiempo de Averia</label>
-          <input
+          ></b-form-input>
+          <!-- Event Date Input End. -->
+
+          <!-- Time of Event Input -->
+          <label for="event-time">Tiempo de Averia:</label>
+          <b-form-input
+            placeholder="E.g: 10:10 AM"
+            id="event-time"
             type="time"
-            name="timeOfEvent"
-            id="timeOfEvent"
-            class="input"
-          />
-        </div>
-        <div
-          class="column field is-grouped btn-group-vertical"
-          id="service-specific"
-        >
-          <!-- Service Dropdown -->
-          <div class="dropdown btn btn-lg">
-            <button
-              class="btn btn-danger dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style="width: 200px"
-            >
-              Servicios Impactados
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
+          ></b-form-input>
+          <!-- Time of Event Input End.  -->
+        </b-col>
+
+        <!-- Beginning of Dropdown lists. -->
+        <!-- TODO: make these checkbox come from the Django Backend -->
+        <!-- TODO: add the followed number input for some cases -->
+        <b-col id="report-repetitive">
+          <!-- Service Dropdown lists. -->
+          <b-dropdown
+            block
+            variant="danger"
+            text="Servicios Impactados"
+            class="d-block mt-4"
+            menu-class="w-100"
+          >
+            <b-dropdown-form>
+              <b-form-checkbox> Checkme </b-form-checkbox>
+            </b-dropdown-form>
+          </b-dropdown>
+          <hr />
           <!-- Outage type dropdown -->
-          <div class="dropdown btn btn-lg">
-            <button
-              class="btn btn-danger dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style="width: 200px"
-            >
-              Tipo de Averia
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
+          <b-dropdown
+            variant="danger"
+            block
+            text="Tipo de Averia"
+            class="d-block"
+            menu-class="w-100"
+          >
+            <b-dropdown-form>
+              <b-form-checkbox> Checkme </b-form-checkbox>
+            </b-dropdown-form>
+          </b-dropdown>
+          <hr />
+
           <!-- Client dropdown -->
-          <div class="dropdown btn btn-lg">
-            <button
-              class="btn btn-danger dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style="width: 200px"
-            >
-              Clientes Impactados
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
+          <b-dropdown
+            variant="danger"
+            block
+            text="Clientes Impactados"
+            class="d-block"
+            menu-class="w-100"
+          >
+            <b-dropdown-form>
+              <b-form-checkbox> Checkme </b-form-checkbox>
+            </b-dropdown-form>
+          </b-dropdown>
+          <hr />
+
           <!-- Service Dropdown -->
-          <div class="dropdown btn btn-lg">
-            <button
-              class="btn btn-danger dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style="width: 200px"
-            >
-              Servicios Impactados
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-          <!-- Cause Dropdown -->
-          <div class="dropdown btn btn-lg">
-            <button
-              class="btn btn-danger dropdown-toggle"
-              type="button"
-              id="dropdownMenuButton1"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-              style="width: 200px"
-            >
-              Servicios Impactados
-            </button>
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-              <li><a class="dropdown-item" href="#">Action</a></li>
-              <li><a class="dropdown-item" href="#">Another action</a></li>
-              <li><a class="dropdown-item" href="#">Something else here</a></li>
-            </ul>
-          </div>
-        </div>
-      </div>
-      <div class="columns">
+          <b-dropdown
+            variant="danger"
+            block
+            text="Causa de Averia"
+            class="d-block"
+            menu-class="w-100"
+          >
+            <b-dropdown-form>
+              <b-form-checkbox> Checkme </b-form-checkbox>
+            </b-dropdown-form>
+          </b-dropdown>
+          <hr />
+        </b-col>
+      </b-row>
+      <b-row align-h="center">
+        <h4>Municipios Impactados:</h4>
+      </b-row>
+      <b-row>
+        <div class="columns">
         <div class="column">
-          <div>{{ selectedMunicipalities }}</div>
           <div class="overflow-auto" id="municipality-table">
             <table class="table table-hover table-striped table-bordered">
               <tbody>
@@ -1390,17 +1369,17 @@
               @focus="focusLocation"
               @blur="blurLocation"
             />
-            <div class="tooltip-inner">
-              Municipio Apuntado:
-              <div>
-                <span class="b-tooltip tool">{{ pointedLocation }}</span>
-              </div>
+            <div>
+              <p class="b-tooltip tool">
+                Municipio Apuntado: {{ pointedLocation }}
+              </p>
             </div>
           </div>
         </div>
       </div>
+      </b-row>
     </form>
-  </div>
+  </b-container>
 </template>
 
 <script>
@@ -1435,6 +1414,12 @@ export default {
           console.log(error);
         });
     },
+    getServices() {},
+    getClients() {},
+    getOutageType() {},
+    getCause() {},
+
+    // Svg map Checkbox functions for evets.
     pointLocation(event) {
       this.pointedLocation = getLocationName(event.target);
     },
