@@ -103,8 +103,8 @@
         <h4>Municipios Impactados:</h4>
       </b-row>
       <b-row>
-        <div class="columns">
-        <div class="column">
+        <!-- Beginning of Municipality Checkbox. -->
+        <b-col>
           <div class="overflow-auto" id="municipality-table">
             <table class="table table-hover table-striped table-bordered">
               <tbody>
@@ -1358,8 +1358,11 @@
               </tbody>
             </table>
           </div>
-        </div>
-        <div class="column">
+        </b-col>
+        <!-- Beginning of Municipality CheckboxEnd. -->
+
+        <!-- Beggingin of SVG Map. -->
+        <b-col>
           <div>
             <CheckboxSvgMap
               v-model="selectedMunicipalities"
@@ -1375,8 +1378,8 @@
               </p>
             </div>
           </div>
-        </div>
-      </div>
+        </b-col>
+        <!-- Portion SVG Map End. -->
       </b-row>
     </form>
   </b-container>
@@ -1449,5 +1452,4 @@ export default {
   text-align: justify;
 }
 </style>
-<style src="vue-svg-map/dist/index.css">
-</style>
+<style src="vue-svg-map/dist/index.css"></style>
