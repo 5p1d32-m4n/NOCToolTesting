@@ -1,0 +1,44 @@
+class CauseCreateAPIView(generics.CreateAPIView):
+    """
+    Serializer for cause creatino view
+    """
+    queryset = Cause.objects.all()
+    serializer_class = CauseSerializer
+
+
+class CauseDetailAPIView(generics.RetrieveAPIView):
+    """
+    Serializer for cause detail view
+    """
+    queryset = Cause.objects.all()
+    serializer_class = CauseSerializer
+
+
+class CauseListAPIView(APIView):
+    """
+    Serializer for cause
+    """
+
+    def get(self, request, format=None):
+        cause = Cause.objects.all()
+        serializer = CauseSerializer(cause, many=True)
+        return Response(serializer.data)
+
+
+class CauseUpdateListAPIView(generics.ListAPIView):
+    """
+    Serializer to list then update cause.
+    """
+
+    def get(self, request, format=None):
+        cause = Cause.objects.all()
+        serilizer = CauseSerializer(cause, many=True)
+
+        return Response(serilizer.data)
+
+
+class CauseUpdateAPIView(generics.RetrieveUpdateAPIView):
+    """
+    Serializer service update view.
+    """
+    serializer_class = CauseSerializer
