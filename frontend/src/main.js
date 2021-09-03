@@ -10,12 +10,12 @@ import {
 import 'bootstrap/dist/css/bootstrap.css';
 import 'bootstrap-vue/dist/bootstrap-vue.css';
 
-Vue.use(axios)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-
+axios.defaults.baseURL = 'http://127.0.0.1:8000'
 new Vue({
   router,
   store,
+  axios,
   render: (h) => h(App),
 }).$mount("#app");
