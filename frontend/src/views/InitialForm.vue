@@ -52,20 +52,29 @@
             menu-class="w-100"
           >
             <b-dropdown-form>
-              <b-form-checkbox> Checkme </b-form-checkbox>
+              <b-form-checkbox-group
+                :options="services"
+                v-model="selectedServices"
+                stacked
+              ></b-form-checkbox-group>
             </b-dropdown-form>
           </b-dropdown>
           <hr />
-          <!-- Outage type dropdown -->
+
+          <!-- Cause type dropdown -->
           <b-dropdown
             variant="danger"
             block
-            text="Tipo de Averia"
+            text="Causa de Averia"
             class="d-block"
             menu-class="w-100"
           >
             <b-dropdown-form>
-              <b-form-checkbox> Checkme </b-form-checkbox>
+              <b-form-checkbox-group
+                :options="cause"
+                v-model="selectedCauses"
+                stacked
+              ></b-form-checkbox-group>
             </b-dropdown-form>
           </b-dropdown>
           <hr />
@@ -79,21 +88,29 @@
             menu-class="w-100"
           >
             <b-dropdown-form>
-              <b-form-checkbox> Checkme </b-form-checkbox>
+              <b-form-checkbox-group
+                :options="clients"
+                v-model="selectedClients"
+                stacked
+              ></b-form-checkbox-group>
             </b-dropdown-form>
           </b-dropdown>
           <hr />
 
-          <!-- Service Dropdown -->
+          <!-- Outage Type Dropdown -->
           <b-dropdown
             variant="danger"
             block
-            text="Causa de Averia"
+            text="Tipo de Averia"
             class="d-block"
             menu-class="w-100"
           >
             <b-dropdown-form>
-              <b-form-checkbox> Checkme </b-form-checkbox>
+              <b-form-checkbox-group
+                :options="outage_type"
+                v-model="selectedOutageTypes"
+                stacked
+              ></b-form-checkbox-group>
             </b-dropdown-form>
           </b-dropdown>
           <hr />
@@ -106,1260 +123,11 @@
         <!-- Beginning of Municipality Checkbox. -->
         <b-col>
           <div class="overflow-auto" id="municipality-table">
-            <b-table striped hover>
-
-            </b-table>
-            <table class="table table-hover table-striped table-bordered">
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="aj"
-                          v-model="selectedMunicipalities"
-                          value="Adjuntas"
-                        />Adjuntas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ad"
-                          v-model="selectedMunicipalities"
-                          value="Aguada"
-                        />Aguada</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="al"
-                          v-model="selectedMunicipalities"
-                          value="Aguadilla"
-                        />Aguadilla</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ab"
-                          v-model="selectedMunicipalities"
-                          value="Aguas Buenas"
-                        />Aguas Buenas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ai"
-                          v-model="selectedMunicipalities"
-                          value="Aibonito"
-                        />Aibonito</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="an"
-                          v-model="selectedMunicipalities"
-                          value="Añasco"
-                        />Añasco</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ac"
-                          v-model="selectedMunicipalities"
-                          value="Arecibo"
-                        />Arecibo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ar"
-                          v-model="selectedMunicipalities"
-                          value="Arroyo"
-                        />Arroyo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="bc"
-                          v-model="selectedMunicipalities"
-                          value="Barceloneta"
-                        />Barceloneta</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="bq"
-                          v-model="selectedMunicipalities"
-                          value="Barranquitas"
-                        />Barranquitas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="by"
-                          v-model="selectedMunicipalities"
-                          value="Bayamón"
-                        />Bayamón</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cr"
-                          v-model="selectedMunicipalities"
-                          value="Cabo Rojo"
-                        />Cabo Rojo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cg"
-                          v-model="selectedMunicipalities"
-                          value="Caguas"
-                        />Caguas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ca"
-                          v-model="selectedMunicipalities"
-                          value="Camuy"
-                        />Camuy</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cv"
-                          v-model="selectedMunicipalities"
-                          value="Canóvanas"
-                        />Canóvanas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cn"
-                          v-model="selectedMunicipalities"
-                          value="Carolina"
-                        />Carolina</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ct"
-                          v-model="selectedMunicipalities"
-                          value="Cataño"
-                        />Cataño</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cy"
-                          v-model="selectedMunicipalities"
-                          value="Cayey"
-                        />Cayey</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cb"
-                          v-model="selectedMunicipalities"
-                          value="Ceiba"
-                        />Ceiba</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cl"
-                          v-model="selectedMunicipalities"
-                          value="Ciales"
-                        />Ciales</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cd"
-                          v-model="selectedMunicipalities"
-                          value="Cidra"
-                        />Cidra</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="co"
-                          v-model="selectedMunicipalities"
-                          value="Coamo"
-                        />Coamo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cm"
-                          v-model="selectedMunicipalities"
-                          value="Comerío"
-                        />Comerío</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cz"
-                          v-model="selectedMunicipalities"
-                          value="Corozal"
-                        />Corozal</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="cu"
-                          v-model="selectedMunicipalities"
-                          value="Culebra"
-                        />Culebra</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="do"
-                          v-model="selectedMunicipalities"
-                          value="Dorado"
-                        />Dorado</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="fj"
-                          v-model="selectedMunicipalities"
-                          value="Fajardo"
-                        />Fajardo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="fl"
-                          v-model="selectedMunicipalities"
-                          value="Florida"
-                        />Florida</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="gc"
-                          v-model="selectedMunicipalities"
-                          value="Guánica"
-                        />Guánica</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="gm"
-                          v-model="selectedMunicipalities"
-                          value="Guayama"
-                        />Guayama</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="gl"
-                          v-model="selectedMunicipalities"
-                          value="Guayanilla"
-                        />Guayanilla</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="gb"
-                          v-model="selectedMunicipalities"
-                          value="Guaynabo"
-                        />Guaynabo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="gr"
-                          v-model="selectedMunicipalities"
-                          value="Gurabo"
-                        />Gurabo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ha"
-                          v-model="selectedMunicipalities"
-                          value="Hatillo"
-                        />Hatillo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ho"
-                          v-model="selectedMunicipalities"
-                          value="Hormigueros"
-                        />Hormigueros</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="hu"
-                          v-model="selectedMunicipalities"
-                          value="Humacao"
-                        />Humacao</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="is"
-                          v-model="selectedMunicipalities"
-                          value="Isabela"
-                        />Isabela</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="jy"
-                          v-model="selectedMunicipalities"
-                          value="Jayuya"
-                        />Jayuya</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="jd"
-                          v-model="selectedMunicipalities"
-                          value="Juana Díaz"
-                        />Juana Díaz</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="jc"
-                          v-model="selectedMunicipalities"
-                          value="Juncos"
-                        />Juncos</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="lj"
-                          v-model="selectedMunicipalities"
-                          value="Lajas"
-                        />Lajas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="lr"
-                          v-model="selectedMunicipalities"
-                          value="Lares"
-                        />Lares</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="lm"
-                          v-model="selectedMunicipalities"
-                          value="Las Marías"
-                        />Las Marías</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="lp"
-                          v-model="selectedMunicipalities"
-                          value="Las Piedras"
-                        />Las Piedras</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="lz"
-                          v-model="selectedMunicipalities"
-                          value="Loíza"
-                        />Loíza</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="lq"
-                          v-model="selectedMunicipalities"
-                          value="Luquillo"
-                        />Luquillo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="mt"
-                          v-model="selectedMunicipalities"
-                          value="Manatí"
-                        />Manatí</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="mr"
-                          v-model="selectedMunicipalities"
-                          value="Maricao"
-                        />Maricao</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="mb"
-                          v-model="selectedMunicipalities"
-                          value="Maunabo"
-                        />Maunabo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="mg"
-                          v-model="selectedMunicipalities"
-                          value="Mayagüez"
-                        />Mayagüez</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="mc"
-                          v-model="selectedMunicipalities"
-                          value="Moca"
-                        />Moca</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="mv"
-                          v-model="selectedMunicipalities"
-                          value="Morovis"
-                        />Morovis</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ng"
-                          v-model="selectedMunicipalities"
-                          value="Naguabo"
-                        />Naguabo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="nr"
-                          v-model="selectedMunicipalities"
-                          value="Naranjito"
-                        />Naranjito</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="or"
-                          v-model="selectedMunicipalities"
-                          value="Orocovis"
-                        />Orocovis</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="pt"
-                          v-model="selectedMunicipalities"
-                          value="Patillas"
-                        />Patillas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="pn"
-                          v-model="selectedMunicipalities"
-                          value="Peñuelas"
-                        />Peñuelas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="po"
-                          v-model="selectedMunicipalities"
-                          value="Ponce"
-                        />Ponce</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="qb"
-                          v-model="selectedMunicipalities"
-                          value="Quebradillas"
-                        />Quebradillas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="rc"
-                          v-model="selectedMunicipalities"
-                          value="Rincón"
-                        />Rincón</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="rg"
-                          v-model="selectedMunicipalities"
-                          value="Río Grande"
-                        />Río Grande</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="sb"
-                          v-model="selectedMunicipalities"
-                          value="Sabana Grande"
-                        />Sabana Grande</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="sa"
-                          v-model="selectedMunicipalities"
-                          value="Salinas"
-                        />Salinas</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="sg"
-                          v-model="selectedMunicipalities"
-                          value="San Germán"
-                        />San Germán</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="sj"
-                          v-model="selectedMunicipalities"
-                          value="San Juan"
-                        />San Juan</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="sl"
-                          v-model="selectedMunicipalities"
-                          value="San Lorenzo"
-                        />San Lorenzo</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ss"
-                          v-model="selectedMunicipalities"
-                          value="San Sebastián"
-                        />San Sebastián</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="si"
-                          v-model="selectedMunicipalities"
-                          value="Santa Isabel"
-                        />Santa Isabel</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ta"
-                          v-model="selectedMunicipalities"
-                          value="Toa Alta"
-                        />Toa Alta</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="tb"
-                          v-model="selectedMunicipalities"
-                          value="Toa Baja"
-                        />Toa Baja</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="tj"
-                          v-model="selectedMunicipalities"
-                          value="Trujillo Alto"
-                        />Trujillo Alto</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="ut"
-                          v-model="selectedMunicipalities"
-                          value="Utuado"
-                        />Utuado</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="va"
-                          v-model="selectedMunicipalities"
-                          value="Vega Alta"
-                        />Vega Alta</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="vb"
-                          v-model="selectedMunicipalities"
-                          value="Vega Baja"
-                        />Vega Baja</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="vq"
-                          v-model="selectedMunicipalities"
-                          value="Vieques"
-                        />Vieques</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="vl"
-                          v-model="selectedMunicipalities"
-                          value="Villalba"
-                        />Villalba</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="yb"
-                          v-model="selectedMunicipalities"
-                          value="Yabucoa"
-                        />Yabucoa</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="checkbox">
-                      <label
-                        ><input
-                          type="checkbox"
-                          name="map"
-                          id="yu"
-                          v-model="selectedMunicipalities"
-                          value="Yauco"
-                        />Yauco</label
-                      >
-                    </div>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
+            <b-form-checkbox-group
+              v-model="selectedMunicipalities"
+              :options="municipalities"
+              stacked
+            ></b-form-checkbox-group>
           </div>
         </b-col>
         <!-- Beginning of Municipality CheckboxEnd. -->
@@ -1403,9 +171,97 @@ export default {
     return {
       report: {},
       selectedMunicipalities: [],
+      selectedServices: [],
+      selectedClients: [],
+      selectedCauses: [],
+      selectedOutageTypes:[],
       PuertoRico,
       pointedLocation: null,
       focusedLocation: null,
+      services: [],
+      clients: [],
+      outage_type: [],
+      cause: [],
+      municipalities: [
+        "Adjuntas",
+        "Aguada",
+        "Aguadilla",
+        "Aguas Buenas",
+        "Aibonito",
+        "Añasco",
+        "Arecibo",
+        "Arroyo",
+        "Barceloneta",
+        "Barranquitas",
+        "Bayamón",
+        "Cabo Rojo",
+        "Caguas",
+        "Camuy",
+        "Canóvanas",
+        "Carolina",
+        "Cataño",
+        "Cayey",
+        "Ceiba",
+        "Ciales",
+        "Cidra",
+        "Coamo",
+        "Comerío",
+        "Corozal",
+        "Culebra",
+        "Dorado",
+        "Fajardo",
+        "Florida",
+        "Guánica",
+        "Guayama",
+        "Guayanilla",
+        "Guaynabo",
+        "Gurabo",
+        "Hatillo",
+        "Hormigueros",
+        "Humacao",
+        "Isabela",
+        "Jayuya",
+        "Juana Díaz",
+        "Juncos",
+        "Lajas",
+        "Lares",
+        "Las Marías",
+        "Las Piedras",
+        "Loíza",
+        "Luquillo",
+        "Manatí",
+        "Maricao",
+        "Maunabo",
+        "Mayagüez",
+        "Moca",
+        "Morovis",
+        "Naguabo",
+        "Naranjito",
+        "Orocovis",
+        "Patillas",
+        "Peñuelas",
+        "Ponce",
+        "Quebradillas",
+        "Rincón",
+        "Río Grande",
+        "Sabana Grande",
+        "Salinas",
+        "San Germán",
+        "San Juan",
+        "San Lorenzo",
+        "San Sebastián",
+        "Santa Isabel",
+        "Toa Alta",
+        "Toa Baja",
+        "Trujillo Alto",
+        "Utuado",
+        "Vega Alta",
+        "Vega Baja",
+        "Vieques",
+        "Villalba",
+        "Yabucoa",
+        "Yauco",
+      ],
     };
   },
   methods: {
@@ -1420,10 +276,103 @@ export default {
           console.log(error);
         });
     },
-    getServices() {},
-    getClients() {},
-    getOutageType() {},
-    getCause() {},
+    getServices() {
+      let element = [];
+      let uniqueServices = [];
+      axios
+        .get("/api/services-list/")
+        .then((response) => {
+          // this.services = response.data;
+          let temp_services = response.data;
+          for (let item = 0; item < temp_services.length; item++) {
+            element.push(temp_services[item].services);
+          }
+          // TODO: clean duplicates from the @element array.
+          element.forEach((entry) => {
+            if (!uniqueServices.includes(entry)) {
+              uniqueServices.push(entry);
+            }
+          });
+          console.log(uniqueServices);
+          this.services = uniqueServices;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+    getClients() {
+      let element = [];
+      let uniqueClients = [];
+      axios
+        .get("/api/clients-list/")
+        .then((response) => {
+          // this.clients = response.data;
+          let temp_clients = response.data;
+          for (let item = 0; item < temp_clients.length; item++) {
+            element.push(temp_clients[item].clients);
+          }
+          // TODO: clean duplicates from the @element array.
+          element.forEach((entry) => {
+            if (!uniqueClients.includes(entry)) {
+              uniqueClients.push(entry);
+            }
+          });
+          console.log(uniqueClients);
+          this.clients = uniqueClients;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+    getCause() {
+      let element = [];
+      let uniqueCause = [];
+      axios
+        .get("/api/cause-list/")
+        .then((response) => {
+          // this.cause = response.data;
+          let temp_cause = response.data;
+          for (let item = 0; item < temp_cause.length; item++) {
+            element.push(temp_cause[item].causes);
+          }
+          // TODO: clean duplicates from the @element array.
+          element.forEach((entry) => {
+            if (!uniqueCause.includes(entry)) {
+              uniqueCause.push(entry);
+            }
+          });
+          console.log(uniqueCause);
+          this.cause = uniqueCause;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
+    getOutageType() {
+      // TODO: make this function get the outage_type.
+      let element = [];
+      let uniqueOutageType = [];
+      axios
+        .get("/api/outage_type-list/")
+        .then((response) => {
+          // this.outage_type = response.data;
+          let temp_outage_type = response.data;
+          for (let item = 0; item < temp_outage_type.length; item++) {
+            element.push(temp_outage_type[item].outage_type);
+          }
+          // TODO: clean duplicates from the @element array.
+          element.forEach((entry) => {
+            if (!uniqueOutageType.includes(entry)) {
+              uniqueOutageType.push(entry);
+            }
+          });
+          console.log(uniqueOutageType);
+          this.outage_type = uniqueOutageType;
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+    },
 
     // Svg map Checkbox functions for evets.
     pointLocation(event) {
@@ -1443,6 +392,10 @@ export default {
   watch: {},
   mounted() {
     document.title = "Formulario de Reporte Inicial";
+    this.getServices();
+    this.getClients();
+    this.getCause();
+    this.getOutageType();
   },
 };
 
