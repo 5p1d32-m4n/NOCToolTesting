@@ -19,9 +19,6 @@ from rest_framework.routers import DefaultRouter
 from report_builder.api import views as rv
 
 
-# router = DefaultRouter()
-# router.register(r"reports", rv.ReportViewSet)
-
 urlpatterns = [
     path('report-create/', rv.ReportCreateAPIView.as_view(),
          name='report-create'),
