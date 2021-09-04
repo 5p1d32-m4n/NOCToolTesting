@@ -1,6 +1,6 @@
 export default {
   label: "Map of Puerto Rico",
-  viewBox: "-18.1 -27.9 800 260",
+  viewBox: "-18.1 -27.9 800 360",
   locations: [
     {
       name: "Yauco",
