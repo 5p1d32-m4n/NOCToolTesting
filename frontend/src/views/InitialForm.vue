@@ -1,41 +1,43 @@
 <template>
   <b-container fluid>
-    <form>
+    <form v-on:submit.prevent="createReport">
       <!-- First Row of Form (No more than 2 cols per row.) -->
       <b-row>
         <b-col id="report-specific">
           <!-- NOC Ticket Input -->
           <label for="noc-ticket">Taquilla del NOC:</label>
-          <b-form-input
-            placeholder="E.g: GD09RG8S0E97F7E"
-            id="noc-ticket"
-          ></b-form-input>
-          <!-- NOC Ticket Input End. -->
+          <b-form-group>
+            <b-form-input
+              placeholder="E.g: GD09RG8S0E97F7E"
+              id="noc-ticket"
+            ></b-form-input>
+            <!-- NOC Ticket Input End. -->
 
-          <!-- Third Party Ticket Input -->
-          <label for="third-ticket">Taquilla de Tercero:</label>
-          <b-form-input
-            placeholder="E.g: G8S0E97F7E"
-            id="third-ticket"
-          ></b-form-input>
-          <!-- Third Party Ticket Input End -->
+            <!-- Third Party Ticket Input -->
+            <label for="third-ticket">Taquilla de Tercero:</label>
+            <b-form-input
+              placeholder="E.g: G8S0E97F7E"
+              id="third-ticket"
+            ></b-form-input>
+            <!-- Third Party Ticket Input End -->
 
-          <!-- Event Date Input -->
-          <label for="event-date">Fecha de Averia:</label>
-          <b-form-input
-            placeholder="E.g: 10/10/2020"
-            id="event-date"
-            type="date"
-          ></b-form-input>
-          <!-- Event Date Input End. -->
+            <!-- Event Date Input -->
+            <label for="event-date">Fecha de Averia:</label>
+            <b-form-input
+              placeholder="E.g: 10/10/2020"
+              id="event-date"
+              type="date"
+            ></b-form-input>
+            <!-- Event Date Input End. -->
 
-          <!-- Time of Event Input -->
-          <label for="event-time">Tiempo de Averia:</label>
-          <b-form-input
-            placeholder="E.g: 10:10 AM"
-            id="event-time"
-            type="time"
-          ></b-form-input>
+            <!-- Time of Event Input -->
+            <label for="event-time">Tiempo de Averia:</label>
+            <b-form-input
+              placeholder="E.g: 10:10 AM"
+              id="event-time"
+              type="time"
+            ></b-form-input>
+          </b-form-group>
           <!-- Time of Event Input End.  -->
         </b-col>
 
@@ -43,82 +45,99 @@
         <!-- TODO: make these checkbox come from the Django Backend -->
         <!-- TODO: add the followed number input for some cases -->
         <b-col id="report-repetitive">
-          <!-- Service Dropdown lists. -->
-          <b-dropdown
-            block
-            variant="danger"
-            text="Servicios Impactados"
-            class="d-block mt-4"
-            menu-class="w-100"
-          >
-            <b-dropdown-form>
-              <b-form-checkbox-group
-                :options="services"
-                v-model="selectedServices"
-                stacked
-              ></b-form-checkbox-group>
-            </b-dropdown-form>
-          </b-dropdown>
-          <hr />
+          <b-form-group>
+            <!-- Service Dropdown lists. -->
+            <b-form-group>
+              <b-dropdown
+                block
+                variant="danger"
+                text="Servicios Impactados"
+                class="d-block mt-4"
+                menu-class="w-100"
+              >
+                <b-dropdown-form>
+                  <b-form-checkbox-group
+                    :options="services"
+                    v-model="selectedServices"
+                    stacked
+                  >
+                  </b-form-checkbox-group>
+                  <!-- TODO: add number inputs for each checkbox -->
+                  <b-form-input type="number" v-model="selectedServiceAmount"></b-form-input>
+                </b-dropdown-form>
+              </b-dropdown>
+              <hr />
+            </b-form-group>
 
-          <!-- Cause type dropdown -->
-          <b-dropdown
-            variant="danger"
-            block
-            text="Causa de Averia"
-            class="d-block"
-            menu-class="w-100"
-          >
-            <b-dropdown-form>
-              <b-form-checkbox-group
-                :options="cause"
-                v-model="selectedCauses"
-                stacked
-              ></b-form-checkbox-group>
-            </b-dropdown-form>
-          </b-dropdown>
-          <hr />
+            <!-- Cause type dropdown -->
+            <b-form-group>
+              <b-dropdown
+                variant="danger"
+                block
+                text="Causa de Averia"
+                class="d-block"
+                menu-class="w-100"
+              >
+                <b-dropdown-form>
+                  <b-form-checkbox-group
+                    :options="cause"
+                    v-model="selectedCauses"
+                    stacked
+                  ></b-form-checkbox-group>
+                </b-dropdown-form>
+              </b-dropdown>
+            </b-form-group>
+            <hr />
 
-          <!-- Client dropdown -->
-          <b-dropdown
-            variant="danger"
-            block
-            text="Clientes Impactados"
-            class="d-block"
-            menu-class="w-100"
-          >
-            <b-dropdown-form>
-              <b-form-checkbox-group
-                :options="clients"
-                v-model="selectedClients"
-                stacked
-              ></b-form-checkbox-group>
-            </b-dropdown-form>
-          </b-dropdown>
-          <hr />
+            <!-- Client dropdown -->
+            <b-form-group>
+              <b-dropdown
+                variant="danger"
+                block
+                text="Clientes Impactados"
+                class="d-block"
+                menu-class="w-100"
+              >
+                <b-dropdown-form>
+                  <b-form-checkbox-group
+                    :options="clients"
+                    v-model="selectedClients"
+                    stacked
+                  ></b-form-checkbox-group>
+                </b-dropdown-form>
+              </b-dropdown>
+            </b-form-group>
+            <hr />
 
-          <!-- Outage Type Dropdown -->
-          <b-dropdown
-            variant="danger"
-            block
-            text="Tipo de Averia"
-            class="d-block"
-            menu-class="w-100"
-          >
-            <b-dropdown-form>
-              <b-form-checkbox-group
-                :options="outage_type"
-                v-model="selectedOutageTypes"
-                stacked
-              ></b-form-checkbox-group>
-            </b-dropdown-form>
-          </b-dropdown>
-          <hr />
+            <!-- Outage Type Dropdown -->
+            <b-form-group>
+              <b-dropdown
+                variant="danger"
+                block
+                text="Tipo de Averia"
+                class="d-block"
+                menu-class="w-100"
+              >
+                <b-dropdown-form>
+                  <b-form-checkbox-group
+                    :options="outage_type"
+                    v-model="selectedOutageTypes"
+                    stacked
+                  ></b-form-checkbox-group>
+                </b-dropdown-form>
+              </b-dropdown>
+              <hr />
+            </b-form-group>
+          </b-form-group>
         </b-col>
       </b-row>
+
+      <!-- Title Row. -->
       <b-row align-h="center">
         <h4>Municipios Impactados:</h4>
       </b-row>
+
+      <!-- Municipality Row -->
       <b-row>
         <!-- Beginning of Municipality Checkbox. -->
         <b-col>
@@ -152,6 +171,15 @@
         </b-col>
         <!-- Portion SVG Map End. -->
       </b-row>
+
+      <!-- Submit Button row -->
+      <b-row>
+        <div style="center">
+          <b-button type="submit" variant="danger" class="btn-lg btn-block mt-4"
+            >Crear Reporte</b-button
+          >
+        </div>
+      </b-row>
     </form>
   </b-container>
 </template>
@@ -169,12 +197,22 @@ export default {
   },
   data() {
     return {
-      report: {},
+      report: {
+        selectedMunicipalities: null,
+        selectedServices: null,
+        selectedClients: null,
+        selectedServiceAmount: null,
+        selectedClientAmount: null,
+        selectedCauses: null,
+        selectedOutageTypes: null,
+      },
       selectedMunicipalities: [],
       selectedServices: [],
       selectedClients: [],
+      selectedServiceAmount: [],
+      selectedClientAmount: [],
       selectedCauses: [],
-      selectedOutageTypes:[],
+      selectedOutageTypes: [],
       PuertoRico,
       pointedLocation: null,
       focusedLocation: null,
@@ -266,15 +304,11 @@ export default {
   },
   methods: {
     // TODO: Make sure that this has the parts it needs to process report objects properly
-    postReport(report) {
-      axios
-        .post(`/api/report-create/`, report)
-        .then((report) => {
-          this.response = report;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+    createReport() {
+      this.report;
+      axios.post("/api/report-create/").then((response) => {
+        this.report = response.data;
+      });
     },
     getServices() {
       let element = [];
