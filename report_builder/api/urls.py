@@ -13,9 +13,7 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from django.contrib import admin
 from django.urls import path
-from rest_framework.routers import DefaultRouter
 from report_builder.api import views as rv
 
 
@@ -33,7 +31,8 @@ urlpatterns = [
          name='services-create'),
     path('services-detail/<str:pk>/',
          rv.ServicesDetailAPIView.as_view(), name='services-detail'),
-    path('services-list/', rv.ServicesListAPIView.as_view(), name='services-list'),
+    path('services-list/', rv.ServicesListAPIView.as_view(),
+         name='services-list'),
     path('services-update-list/',
          rv.ServicesUpdateListAPIView.as_view(), name='services-update-list'),
     path('services-update/<str:pk>/',
@@ -42,7 +41,8 @@ urlpatterns = [
          name='clients-create'),
     path('clients-detail/<str:pk>/',
          rv.ClientsDetailAPIView.as_view(), name='clients-detail'),
-    path('clients-list/', rv.ClientsListAPIView.as_view(), name='clients-list'),
+    path('clients-list/', rv.ClientsListAPIView.as_view(),
+         name='clients-list'),
     path('clients-update-list/',
          rv.ClientsUpdateListAPIView.as_view(), name='clients-update-list'),
     path('clients-update/<str:pk>/',
@@ -54,7 +54,8 @@ urlpatterns = [
     path('outage_type-list/', rv.OutageTypeListAPIView.as_view(),
          name='outage_type-list'),
     path('outage_type-update-list/',
-         rv.OutageTypeUpdateListAPIView.as_view(), name='outage_type-update-list'),
+         rv.OutageTypeUpdateListAPIView.as_view(),
+         name='outage_type-update-list'),
     path('outage_type-update/<str:pk>/',
          rv.OutageTypeUpdateAPIView.as_view(), name='outage_type-update'),
     path('cause-create/', rv.CauseCreateAPIView.as_view(),

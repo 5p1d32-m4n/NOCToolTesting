@@ -5,18 +5,16 @@ from users.models import CustomUser
 
 class Services(models.Model):
     services = models.CharField(max_length=50, primary_key=False)
-    service_amount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f'Servicios afectados: {self.services} a cantidad de servicios: {self.service_amount}'
+        return f'Servicio: {self.services}'
 
 
 class Clients(models.Model):
     clients = models.CharField(max_length=50)
-    client_amount = models.PositiveIntegerField(default=0)
 
     def __str__(self):
-        return f'Clientes afectados: {self.clients}, a cantidad de clientes: {self.client_amount}'
+        return f'Cliente: {self.clients}'
 
 
 class OutageType(models.Model):
@@ -51,17 +49,18 @@ class Report(models.Model):
         auto_now=False, auto_now_add=False, blank=True, editable=True)
     notes = models.TextField(blank=True, null=True, max_length=500)
     municipalities = models.CharField(max_length=200)
-
-    """
-    Foreign Keys
-    """
-
-    services = models.ManyToManyField(Services, blank=True)
-    # service_amount = models.ManyToManyField(ServiceAmount, blank=True)
-    clients = models.ManyToManyField(Clients, blank=True)
-    # client_amount = models.ManyToManyField(ClientAmount, blank=True)
-    outage_type = models.ManyToManyField(OutageType, blank=True)
-    causes = models.ManyToManyField(Cause, blank=True)
+    services = models.CharField(blank=True, default=None, max_length=250,
+                                null=True)
+    service_amount = models.CharField(blank=True, default="0", max_length=250,
+                                      null=True)
+    clients = models.CharField(blank=True, default=None, max_length=250,
+                               null=True)
+    client_amount = models.CharField(blank=True, default="0", max_length=250,
+                                     null=True)
+    outage_type = models.CharField(blank=True, default=None, max_length=250,
+                                   null=True)
+    causes = models.CharField(blank=True, default=None, max_length=250,
+                              null=True)
 
     def __str__(self):
         return f'Evento: {self.noc_ticket}, en la fecha {self.date_of_outage}'
@@ -75,4 +74,4 @@ class Comment(models.Model):
         CustomUser, on_delete=models.DO_NOTHING, null=True, blank=True)
 
     def __str__(self):
-        return self.comment
+        return f'{self.comment}'

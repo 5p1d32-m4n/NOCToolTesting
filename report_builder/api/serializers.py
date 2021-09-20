@@ -9,22 +9,16 @@ from report_builder.models import (Report,
 class ClientsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Clients
-        fields = ['clients', 'client_amount']
+        fields = ['clients']
 
     def create(self, validated_data):
         return Clients.objects.create(**validated_data)
 
 
-# class ClientAmountSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ClientAmount
-#         fields = ['client_amount']
-
-
 class ServicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Services
-        fields = ['services', 'service_amount']
+        fields = ['services']
 
 
 # class ServiceAmountSerializer(serializers.ModelSerializer):
@@ -46,12 +40,6 @@ class CauseSerializer(serializers.ModelSerializer):
 
 
 class ReportSerializer(WritableNestedModelSerializer):
-    services = ServicesSerializer(many=True)
-    # service_amount = ServiceAmountSerializer(many=True)
-    clients = ClientsSerializer(many=True)
-    # client_amount = ClientAmountSerializer(many=True)
-    outage_type = OutageTypeSerializer(many=True)
-    causes = CauseSerializer(many=True)
 
     class Meta:
         model = Report
@@ -63,8 +51,8 @@ class ReportSerializer(WritableNestedModelSerializer):
                   'notes',
                   'municipalities',
                   'services',
-                  #   'service_amount',
+                  'service_amount',
                   'clients',
-                  #   'client_amount',
+                  'client_amount',
                   'outage_type',
                   'causes']
