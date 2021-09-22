@@ -2,7 +2,6 @@ from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from report_builder.models import (Report,
                                    Clients, Services, OutageType, Cause,
-                                   #    ClientAmount, ServiceAmount,
                                    )
 
 
@@ -19,12 +18,6 @@ class ServicesSerializer(serializers.ModelSerializer):
     class Meta:
         model = Services
         fields = ['services']
-
-
-# class ServiceAmountSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = ServiceAmount
-#         fields = ['service_amount']
 
 
 class OutageTypeSerializer(serializers.ModelSerializer):
@@ -50,9 +43,8 @@ class ReportSerializer(WritableNestedModelSerializer):
                   'time_of_outage',
                   'notes',
                   'municipalities',
-                  'services',
-                  'service_amount',
-                  'clients',
-                  'client_amount',
                   'outage_type',
-                  'causes']
+                  'causes',
+                  'services',
+                  'clients'
+                  ]
