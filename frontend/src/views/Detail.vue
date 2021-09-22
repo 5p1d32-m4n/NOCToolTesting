@@ -52,26 +52,43 @@
             <tr>
               <td class="is-narrow">Clientes Impactados</td>
               <td>
-                <p v-for="client in report.clients" v-bind:key="client">{{ client.clients }}: {{client.client_amount}}</p>
-                <p><strong>Total:</strong></p>
+                <p
+                  v-for="(value, client) in report.clients"
+                  v-bind:key="client"
+                >
+                  {{ client }}: {{ value }}
+                </p>
+                <p>
+                  <strong>Total: {{ totalImpactedClients }}</strong>
+                </p>
+                <p></p>
               </td>
             </tr>
             <tr>
               <td class="is-narrow">Tipo de Averia:</td>
               <td>
-                <p v-for="type in report.outage_type" v-bind:key="type">{{ type.outage_type }}</p>
+                <p>
+                  {{ report.outage_type }}
+                </p>
               </td>
             </tr>
             <tr>
               <td class="is-narrow">Causa de Averia:</td>
               <td>
-                <p v-for="cause in report.causes" v-bind:key="cause">{{ cause.causes }}</p>
+                <p>
+                  {{ report.causes }}
+                </p>
               </td>
             </tr>
             <tr>
               <td class="is-narrow">Equipos Impactados:</td>
               <td>
-                <p v-for="service in report.services" v-bind:key="service">{{ service.services }}:{{service.service_amount}}</p>
+                <p
+                  v-for="(value, service) in report.services"
+                  v-bind:key="service"
+                >
+                  {{ service }}: {{ value }}
+                </p>
               </td>
             </tr>
             <tr>
@@ -87,8 +104,11 @@
           </tbody>
         </table>
       </div>
-      <div class="column" id="map column">
+      <div class="column" id="map_column">
         <strong class="title">Mapa de Impacto Municipal:</strong>
+        <div>
+          <CheckboxSvgMap v-model="selectedMunicipalities" :map="PuertoRico" />
+        </div>
       </div>
     </div>
   </div>
@@ -96,17 +116,48 @@
 
 <script>
 import axios from "axios";
-// import axios from "axios";
+import { CheckboxSvgMap } from "vue-svg-map";
+import PuertoRico from "../assets/puerto-rico";
+import { getLocationName, getSelectedLocationName } from "../utilities";
 export default {
   name: "Detail",
+  components: {
+    CheckboxSvgMap,
+  },
   data() {
     return {
       report: {},
+      pointedLocation: null,
+      focusedLocation: null,
+      PuertoRico,
+      selectedMunicipalities: ["Carolina"],
     };
   },
-  mounted() {
+  watch:{
+    selectedMunicipalities:function (oldMunicipalities, newMunicipalities) {
+      console.log(newMunicipalities);
+    }
+  },
+  computed: {
+    clientName() {
+      for (let client = 0; client < this.report.clients.length; client++) {
+        const element = this.report.clients[client].keys;
+        console.log(element);
+      }
+      return this.element;
+    },
+    totalImpactedClients() {
+      return Object.keys(this.report.clients).reduce(
+        (sum, values) => sum + parseFloat(this.report.clients[values] || 0),
+        0
+      );
+    },
+  },
+  beforeMount() {
     this.getReportData();
-    document.title = `Detalles de Reporte ${this.$route.params.noc_ticket}`
+  },
+  mounted() {
+    document.title = `Detalles de Reporte ${this.$route.params.noc_ticket}`;
   },
   methods: {
     getReportData() {
@@ -116,11 +167,28 @@ export default {
         .get(`/api/report-detail/${noc_ticket_url}/`)
         .then((response) => {
           this.report = response.data;
+          console.log(response.data);
         })
         .catch((error) => {
           console.log(error);
         });
     },
+    setMap() {
+      this.selectedMunicipalities = this.report.municipalities;
+    },
+    pointLocation(event) {
+      this.pointedLocation = getLocationName(event.target);
+    },
+    unpointLocation() {
+      this.pointedLocation = null;
+    },
+    focusLocation(event) {
+      this.focusedLocation = getLocationName(event.target);
+    },
+    blurLocation() {
+      this.focusedLocation = null;
+    },
+    getSelectedLocationName,
   },
 };
 </script>
