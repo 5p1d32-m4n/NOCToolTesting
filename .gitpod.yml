@@ -1,8 +1,8 @@
 
 tasks:
   - init: |
-      pipenv shell
       pipenv install
+      pipenv shell
       python manage.py migrate
     command: |
       python manage.py runserver
