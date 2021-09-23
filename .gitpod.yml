@@ -1,7 +1,7 @@
 
 tasks:
   - init: |
-      pipenv install
+      Y | pipenv install
       pipenv shell
       python manage.py migrate
     command: |
