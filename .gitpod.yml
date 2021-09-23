@@ -1,15 +1,18 @@
 
 tasks:
-  - init: |
+  - name: Python Server
+    init: |
       echo 'y' | pipenv install
       pipenv shell
       python manage.py migrate
     command: |
       python manage.py runserver
-  - command: |
+  - name: NPM Server
+    command: |
       cd frontend && npm install
       npm run serve
-  - command: |
+  - name: Misc Server
+    command: |
       git status
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
 ports:
