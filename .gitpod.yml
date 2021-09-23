@@ -33,3 +33,4 @@ vscode:
     - octref.vetur
     - ms-python.python
     - ms-toolsai.jupyter
+    - aaron-bond.better-comments
