@@ -1,0 +1,36 @@
+
+tasks:
+  - init: |
+      pipenv shell
+      pipenv install
+      python manage.py migrate
+    command: |
+      python manage.py runserver
+  - command: |
+      cd frontend && npm install
+      npm run serve
+
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8000
+    visibility: public
+    onOpen: open-preview
+  - port: 8080
+    visibility: public
+    onOpen: open-preview
+
+vscode:
+  extensions:
+    - zhuangtongfa.material-theme
+    - formulahendry.auto-close-tag
+    - steoates.autoimport
+    - hookyqr.beautify
+    - coenraads.bracket-pair-colorizer-2
+    - dbaeumer.vscode-eslint
+    - eamodio.gitlens
+    - pkief.material-icon-theme
+    - esbenp.prettier-vscode
+    - robbowen.synthwave-vscode
+    - octref.vetur
+    - ms-python.python
+    - ms-toolsai.jupyter
