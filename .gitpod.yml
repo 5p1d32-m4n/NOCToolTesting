@@ -1,12 +1,16 @@
 
+# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
+ports:
+  - port: 8000-8080
+    visibility: public
+    onOpen: open-preview
 tasks:
   - name: Python Server
     init: |
-      echo 'y' | pipenv install
+      pipenv install
       pipenv shell
-    command: |
-      python manage.py makemigrations
       python manage.py migrate
+    command: |
       python manage.py runserver
 
   - name: NPM Server
@@ -16,11 +20,6 @@ tasks:
   - name: Misc Server
     command: |
       git status
-# List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
-ports:
-  - port: 8000-8080
-    visibility: public
-    onOpen: open-preview
 
 
 vscode:
