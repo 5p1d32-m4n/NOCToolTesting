@@ -7,18 +7,18 @@ ports:
 tasks:
   - name: Python Server
     init: >
-      pipenv install &&
-      pipenv shell
+      echo 'y'|pipenv install &&
+      echo 'y'|pipenv shell &&
       python manage.py migrate
     command: >
       python manage.py runserver
 
   - name: NPM Server
-    command: |
+    command: >
       cd frontend && npm install
       npm run serve
   - name: Misc Server
-    command: |
+    command: >
       git status
 
 
