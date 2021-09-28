@@ -8,7 +8,7 @@ tasks:
   - name: Python Server
     init: >
       echo 'y'|pipenv install &&
-      echo 'y'|pipenv shell &&
+      pipenv shell &&
       python manage.py migrate
     command: >
       python manage.py runserver
