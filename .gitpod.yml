@@ -3,14 +3,14 @@
 ports:
   - port: 8000-8080
     visibility: public
-    onOpen: open-preview
+    onOpen: ignore
 tasks:
   - name: Python Server
-    init: |
+    init: >
       pipenv install
-      echo 'y' |pipenv shell
+      pipenv shell &&
       python manage.py migrate
-    command: |
+    command: >
       python manage.py runserver
 
   - name: NPM Server
