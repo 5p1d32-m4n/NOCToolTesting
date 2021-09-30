@@ -107,7 +107,7 @@
       <div class="column" id="map_column">
         <strong class="title">Mapa de Impacto Municipal:</strong>
         <div>
-          <CheckboxSvgMap v-model="selectedMunicipalities" :map="PuertoRico" />
+          <CheckboxSvgMap v-model="selectedMunicipalities" :map="PuertoRico" :value="selectedMunicipalities" />
         </div>
       </div>
     </div>
@@ -130,12 +130,15 @@ export default {
       pointedLocation: null,
       focusedLocation: null,
       PuertoRico,
-      selectedMunicipalities: ["Carolina"],
+      // selectedMunicipalities: [],
+      componentKey: 0,
     };
   },
   watch:{
-    selectedMunicipalities:function (oldMunicipalities, newMunicipalities) {
-      console.log(newMunicipalities);
+    selectedMunicipalities:function () {
+      console.log(this.selectedMunicipalities);
+      this.selectedMunicipalities = [];
+      this.selectedMunicipalities=this.report.municipalities;
     }
   },
   computed: {
@@ -152,12 +155,13 @@ export default {
         0
       );
     },
-  },
-  beforeMount() {
-    this.getReportData();
-  },
-  mounted() {
-    document.title = `Detalles de Reporte ${this.$route.params.noc_ticket}`;
+    selectedMunicipalities: function(){
+      let selection = this.report.municipalities;
+      // console.log(selection);
+      let newSelection = selection.split(',')
+      console.log(newSelection);
+      return newSelection;
+    }
   },
   methods: {
     getReportData() {
@@ -167,7 +171,8 @@ export default {
         .get(`/api/report-detail/${noc_ticket_url}/`)
         .then((response) => {
           this.report = response.data;
-          console.log(response.data);
+          // console.log(response.data);
+          // console.log(this.report);
         })
         .catch((error) => {
           console.log(error);
@@ -175,6 +180,8 @@ export default {
     },
     setMap() {
       this.selectedMunicipalities = this.report.municipalities;
+      this.componentKey += 1;
+      this.$forceUpdate();
     },
     pointLocation(event) {
       this.pointedLocation = getLocationName(event.target);
@@ -190,5 +197,13 @@ export default {
     },
     getSelectedLocationName,
   },
+  mounted() {
+    
+  },
+  beforeMount(){
+    document.title = `Detalles de Reporte ${this.$route.params.noc_ticket}`;
+    this.getReportData();
+    this.setMap();
+  }
 };
 </script>
