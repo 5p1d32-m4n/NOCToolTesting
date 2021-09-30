@@ -9,9 +9,9 @@ tasks:
     init: >
       echo 'y'|pipenv install &&
       pipenv shell
-      python manage.py migrate
-    command: >
+      python manage.py migrate &&
       python manage.py runserver
+    command: >
 
   - name: NPM Server
     command: >
