@@ -60,7 +60,9 @@ INSTALLED_APPS = [
 CORS_ALLOWED_ORIGINS = [
     'http://localhost:8000',
     'http://127.0.0.1:8000',
-    'http://localhost:8080'
+    'http://localhost:8080',
+    'http://127.0.0.1:8000',
+    'https://8000-lime-cattle-yegqyfpg.ws-us18.gitpod.io',
 ]
 
 CORS_ALLOW_ALL_ORIGINS = True
