@@ -56,27 +56,37 @@
                 menu-class="w-100"
               >
                 <b-dropdown-form>
-                  <b-row>
-                    <b-col>
-                      <div v-for="(service, index) in services" :key="index">
-                        <input
-                          type="checkbox"
-                          v-model="service[index]"
-                          :value="service[index]"
-                          id="service"
-                        />
-                        <label :for="service">&nbsp; {{service}} </label>
-                      </div>
-                      <div>
-                        <!-- TODO: add number inputs for each checkbox -->
-                      <b-form-input
-                        type="number"
-                        v-for="service in services"
-                        :key="service"
-                        v-model="selectedServiceAmount"
-                      ></b-form-input>
-                      </div>
-                    </b-col>
+                  <b-row align-h="center">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">
+                            Service Name
+                          </th>
+                          <th scope="col">
+                            Service Amount
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(service, index) in services" :key="index">
+                          <td>
+                            <div>
+                              <b-form-checkbox
+                                v-model="selectedServices"
+                                :value="service"
+                                :id="service"
+                              >&nbsp;{{service}}</b-form-checkbox>
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <b-form-input type="number"></b-form-input>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </b-row>
                 </b-dropdown-form>
               </b-dropdown>
@@ -445,7 +455,6 @@ export default {
     this.getCause();
     this.getOutageType();
   },
-  
 };
 
 // RAW JS for amcharts because nobody works it with vue 3
