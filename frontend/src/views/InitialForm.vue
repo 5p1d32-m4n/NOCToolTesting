@@ -56,14 +56,28 @@
                 menu-class="w-100"
               >
                 <b-dropdown-form>
-                  <b-form-checkbox-group
-                    :options="services"
-                    v-model="selectedServices"
-                    stacked
-                  >
-                  </b-form-checkbox-group>
-                  <!-- TODO: add number inputs for each checkbox -->
-                  <b-form-input type="number" v-model="selectedServiceAmount"></b-form-input>
+                  <b-row>
+                    <b-col>
+                      <div v-for="(service, index) in services" :key="index">
+                        <input
+                          type="checkbox"
+                          v-model="service[index]"
+                          :value="service[index]"
+                          id="service"
+                        />
+                        <label :for="service">&nbsp; {{service}} </label>
+                      </div>
+                      <div>
+                        <!-- TODO: add number inputs for each checkbox -->
+                      <b-form-input
+                        type="number"
+                        v-for="service in services"
+                        :key="service"
+                        v-model="selectedServiceAmount"
+                      ></b-form-input>
+                      </div>
+                    </b-col>
+                  </b-row>
                 </b-dropdown-form>
               </b-dropdown>
               <hr />
@@ -163,9 +177,9 @@
               @blur="blurLocation"
             />
             <div>
-              <p class="b-tooltip tool">
+              <h3 class="b-tooltip tool">
                 Municipio Apuntado: {{ pointedLocation }}
-              </p>
+              </h3>
             </div>
           </div>
         </b-col>
@@ -197,15 +211,7 @@ export default {
   },
   data() {
     return {
-      report: {
-        selectedMunicipalities: null,
-        selectedServices: null,
-        selectedClients: null,
-        selectedServiceAmount: null,
-        selectedClientAmount: null,
-        selectedCauses: null,
-        selectedOutageTypes: null,
-      },
+      report: {},
       selectedMunicipalities: [],
       selectedServices: [],
       selectedClients: [],
@@ -310,6 +316,10 @@ export default {
         this.report = response.data;
       });
     },
+    // Function to build the report from the form inputs.
+    buildReport() {},
+
+    // Get function for Report Services.
     getServices() {
       let element = [];
       let uniqueServices = [];
@@ -334,6 +344,7 @@ export default {
           console.log(error.response);
         });
     },
+    // Get function for Report Clients.
     getClients() {
       let element = [];
       let uniqueClients = [];
@@ -358,6 +369,7 @@ export default {
           console.log(error.response);
         });
     },
+    // Get function for Report Causes.
     getCause() {
       let element = [];
       let uniqueCause = [];
@@ -382,6 +394,8 @@ export default {
           console.log(error.response);
         });
     },
+
+    // Get function for Report Outage Types.
     getOutageType() {
       // TODO: make this function get the outage_type.
       let element = [];
@@ -431,6 +445,7 @@ export default {
     this.getCause();
     this.getOutageType();
   },
+  
 };
 
 // RAW JS for amcharts because nobody works it with vue 3
