@@ -12,7 +12,8 @@ import 'bootstrap-vue/dist/bootstrap-vue.css';
 
 Vue.use(BootstrapVue, IconsPlugin)
 // Vue.use(IconsPlugin)
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+//  Insert here custom url for live hosting url to fetch with axios: https://8000-lime-cattle-yegqyfpg.ws-us18.gitpod.io
+axios.defaults.baseURL = 'https://8000-lime-cattle-yegqyfpg.ws-us18.gitpod.io'
 new Vue({
   router,
   store,
