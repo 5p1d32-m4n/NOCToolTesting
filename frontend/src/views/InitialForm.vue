@@ -60,12 +60,8 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">
-                            Service Name
-                          </th>
-                          <th scope="col">
-                            Service Amount
-                          </th>
+                          <th scope="col">Servicios</th>
+                          <th scope="col">Cantidad Impactda</th>
                         </tr>
                       </thead>
                       <tbody>
@@ -76,7 +72,8 @@
                                 v-model="selectedServices"
                                 :value="service"
                                 :id="service"
-                              >&nbsp;{{service}}</b-form-checkbox>
+                                >&nbsp;{{ service }}</b-form-checkbox
+                              >
                             </div>
                           </td>
                           <td>
@@ -103,11 +100,29 @@
                 menu-class="w-100"
               >
                 <b-dropdown-form>
-                  <b-form-checkbox-group
-                    :options="cause"
-                    v-model="selectedCauses"
-                    stacked
-                  ></b-form-checkbox-group>
+                  <b-row align-h="center">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Causas de Averia:</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(cause, index) in cause" :key="index">
+                          <td>
+                            <div>
+                              <b-form-checkbox
+                                v-model="selectedCauses"
+                                :value="cause"
+                                :id="cause"
+                                >&nbsp;{{ cause }}</b-form-checkbox
+                              >
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </b-row>
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
@@ -123,11 +138,35 @@
                 menu-class="w-100"
               >
                 <b-dropdown-form>
-                  <b-form-checkbox-group
-                    :options="clients"
-                    v-model="selectedClients"
-                    stacked
-                  ></b-form-checkbox-group>
+                  <b-row align-h="center">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Tipo de Cliente:</th>
+                          <th scope="col">Cantidad Impactada:</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(client, index) in clients" :key="index">
+                          <td>
+                            <div>
+                              <b-form-checkbox
+                                v-model="selectedClients"
+                                :value="client"
+                                :id="client"
+                                >&nbsp;{{ client }}</b-form-checkbox
+                              >
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <b-form-input type="number"></b-form-input>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </b-row>
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
