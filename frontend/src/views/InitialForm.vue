@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="createReport">
+    <form v-on:submit.prevent="testFunction">
       <!-- First Row of Form (No more than 2 cols per row.) -->
       <b-row>
         <b-col id="report-specific">
@@ -10,6 +10,7 @@
             <b-form-input
               placeholder="E.g: GD09RG8S0E97F7E"
               id="noc-ticket"
+              :maxlength="15"
             ></b-form-input>
             <!-- NOC Ticket Input End. -->
 
@@ -18,6 +19,7 @@
             <b-form-input
               placeholder="E.g: G8S0E97F7E"
               id="third-ticket"
+              :maxlength="15"
             ></b-form-input>
             <!-- Third Party Ticket Input End -->
 
@@ -71,14 +73,21 @@
                               <b-form-checkbox
                                 v-model="selectedServices"
                                 :value="service"
-                                :id="service"
                                 >&nbsp;{{ service }}</b-form-checkbox
                               >
                             </div>
                           </td>
                           <td>
                             <div>
-                              <b-form-input type="number"></b-form-input>
+                              <!-- <b-form-input type="number" value="0" v-model="selectedServiceAmount[index]"></b-form-input> -->
+                              <input
+                                type="number"
+                                name="amountSlots"
+                                value="0"
+                                required
+                                min="0"
+                                :id="service"
+                              />
                             </div>
                           </td>
                         </tr>
@@ -260,11 +269,36 @@ export default {
   },
   data() {
     return {
-      report: {},
+      report: {
+        report_type: this.reportState,
+        noc_ticket: this.reportNOCTicket,
+        third_party_ticket: this.reportThirdPartyTicket,
+        date_of_outage: this.reportOutageDate,
+        time_of_outage: this.reportOutageTime,
+        notes: this.reportNotes,
+        municipalities: this.selectedMunicipalities,
+        outage_type: this.selectedOutageTypes,
+        causes: this.selectedCauses,
+        services: {
+          "4G": "10",
+        },
+        clients: {
+          Local: "4",
+        },
+      },
+      reportState: "Inicial",
+      reportNOCTicket: "",
+      reportThirdPartyTicket: "",
+      reportOutageDate: null,
+      reportOutageTime: null,
+      reportNotes: null,
       selectedMunicipalities: [],
       selectedServices: [],
       selectedClients: [],
-      selectedServiceAmount: [],
+      selectedServiceAmount: {
+        type: Array,
+        default: "0"
+      },
       selectedClientAmount: [],
       selectedCauses: [],
       selectedOutageTypes: [],
@@ -357,18 +391,50 @@ export default {
       ],
     };
   },
+
   methods: {
+    testFucntion(){},
+    //* Function that builds the Service portion of the Outage report in JS forma
+    buildServiceObject() {
+      // Snippet code to process arrays into keys with empty value matches.
+      //  tempSelectedServices = tempSelectedServices.reduce((previousValue, currentValue) => (previousValue[currentValue]='',previousValue), {});
+      let tempSelectedServices = this.selectedServices;
+      let tempAmount =[];
+      
+      for (let entry = 0; entry < tempSelectedServices.length; entry++) {
+        // console.log(tempSelectedServices[entry])
+        tempAmount.push(document.getElementById(tempSelectedServices[entry]).value)
+      };
+
+      // ! DONE: process the services with their values properly.
+      //  TODO: stringify this so it will match the Djando service field.
+      let testCase = this.selectedServices.reduce(
+        (acc, value, index) => ((acc[value] = tempAmount[index]), acc),
+        {}
+      );
+
+      // console.log(tempAmmount);
+      console.log(testCase);
+    },
+    setServiceZeroes(){
+      let amountSlots=[]
+      for (let service = 0; service < this.services.length; service++) {
+        let stringIndex = service.toString()
+        amountSlots[service] = document.getElementById(`${stringIndex}`).value        
+      }
+      console.log(this.amountSlots);
+    },
     // TODO: Make sure that this has the parts it needs to process report objects properly
     createReport() {
-      this.report;
-      axios.post("/api/report-create/").then((response) => {
-        this.report = response.data;
-      });
+      // axios.post("/api/report-create/").then((response) => {
+      //   this.report = response.data;
+      // });
+      console.log(this.report);
     },
-    // Function to build the report from the form inputs.
+    //* Function to build the report from the form inputs.
     buildReport() {},
 
-    // Get function for Report Services.
+    //* Get function for Report Services.
     getServices() {
       let element = [];
       let uniqueServices = [];
@@ -393,7 +459,7 @@ export default {
           console.log(error.response);
         });
     },
-    // Get function for Report Clients.
+    //* Get function for Report Clients.
     getClients() {
       let element = [];
       let uniqueClients = [];
@@ -418,7 +484,7 @@ export default {
           console.log(error.response);
         });
     },
-    // Get function for Report Causes.
+    //* Get function for Report Causes.
     getCause() {
       let element = [];
       let uniqueCause = [];
@@ -443,8 +509,7 @@ export default {
           console.log(error.response);
         });
     },
-
-    // Get function for Report Outage Types.
+    //* Get function for Report Outage Types.
     getOutageType() {
       // TODO: make this function get the outage_type.
       let element = [];
@@ -470,8 +535,7 @@ export default {
           console.log(error.response);
         });
     },
-
-    // Svg map Checkbox functions for evets.
+    //* Svg map Checkbox functions for evets.
     pointLocation(event) {
       this.pointedLocation = getLocationName(event.target);
     },
@@ -486,13 +550,13 @@ export default {
     },
     getSelectedLocationName,
   },
-  watch: {},
   mounted() {
     document.title = "Formulario de Reporte Inicial";
     this.getServices();
     this.getClients();
     this.getCause();
     this.getOutageType();
+    this.setServiceZeroes();
   },
 };
 
