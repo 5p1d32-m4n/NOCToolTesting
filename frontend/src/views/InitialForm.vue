@@ -1,12 +1,13 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="buildServiceObject">
+    <form v-on:submit.prevent="buildClientObject">
       <!-- First Row of Form (No more than 2 cols per row.) -->
       <b-row>
+        <!-- These are the text input fields (date and time included) -->
         <b-col id="report-specific">
           <!-- NOC Ticket Input -->
-          <label for="noc-ticket">Taquilla del NOC:</label>
           <b-form-group>
+            <label for="noc-ticket">Taquilla del NOC:</label>
             <b-form-input
               placeholder="E.g: GD09RG8S0E97F7E"
               id="noc-ticket"
@@ -49,10 +50,9 @@
             <!-- Service Dropdown lists. -->
             <b-form-group>
               <b-dropdown
-                block
                 variant="danger"
                 text="Servicios Impactados"
-                class="d-block mt-4"
+                class="m-2 d-grid mt-4"
                 menu-class="w-100"
               >
                 <b-dropdown-form>
@@ -94,16 +94,14 @@
                   </b-row>
                 </b-dropdown-form>
               </b-dropdown>
-              <hr />
             </b-form-group>
-
             <!-- Cause type dropdown -->
             <b-form-group>
               <b-dropdown
                 variant="danger"
                 block
                 text="Causa de Averia"
-                class="d-block"
+                class="m-2 d-grid mt-3"
                 menu-class="w-100"
               >
                 <b-dropdown-form>
@@ -133,15 +131,13 @@
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
-            <hr />
-
             <!-- Client dropdown -->
             <b-form-group>
               <b-dropdown
                 variant="danger"
                 block
                 text="Clientes Impactados"
-                class="d-block"
+                class="m-2 d-grid mt-3"
                 menu-class="w-100"
               >
                 <b-dropdown-form>
@@ -160,7 +156,6 @@
                               <b-form-checkbox
                                 v-model="selectedClients"
                                 :value="client"
-                                :id="client"
                                 >&nbsp;{{ client }}</b-form-checkbox
                               >
                             </div>
@@ -183,15 +178,13 @@
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
-            <hr />
-
             <!-- Outage Type Dropdown -->
             <b-form-group>
               <b-dropdown
                 variant="danger"
                 block
                 text="Tipo de Averia"
-                class="d-block"
+                class="m-2 d-grid mt-3"
                 menu-class="w-100"
               >
                 <b-dropdown-form>
@@ -202,12 +195,11 @@
                   ></b-form-checkbox-group>
                 </b-dropdown-form>
               </b-dropdown>
-              <hr />
             </b-form-group>
           </b-form-group>
         </b-col>
       </b-row>
-
+      <hr />
       <!-- Title Row. -->
       <b-row align-h="center">
         <h4>Municipios Impactados:</h4>
@@ -401,8 +393,6 @@ export default {
     testFucntion() {},
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
-      // Snippet code to process arrays into keys with empty value matches.
-      //  tempSelectedServices = tempSelectedServices.reduce((previousValue, currentValue) => (previousValue[currentValue]='',previousValue), {});
       let tempSelectedServices = this.selectedServices;
       let tempAmount = [];
 
@@ -411,20 +401,16 @@ export default {
           document.getElementById(tempSelectedServices[entry]).value
         );
       }
-
+      // * TESTING: stringify this so it will match the Djando service field.
       let testCase = this.selectedServices.reduce(
         (acc, value, index) => ((acc[value] = tempAmount[index]), acc),
         {}
       );
       let servicesObject = JSON.stringify(testCase);
       this.stringifiedServices = servicesObject;
-      // this.report.services = servicesObject;
-      // console.log(JSON.stringify(testCase));
     },
     buildClientObject() {
       // TODO: transfer this function to do the same operation as @buildServiceObject()
-      // Snippet code to process arrays into keys with empty value matches.
-      //  tempSelectedServices = tempSelectedServices.reduce((previousValue, currentValue) => (previousValue[currentValue]='',previousValue), {});
       let tempSelectedClients = this.selectedClients;
       let tempAmount = [];
 
@@ -434,15 +420,14 @@ export default {
         );
       }
 
-      //  TODO: stringify this so it will match the Djando service field.
+      //*  TESTING: stringify this so it will match the Djando service field.
       let testCase = this.selectedClients.reduce(
         (acc, value, index) => ((acc[value] = tempAmount[index]), acc),
         {}
       );
       let clientsObject = JSON.stringify(testCase);
+      console.log(clientsObject);
       this.stringifiedClients = clientsObject;
-      // this.report.services = servicesObject;
-      // console.log(JSON.stringify(testCase));
     },
     setServiceZeroes() {
       let amountSlots = [];
