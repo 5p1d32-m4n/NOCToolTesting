@@ -5,21 +5,10 @@
         <p class="title mb-4">Tablero Principal De NOC Claro</p>
       </div>
     </div>
-    <div
-      id="button-row"
-      class="
-        level
-        buttons
-        is-centered
-        is-grouped
-        mt-4
-        mb-4
-        is-size-4
-        text-center
-      "
+    <div id="button-row" class="buttons is-centered is-grouped text-center gap-2 d-md-block"
     >
       <div class="button has-background-info has-text-white is-large">
-        <div class="card-content font-weight-bolder">
+        <div class="font-weight-bolder">
           <span><p class="media-content">Archivos de Reporte</p></span>
         </div>
       </div>
