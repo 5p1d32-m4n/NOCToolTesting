@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="testFunction">
+    <form v-on:submit.prevent="buildServiceObject">
       <!-- First Row of Form (No more than 2 cols per row.) -->
       <b-row>
         <b-col id="report-specific">
@@ -44,8 +44,6 @@
         </b-col>
 
         <!-- Beginning of Dropdown lists. -->
-        <!-- TODO: make these checkbox come from the Django Backend -->
-        <!-- TODO: add the followed number input for some cases -->
         <b-col id="report-repetitive">
           <b-form-group>
             <!-- Service Dropdown lists. -->
@@ -169,7 +167,13 @@
                           </td>
                           <td>
                             <div>
-                              <b-form-input type="number"></b-form-input>
+                              <input
+                                type="number"
+                                name="clientAmount"
+                                value="0"
+                                min="0"
+                                :id="client"
+                              />
                             </div>
                           </td>
                         </tr>
@@ -279,12 +283,8 @@ export default {
         municipalities: this.selectedMunicipalities,
         outage_type: this.selectedOutageTypes,
         causes: this.selectedCauses,
-        services: {
-          "4G": "10",
-        },
-        clients: {
-          Local: "4",
-        },
+        services: this.stringifiedServices,
+        clients: this.stringifiedClients,
       },
       reportState: "Inicial",
       reportNOCTicket: "",
@@ -297,11 +297,16 @@ export default {
       selectedClients: [],
       selectedServiceAmount: {
         type: Array,
-        default: "0"
+        default: "0",
       },
-      selectedClientAmount: [],
+      selectedClientAmount: {
+        type: Array,
+        default: "0",
+      },
       selectedCauses: [],
       selectedOutageTypes: [],
+      stringifiedServices: JSON,
+      stringifiedClients: JSON,
       PuertoRico,
       pointedLocation: null,
       focusedLocation: null,
@@ -393,36 +398,59 @@ export default {
   },
 
   methods: {
-    testFucntion(){},
+    testFucntion() {},
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
       // Snippet code to process arrays into keys with empty value matches.
       //  tempSelectedServices = tempSelectedServices.reduce((previousValue, currentValue) => (previousValue[currentValue]='',previousValue), {});
       let tempSelectedServices = this.selectedServices;
-      let tempAmount =[];
-      
-      for (let entry = 0; entry < tempSelectedServices.length; entry++) {
-        // console.log(tempSelectedServices[entry])
-        tempAmount.push(document.getElementById(tempSelectedServices[entry]).value)
-      };
+      let tempAmount = [];
 
-      // ! DONE: process the services with their values properly.
-      //  TODO: stringify this so it will match the Djando service field.
+      for (let entry = 0; entry < tempSelectedServices.length; entry++) {
+        tempAmount.push(
+          document.getElementById(tempSelectedServices[entry]).value
+        );
+      }
+
       let testCase = this.selectedServices.reduce(
         (acc, value, index) => ((acc[value] = tempAmount[index]), acc),
         {}
       );
-
-      // console.log(tempAmmount);
-      console.log(testCase);
+      let servicesObject = JSON.stringify(testCase);
+      this.stringifiedServices = servicesObject;
+      // this.report.services = servicesObject;
+      // console.log(JSON.stringify(testCase));
     },
-    setServiceZeroes(){
-      let amountSlots=[]
-      for (let service = 0; service < this.services.length; service++) {
-        let stringIndex = service.toString()
-        amountSlots[service] = document.getElementById(`${stringIndex}`).value        
+    buildClientObject() {
+      // TODO: transfer this function to do the same operation as @buildServiceObject()
+      // Snippet code to process arrays into keys with empty value matches.
+      //  tempSelectedServices = tempSelectedServices.reduce((previousValue, currentValue) => (previousValue[currentValue]='',previousValue), {});
+      let tempSelectedClients = this.selectedClients;
+      let tempAmount = [];
+
+      for (let entry = 0; entry < tempSelectedClients.length; entry++) {
+        tempAmount.push(
+          document.getElementById(tempSelectedClients[entry]).value
+        );
       }
-      console.log(this.amountSlots);
+
+      //  TODO: stringify this so it will match the Djando service field.
+      let testCase = this.selectedClients.reduce(
+        (acc, value, index) => ((acc[value] = tempAmount[index]), acc),
+        {}
+      );
+      let clientsObject = JSON.stringify(testCase);
+      this.stringifiedClients = clientsObject;
+      // this.report.services = servicesObject;
+      // console.log(JSON.stringify(testCase));
+    },
+    setServiceZeroes() {
+      let amountSlots = [];
+      for (let service = 0; service < this.services.length; service++) {
+        let stringIndex = service.toString();
+        amountSlots[service] = document.getElementById(`${stringIndex}`).value;
+      }
+      console.log(amountSlots);
     },
     // TODO: Make sure that this has the parts it needs to process report objects properly
     createReport() {
