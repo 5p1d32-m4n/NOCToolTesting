@@ -7,8 +7,8 @@ ports:
 tasks:
   - name: Python Server
     init: >
-      echo 'y'|pipenv install &&
-      pipenv shell
+      echo 'y'|pipenv shell &&
+      pipenv install
       python manage.py migrate
     command: >
       python manage.py runserver
