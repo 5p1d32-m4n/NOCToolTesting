@@ -57,14 +57,7 @@
           </td>
           <td>{{ report.third_party_ticket }}</td>
           <td>{{ report.municipalities }}</td>
-          <td>
-            <p
-              v-for="outage_type in report.outage_type"
-              :key="outage_type.outage_type"
-            >
-              {{ outage_type.outage_type }}
-            </p>
-          </td>
+          <td>{{report.outage_type}}</td>
         </tr>
       </table>
     </div>
