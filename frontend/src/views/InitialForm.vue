@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="buildClientObject">
+    <form v-on:submit.prevent="testFucntion">
       <!-- First Row of Form (No more than 2 cols per row.) -->
       <b-row>
         <!-- These are the text input fields (date and time included) -->
@@ -12,6 +12,7 @@
               placeholder="E.g: GD09RG8S0E97F7E"
               id="noc-ticket"
               :maxlength="15"
+              v-model="reportNOCTicket"
             ></b-form-input>
             <!-- NOC Ticket Input End. -->
 
@@ -21,6 +22,7 @@
               placeholder="E.g: G8S0E97F7E"
               id="third-ticket"
               :maxlength="15"
+              v-model="reportThirdPartyTicket"
             ></b-form-input>
             <!-- Third Party Ticket Input End -->
 
@@ -30,6 +32,7 @@
               placeholder="E.g: 10/10/2020"
               id="event-date"
               type="date"
+              v-model="reportOutageDate"
             ></b-form-input>
             <!-- Event Date Input End. -->
 
@@ -39,6 +42,7 @@
               placeholder="E.g: 10:10 AM"
               id="event-time"
               type="time"
+              v-model="reportOutageTime"
             ></b-form-input>
           </b-form-group>
           <!-- Time of Event Input End.  -->
@@ -266,17 +270,17 @@ export default {
   data() {
     return {
       report: {
-        report_type: this.reportState,
-        noc_ticket: this.reportNOCTicket,
-        third_party_ticket: this.reportThirdPartyTicket,
-        date_of_outage: this.reportOutageDate,
-        time_of_outage: this.reportOutageTime,
-        notes: this.reportNotes,
-        municipalities: this.selectedMunicipalities,
-        outage_type: this.selectedOutageTypes,
-        causes: this.selectedCauses,
-        services: this.stringifiedServices,
-        clients: this.stringifiedClients,
+        report_type: null,
+        noc_ticket: null,
+        third_party_ticket: null,
+        date_of_outage: null,
+        time_of_outage: null,
+        notes: null,
+        municipalities: null,
+        outage_type: null,
+        causes: null,
+        services: null,
+        clients: null,
       },
       reportState: "Inicial",
       reportNOCTicket: "",
@@ -390,7 +394,35 @@ export default {
   },
 
   methods: {
-    testFucntion() {},
+    // ? Test dump function
+    testFucntion() {
+      let tempReport = {}
+      tempReport.report_type = this.reportState
+      tempReport.noc_ticket = this.reportNOCTicket
+      tempReport.third_party_ticket = this.reportThirdPartyTicket  
+      tempReport.date_of_outage = this.reportOutageDate
+      tempReport.time_of_outage = this.reportOutageTime
+      tempReport.notes = this.reportNotes
+      let tempMuni = this.selectedMunicipalities.toString()
+      tempReport.municipalities = tempMuni
+      let tempOutType = this.selectedOutageTypes.toString()
+      tempReport.outage_type = tempOutType
+      tempReport.causes = this.selectedCauses
+      this.buildServiceObject();
+      this.buildClientObject();
+      tempReport.services = this.stringifiedServices
+      tempReport.clients = this.stringifiedClients
+      // tempReport = JSON.stringify(this.report)
+      console.log(tempReport)
+      axios
+        .post("/api/report-create/")
+        .then((response) => {
+          response.data = tempReport
+        })
+        .catch((error) => {
+          console.log(error.response)
+        });
+    },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
       let tempSelectedServices = this.selectedServices;
