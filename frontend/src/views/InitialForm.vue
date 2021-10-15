@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="testFucntion">
+    <form v-on:submit.prevent="createReport">
       <!-- First Row of Form (No more than 2 cols per row.) -->
       <b-row>
         <!-- These are the text input fields (date and time included) -->
@@ -395,7 +395,9 @@ export default {
 
   methods: {
     // ? Test dump function
-    testFucntion() {
+
+    // * Function that creates report Objects
+    createReport() {
       let tempReport = {}
       tempReport.report_type = this.reportState
       tempReport.noc_ticket = this.reportNOCTicket
@@ -415,19 +417,8 @@ export default {
       tempReport.clients = this.stringifiedClients
       // tempReport = JSON.stringify(this.report)
       console.log(tempReport)
-      axios({
-        method: 'post',
-        url: '/api/report-create/',
-        data:{
-          report: tempReport
-        },
-        auth:{
-          username: 'bb81204',
-          password: 'grimm-94'
-        }
-      }).catch((error) => {
-        console.log(error)
-      })
+      const res = axios.post("/api/report-create/", tempReport);
+      console.log(res);
     },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
@@ -474,13 +465,6 @@ export default {
         amountSlots[service] = document.getElementById(`${stringIndex}`).value;
       }
       console.log(amountSlots);
-    },
-    // TODO: Make sure that this has the parts it needs to process report objects properly
-    createReport() {
-      // axios.post("/api/report-create/").then((response) => {
-      //   this.report = response.data;
-      // });
-      console.log(this.report);
     },
 
     //* Get function for Report Services.
