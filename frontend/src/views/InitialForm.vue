@@ -407,21 +407,27 @@ export default {
       tempReport.municipalities = tempMuni
       let tempOutType = this.selectedOutageTypes.toString()
       tempReport.outage_type = tempOutType
-      tempReport.causes = this.selectedCauses
+      let tempReportCauses = this.selectedCauses.toString()
+      tempReport.causes = tempReportCauses
       this.buildServiceObject();
       this.buildClientObject();
       tempReport.services = this.stringifiedServices
       tempReport.clients = this.stringifiedClients
       // tempReport = JSON.stringify(this.report)
       console.log(tempReport)
-      axios
-        .post("/api/report-create/")
-        .then((response) => {
-          response.data = tempReport
-        })
-        .catch((error) => {
-          console.log(error.response)
-        });
+      axios({
+        method: 'post',
+        url: '/api/report-create/',
+        data:{
+          report: tempReport
+        },
+        auth:{
+          username: 'bb81204',
+          password: 'grimm-94'
+        }
+      }).catch((error) => {
+        console.log(error)
+      })
     },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
@@ -476,10 +482,9 @@ export default {
       // });
       console.log(this.report);
     },
-    //* Function to build the report from the form inputs.
-    buildReport() {},
 
     //* Get function for Report Services.
+    // TODO reformat axios section
     getServices() {
       let element = [];
       let uniqueServices = [];
@@ -505,6 +510,7 @@ export default {
         });
     },
     //* Get function for Report Clients.
+    // TODO reformat axios section
     getClients() {
       let element = [];
       let uniqueClients = [];
@@ -530,6 +536,7 @@ export default {
         });
     },
     //* Get function for Report Causes.
+    // TODO reformat axios section
     getCause() {
       let element = [];
       let uniqueCause = [];
@@ -555,6 +562,7 @@ export default {
         });
     },
     //* Get function for Report Outage Types.
+    // TODO reformat axios section
     getOutageType() {
       // TODO: make this function get the outage_type.
       let element = [];
