@@ -269,40 +269,27 @@ export default {
   },
   data() {
     return {
-      report: {
-        report_type: null,
-        noc_ticket: null,
-        third_party_ticket: null,
-        date_of_outage: null,
-        time_of_outage: null,
-        notes: null,
-        municipalities: null,
-        outage_type: null,
-        causes: null,
-        services: null,
-        clients: null,
-      },
-      reportState: "Inicial",
+      reportType: "Inicial",
       reportNOCTicket: "",
       reportThirdPartyTicket: "",
       reportOutageDate: null,
       reportOutageTime: null,
       reportNotes: null,
       selectedMunicipalities: [],
+      selectedOutageTypes: [],
+      selectedCauses: [],
       selectedServices: [],
-      selectedClients: [],
       selectedServiceAmount: {
         type: Array,
         default: "0",
       },
+      selectedClients: [],
       selectedClientAmount: {
         type: Array,
         default: "0",
       },
-      selectedCauses: [],
-      selectedOutageTypes: [],
-      stringifiedServices: JSON,
-      stringifiedClients: JSON,
+      ServicesObject: null,
+      ClientsObject: null,
       PuertoRico,
       pointedLocation: null,
       focusedLocation: null,
@@ -398,65 +385,90 @@ export default {
 
     // * Function that creates report Objects
     createReport() {
-      let tempReport = {}
-      tempReport.report_type = this.reportState
-      tempReport.noc_ticket = this.reportNOCTicket
-      tempReport.third_party_ticket = this.reportThirdPartyTicket  
-      tempReport.date_of_outage = this.reportOutageDate
-      tempReport.time_of_outage = this.reportOutageTime
-      tempReport.notes = this.reportNotes
-      let tempMuni = this.selectedMunicipalities.toString()
-      tempReport.municipalities = tempMuni
-      let tempOutType = this.selectedOutageTypes.toString()
-      tempReport.outage_type = tempOutType
-      let tempReportCauses = this.selectedCauses.toString()
-      tempReport.causes = tempReportCauses
       this.buildServiceObject();
       this.buildClientObject();
-      tempReport.services = this.stringifiedServices
-      tempReport.clients = this.stringifiedClients
-      // tempReport = JSON.stringify(this.report)
-      console.log(tempReport)
-      const res = axios.post("/api/report-create/", tempReport);
-      console.log(res);
+      let tempReport = {
+        report_type: this.reportType,
+        noc_ticket: this.reportNOCTicket,
+        third_party_ticket: this.reportThirdPartyTicket,
+        date_of_outage: this.reportOutageDate,
+        time_of_outage: this.reportOutageTime,
+        notes: this.reportNotes,
+        municipalities: this.selectedMunicipalities.toString(),
+        outage_type: this.selectedOutageTypes.toString(),
+        causes: this.selectedCauses.toString(),
+        services: this.ServicesObject,
+        clients: this.ClientsObject,
+      };
+      // tempReport.report_type = this.reportType;
+      // tempReport.noc_ticket = this.reportNOCTicket;
+      // tempReport.third_party_ticket = this.reportThirdPartyTicket;
+      // tempReport.date_of_outage = this.reportOutageDate;
+      // tempReport.time_of_outage = this.reportOutageTime;
+      // tempReport.notes = this.reportNotes;
+      // let tempMuni = this.selectedMunicipalities.toString();
+      // tempReport.municipalities = tempMuni;
+      // let tempOutType = this.selectedOutageTypes.toString();
+      // tempReport.outage_type = tempOutType;
+      // let tempReportCauses = this.selectedCauses.toString();
+      // tempReport.causes = tempReportCauses;
+
+      // tempReport.services = this.stringifiedServices;
+      // tempReport.clients = this.stringifiedClients;
+      // // tempReport = JSON.stringify(this.report)
+      // ? The problem data here seems to be causes, municipalities and outage_type.
+      // ? The string format appears to be incorrect.
+      console.log(tempReport);
+      axios.post("/api/report-create/", tempReport).catch((error) =>{
+        console.log(error.response);
+      });
+      // console.log(res);
     },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
-      let tempSelectedServices = this.selectedServices;
-      let tempAmount = [];
 
-      for (let entry = 0; entry < tempSelectedServices.length; entry++) {
-        tempAmount.push(
-          document.getElementById(tempSelectedServices[entry]).value
+      // !Testing new Objec building method.
+      let serviceName = this.selectedServices;
+      let serviceAmount = []
+
+      for (let entry = 0; entry < serviceName.length; entry++) {
+        serviceAmount.push(
+          document.getElementById(serviceName[entry]).value
         );
       }
       // * TESTING: stringify this so it will match the Djando service field.
-      let testCase = this.selectedServices.reduce(
-        (acc, value, index) => ((acc[value] = tempAmount[index]), acc),
+      console.log(serviceName)
+      console.log(serviceAmount)
+      let serviceObject = serviceName.reduce(
+        (acc, key, index) =>
+          Object.assign(acc, { [key]: serviceAmount[index] }),
         {}
       );
-      let servicesObject = JSON.stringify(testCase);
-      this.stringifiedServices = servicesObject;
+      // console.log("Hey service Object: " + serviceObject);
+      this.ServicesObject = JSON.stringify(serviceObject)
+      console.log("Stringy Service: " + this.ServicesObject)
+      // this.stringifiedServices;
     },
     buildClientObject() {
-      // TODO: transfer this function to do the same operation as @buildServiceObject()
-      let tempSelectedClients = this.selectedClients;
-      let tempAmount = [];
 
-      for (let entry = 0; entry < tempSelectedClients.length; entry++) {
-        tempAmount.push(
-          document.getElementById(tempSelectedClients[entry]).value
+      // ! Testing
+      let clientName = this.selectedClients;
+      let clientAmount = [];
+
+      for (let entry = 0; entry < clientName.length; entry++) {
+        clientAmount.push(
+          document.getElementById(clientName[entry]).value
         );
       }
-
       //*  TESTING: stringify this so it will match the Djando service field.
-      let testCase = this.selectedClients.reduce(
-        (acc, value, index) => ((acc[value] = tempAmount[index]), acc),
+      let clientObject = clientName.reduce(
+        (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
         {}
       );
-      let clientsObject = JSON.stringify(testCase);
-      console.log(clientsObject);
-      this.stringifiedClients = clientsObject;
+      // console.log(clientObject);
+      this.ClientsObject = JSON.stringify(clientObject);
+      console.log("Stringy Client: "+ this.ClientsObject)
+      // return this.stringifiedClients;
     },
     setServiceZeroes() {
       let amountSlots = [];
