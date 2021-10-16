@@ -81,7 +81,6 @@
                           </td>
                           <td>
                             <div>
-                              <!-- <b-form-input type="number" value="0" v-model="selectedServiceAmount[index]"></b-form-input> -->
                               <input
                                 type="number"
                                 name="amountSlots"
@@ -400,75 +399,50 @@ export default {
         services: this.ServicesObject,
         clients: this.ClientsObject,
       };
-      // tempReport.report_type = this.reportType;
-      // tempReport.noc_ticket = this.reportNOCTicket;
-      // tempReport.third_party_ticket = this.reportThirdPartyTicket;
-      // tempReport.date_of_outage = this.reportOutageDate;
-      // tempReport.time_of_outage = this.reportOutageTime;
-      // tempReport.notes = this.reportNotes;
-      // let tempMuni = this.selectedMunicipalities.toString();
-      // tempReport.municipalities = tempMuni;
-      // let tempOutType = this.selectedOutageTypes.toString();
-      // tempReport.outage_type = tempOutType;
-      // let tempReportCauses = this.selectedCauses.toString();
-      // tempReport.causes = tempReportCauses;
-
-      // tempReport.services = this.stringifiedServices;
-      // tempReport.clients = this.stringifiedClients;
-      // // tempReport = JSON.stringify(this.report)
-      // ? The problem data here seems to be causes, municipalities and outage_type.
-      // ? The string format appears to be incorrect.
+      // * The problem data here seems to be causes, municipalities and outage_type.
+      // * The string format appears to be incorrect.
       console.log(tempReport);
-      axios.post("/api/report-create/", tempReport).catch((error) =>{
+      axios.post("/api/report-create/", tempReport).catch((error) => {
         console.log(error.response);
       });
-      // console.log(res);
     },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
-
       // !Testing new Objec building method.
       let serviceName = this.selectedServices;
-      let serviceAmount = []
+      let serviceAmount = [];
 
       for (let entry = 0; entry < serviceName.length; entry++) {
-        serviceAmount.push(
-          document.getElementById(serviceName[entry]).value
-        );
+        serviceAmount.push(document.getElementById(serviceName[entry]).value);
       }
       // * TESTING: stringify this so it will match the Djando service field.
-      console.log(serviceName)
-      console.log(serviceAmount)
+      console.log(serviceName);
+      console.log(serviceAmount);
       let serviceObject = serviceName.reduce(
         (acc, key, index) =>
           Object.assign(acc, { [key]: serviceAmount[index] }),
         {}
       );
       // console.log("Hey service Object: " + serviceObject);
-      this.ServicesObject = JSON.stringify(serviceObject)
-      console.log("Stringy Service: " + this.ServicesObject)
+      this.ServicesObject = JSON.stringify(serviceObject);
+      console.log("Stringy Service: " + this.ServicesObject);
       // this.stringifiedServices;
     },
     buildClientObject() {
-
       // ! Testing
       let clientName = this.selectedClients;
       let clientAmount = [];
 
       for (let entry = 0; entry < clientName.length; entry++) {
-        clientAmount.push(
-          document.getElementById(clientName[entry]).value
-        );
+        clientAmount.push(document.getElementById(clientName[entry]).value);
       }
       //*  TESTING: stringify this so it will match the Djando service field.
       let clientObject = clientName.reduce(
         (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
         {}
       );
-      // console.log(clientObject);
       this.ClientsObject = JSON.stringify(clientObject);
-      console.log("Stringy Client: "+ this.ClientsObject)
-      // return this.stringifiedClients;
+      console.log("Stringy Client: " + this.ClientsObject);
     },
     setServiceZeroes() {
       let amountSlots = [];
@@ -487,7 +461,6 @@ export default {
       axios
         .get("/api/services-list/")
         .then((response) => {
-          // this.services = response.data;
           let temp_services = response.data;
           for (let item = 0; item < temp_services.length; item++) {
             element.push(temp_services[item].services);
@@ -566,7 +539,6 @@ export default {
       axios
         .get("/api/outage_type-list/")
         .then((response) => {
-          // this.outage_type = response.data;
           let temp_outage_type = response.data;
           for (let item = 0; item < temp_outage_type.length; item++) {
             element.push(temp_outage_type[item].outage_type);
