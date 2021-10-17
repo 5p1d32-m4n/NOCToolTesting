@@ -21,7 +21,7 @@
           <td>
             <router-link
               v-bind:to="{
-                name: 'Detail',
+                name: 'UpdateForm',
                 params: { noc_ticket: report.noc_ticket },
               }"
             >
