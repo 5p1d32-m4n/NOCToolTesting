@@ -4,6 +4,7 @@ import Home from "../views/Home.vue";
 import Detail from "../views/Detail.vue"
 import UpdateList from "../views/UpdateList.vue"
 import InitialForm from "../views/InitialForm.vue"
+import UpdateForm from "../views/UpdateForm.vue"
 Vue.use(VueRouter);
 
 const routes = [{
@@ -20,6 +21,11 @@ const routes = [{
     path: "/report-update-list/",
     name: "UpdateList",
     component: UpdateList,
+  },
+  {
+    path: "/report-update/:noc_ticket/",
+    name: "UpdateForm",
+    component: UpdateForm,
   },
   {
     path: "/report-create/",
