@@ -239,6 +239,9 @@
               </h3>
             </div>
           </div>
+          <div>
+            <input type="text" class="form-control" id="notes" v-model="reportNotes" :maxlength="500">
+          </div>
         </b-col>
         <!-- Portion SVG Map End. -->
       </b-row>
@@ -273,7 +276,7 @@ export default {
       reportThirdPartyTicket: "",
       reportOutageDate: null,
       reportOutageTime: null,
-      reportNotes: null,
+      reportNotes: "",
       selectedMunicipalities: [],
       selectedOutageTypes: [],
       selectedCauses: [],
