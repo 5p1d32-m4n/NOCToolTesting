@@ -94,7 +94,56 @@
                               <input
                                 type="number"
                                 name="amountSlots"
-                                value="0"
+                                value="report.service[index].values"
+                                required
+                                min="0"
+                                :id="service"
+                                v-if="service[index] == oldServices[index]"
+                              />
+                              <input type="text" v-else>
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </b-row>
+                </b-dropdown-form>
+              </b-dropdown>
+            </b-form-group>
+            <!-- ALT SERVICE DROPDOWN -->
+            <b-form-group>
+              <b-dropdown
+                variant="danger"
+                text="Servicios Impactados ALTERNO"
+                class="m-2 d-grid mt-4"
+                menu-class="w-100"
+              >
+                <b-dropdown-form>
+                  <b-row align-h="center">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Servicios</th>
+                          <th scope="col">Cantidad Impactda</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(service, index) in services" :key="index">
+                          <td>
+                            <div>
+                              <b-form-checkbox
+                                v-model="oldServices"
+                                :value="service"
+                                >&nbsp;{{ service }}</b-form-checkbox
+                              >
+                            </div>
+                          </td>
+                          <td>
+                            <div>
+                              <input
+                                type="number"
+                                name="amountSlots"
+                                v-model="oldServAmount[index]"
                                 required
                                 min="0"
                                 :id="service"
@@ -108,6 +157,7 @@
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
+            <!-- END ALT SERVICE DROPDOWN -->
             <!-- Cause type dropdown -->
             <b-form-group>
               <b-dropdown
@@ -212,31 +262,74 @@
           </b-form-group>
         </b-col>
       </b-row>
+      <hr />
+      <!-- Title Row. -->
+      <b-row align-h="center">
+        <h4>Municipios Impactados:</h4>
+      </b-row>
+
+      <!-- Municipality Row -->
+      <b-row>
+        <!-- Beginning of Municipality Checkbox. -->
+        <b-col>
+          <div class="overflow-auto" id="municipality-table">
+            <b-form-checkbox-group
+              v-model="report.municipalities"
+              :options="municipalities"
+              stacked
+            ></b-form-checkbox-group>
+          </div>
+        </b-col>
+        <!-- Beginning of Municipality CheckboxEnd. -->
+
+        <!-- Beggingin of SVG Map. -->
+        <b-col>
+          <div>
+            <CheckboxSvgMap
+              v-model="selectedMunicipalities"
+              :map="PuertoRico"
+              @mouseover="pointLocation"
+              @mouseout="unpointLocation"
+              @focus="focusLocation"
+              @blur="blurLocation"
+            />
+            <div>
+              <h3 class="b-tooltip tool">
+                Municipio Apuntado: {{ pointedLocation }}
+              </h3>
+            </div>
+          </div>
+          <div>
+            <input type="text" class="form-control" id="notes" v-model="report.notes" :maxlength="500">
+          </div>
+        </b-col>
+        <!-- Portion SVG Map End. -->
+      </b-row>
     </form>
   </b-container>
 </template>
 
 <script>
 import axios from "axios";
-// import { CheckboxSvgMap } from "vue-svg-map";
-// import PuertoRico from "../assets/puerto-rico";
-// import { getLocationName, getSelectedLocationName } from "../utilities";
+import { CheckboxSvgMap } from "vue-svg-map";
+import PuertoRico from "../assets/puerto-rico";
+import { getLocationName, getSelectedLocationName } from "../utilities";
 
 export default {
   name: "UpdateForm",
   components: {
-    // CheckboxSvgMap,
+    CheckboxSvgMap,
   },
   data() {
     return {
       report: {
-        report_type: null,
-        noc_ticket: null,
-        third_party_ticket: null,
-        date_of_outage: null,
-        time_of_outage: null,
-        notes: null,
-        municipalities: null,
+        report_type: "",
+        noc_ticket: "",
+        third_party_ticket: "",
+        date_of_outage: "",
+        time_of_outage: "",
+        notes: "",
+        municipalities: [],
         outage_type: null,
         causes: null,
         services: null,
@@ -326,17 +419,62 @@ export default {
         "Yabucoa",
         "Yauco",
       ],
+      PuertoRico
     };
   },
   computed: {
     //   TODO: seperate into setter and getter functions or run meta setter.
     oldServices: {
       get: function () {
-        let oldServ = this.report.services;
-        let arrayServices = Object.keys(oldServ);
+        let oldServ = [] 
+        oldServ = this.report.services;
+        let arrayServices = []
+        arrayServices = Object.keys(oldServ);
         return arrayServices;
       },
       set: function () {},
+    },
+    oldServAmount:{
+      get: function(){
+        let oldServAmount = []
+        let oldServices = []
+        let allServices =[]
+        allServices = this.services
+        console.log("all services: "+allServices)
+        oldServices = Object.keys(this.report.services)
+        console.log("report services: "+oldServices)
+        oldServAmount = this.report.services;
+        let arrayAmounts = Object.values(oldServAmount)
+        console.log(arrayAmounts)
+
+        // this is where we need to run the for loop with existance check
+        for (let index = 0; index < allServices.length; index++) {
+          let currentService = allServices[index]
+          console.log("the current LIST ervice is :" + currentService)
+          for (let subIndex = 0; subIndex < oldServices.length; subIndex++) {
+            let reportService = oldServices[subIndex];
+            console.log("the current OLD report service is : "+ reportService)
+            // Here we compare if the service from our api list matches the selected service from our report:
+            if (currentService == reportService) {
+              console.log(currentService +" :services Match:" + reportService )
+            }
+            console.log("there should be a zero here.")
+          }
+        }
+
+        return arrayAmounts
+      },
+      set: function(){}
+    },
+    selectedMunicipalities: function () {
+      let selection = this.report.municipalities;
+      return selection;
+    },
+  },
+  watch:{
+    selectedMunicipalities: function () {
+      this.selectedMunicipalities = [];
+      this.selectedMunicipalities = this.report.municipalities;
     },
   },
   methods: {
@@ -352,12 +490,15 @@ export default {
           this.report.date_of_outage = response.data.date_of_outage;
           this.report.time_of_outage = response.data.time_of_outage;
           this.report.notes = response.data.notes;
-          this.report.municipalities = response.data.municipalities;
-          this.report.outage_type = response.data.outage_type;
+          let stringMunicipalities = response.data.municipalities
+          this.report.municipalities = stringMunicipalities.split(',')
+          let stringOutageType = response.data.outage_type
+          // this.report.outage_type = response.data.outage_type;
+          this.report.outage_type = stringOutageType.split(',')
           this.report.causes = response.data.causes;
           this.report.services = JSON.parse(response.data.services);
           this.report.clients = JSON.stringify(response.data.clients);
-          console.log(this.report);
+          // console.log(this.report);
         })
         .catch((error) => {
           console.log(error);
@@ -472,15 +613,29 @@ export default {
           console.log(error.response);
         });
     },
-    setServiceAmounts() {
-      let oldServ = this.report.services;
-      let arrayServices = []
-      arrayServices = Object.keys(oldServ);
-      let arrayAmounts = []
-      arrayAmounts = Object.values(oldServ);
-      console.log("array services: " + arrayServices);
-      console.log("array amounts: " + arrayAmounts);
+    // setServiceAmounts() {
+    //   let oldServ = this.report.services;
+    //   let arrayServices = []
+    //   arrayServices = Object.keys(oldServ);
+    //   let arrayAmounts = []
+    //   arrayAmounts = Object.values(oldServ);
+    //   console.log("array services: " + arrayServices);
+    //   console.log("array amounts: " + arrayAmounts);
+    // },
+    //* Svg map Checkbox functions for evets.
+    pointLocation(event) {
+      this.pointedLocation = getLocationName(event.target);
     },
+    unpointLocation() {
+      this.pointedLocation = null;
+    },
+    focusLocation(event) {
+      this.focusedLocation = getLocationName(event.target);
+    },
+    blurLocation() {
+      this.focusedLocation = null;
+    },
+    getSelectedLocationName,
   },
   beforeMounted() {
     document.title = "Forumulario de Actualizacion";
@@ -488,7 +643,7 @@ export default {
   mounted() {
     this.getReportData();
     this.getServices();
-    this.setServiceAmounts();
+    // this.setServiceAmounts();
     this.getClients();
     this.getCause();
     this.getOutageType();

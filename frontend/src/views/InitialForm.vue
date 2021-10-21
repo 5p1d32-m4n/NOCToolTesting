@@ -186,16 +186,33 @@
               <b-dropdown
                 variant="danger"
                 block
-                text="Tipo de Averia"
+                text="Tipo de Averias"
                 class="m-2 d-grid mt-3"
                 menu-class="w-100"
               >
                 <b-dropdown-form>
-                  <b-form-checkbox-group
-                    :options="outage_type"
-                    v-model="selectedOutageTypes"
-                    stacked
-                  ></b-form-checkbox-group>
+                  <b-row align-h="center">
+                    <table class="table">
+                      <thead>
+                        <tr>
+                          <th scope="col">Tipos de Averias:</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr v-for="(type, index) in outage_type" :key="index">
+                          <td>
+                            <div>
+                              <b-form-checkbox
+                                v-model="selectedOutageTypes"
+                                :value="outage_type"
+                                >&nbsp;{{ type }}</b-form-checkbox
+                              >
+                            </div>
+                          </td>
+                        </tr>
+                      </tbody>
+                    </table>
+                  </b-row>
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
@@ -428,6 +445,9 @@ export default {
       );
       // console.log("Hey service Object: " + serviceObject);
       this.ServicesObject = JSON.stringify(serviceObject);
+      let servicesString = this.ServicesObject
+      servicesString.replace(RegExp("\\\\","g"),"");
+      this.ServicesObject = servicesString
       console.log("Stringy Service: " + this.ServicesObject);
       // this.stringifiedServices;
     },
