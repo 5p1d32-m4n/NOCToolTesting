@@ -6,17 +6,15 @@ ports:
     onOpen: ignore
 tasks:
   - name: Python Server
-    init: >
-      echo 'y'|pipenv shell &&
-      pipenv install
-      python manage.py migrate
     command: >
+      pipenv --rm
+      echo 'y'|pipenv shell|
+      pipenv install
       python manage.py runserver
 
   - name: NPM Server
-    init: >
-      cd frontend && npm install
     command: >
+      cd frontend
       npm run serve
   - name: Misc Server
     command: >
