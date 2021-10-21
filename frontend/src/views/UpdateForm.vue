@@ -1,8 +1,8 @@
 <template>
   <b-container fluid>
     <form action="">
+      <!-- These are the text input fields (date and time included) -->
       <b-row>
-        <!-- These are the text input fields (date and time included) -->
         <b-col id="report-specific">
           <b-form-group>
             <!-- NOC Ticket Input -->
@@ -109,7 +109,7 @@
               </b-dropdown>
             </b-form-group>
             <!-- SERVICE DROPDOWN -->
-            <!-- Cause type dropdown -->
+            <!-- CAUSE TYPE dropdown -->
             <b-form-group>
               <b-dropdown
                 variant="danger"
@@ -145,7 +145,7 @@
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
-            <!-- Client dropdown -->
+            <!-- CLIENT dropdown -->
             <b-form-group>
               <b-dropdown
                 variant="danger"
@@ -168,7 +168,7 @@
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="report.clients"
+                                v-model="reportImpactedClients"
                                 :value="client"
                                 >&nbsp;{{ client }}</b-form-checkbox
                               >
@@ -181,6 +181,7 @@
                                 name="clientAmount"
                                 value="0"
                                 min="0"
+                                v-model="reportImpCliAmounts"
                                 :id="client"
                               />
                             </div>
@@ -410,11 +411,9 @@ export default {
         //* this is where we need to run the for loop with existance check
         for (let index = 0; index < allServices.length; index++) {
           let currentService = allServices[index];
-          console.log("the current LIST service is :" + currentService);
 
           for (let subIndex = 0; subIndex < oldServices.length; subIndex++) {
             let reportService = oldServices[subIndex];
-            console.log("the current OLD report service is : " + reportService);
             //* Here we compare if the service from our api list matches the selected service from our report:
 
             if (currentService == reportService) {
@@ -429,14 +428,41 @@ export default {
       },
       set: function () {},
     },
-    impactedClientData:{
+    reportImpactedClients: {
       get: function () {
-        return ""
+        let oldImpClients = []
+        oldImpClients = this.report.clients
+        let reportImpClient = [];
+        reportImpClient = Object.keys(oldImpClients);
+        console.log("report clients: " + reportImpClient);
+        return reportImpClient;
       },
       set: function () {
-        return ""
-      }
+        return "";
+      },
     },
+    reportImpCliAmounts: {
+      get: function () {
+        let allClients = [];
+        let reportClients = [];
+        let allCliAmounts = []
+        let reportCliAmounts = [];
+
+        allClients = this.report.clients;
+        reportClients = Object.keys(this.report.clients);
+        reportCliAmounts = Object.values(this.report.clients)
+
+        console.log(allClients)
+        console.log(reportClients)
+        console.log(allCliAmounts)
+        console.log(reportCliAmounts)
+        return allCliAmounts;
+      },
+      set: function () {
+        // return "";
+      },
+    },
+
     selectedMunicipalities: function () {
       let selection = this.report.municipalities;
       return selection;
@@ -468,8 +494,8 @@ export default {
           this.report.outage_type = stringOutageType.split(",");
           this.report.causes = response.data.causes;
           this.report.services = JSON.parse(response.data.services);
-          this.report.clients = JSON.stringify(response.data.clients);
-          // console.log(this.report);
+          this.report.clients = JSON.parse(response.data.clients);
+          console.log(this.report.clients);
         })
         .catch((error) => {
           console.log(error);
