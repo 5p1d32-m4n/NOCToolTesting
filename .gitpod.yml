@@ -8,7 +8,7 @@ tasks:
   - name: Python Server
     command: >
       pipenv --rm
-      echo 'y'|pipenv shell|
+      echo 'y'|pipenv shell
       pipenv install
       python manage.py runserver
 
