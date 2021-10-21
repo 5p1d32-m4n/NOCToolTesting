@@ -268,6 +268,7 @@
 </template>
 
 <script>
+// TODO: Duplicate the functionality from Impacted Services with Impacted Clients.
 import axios from "axios";
 import { CheckboxSvgMap } from "vue-svg-map";
 import PuertoRico from "../assets/puerto-rico";
@@ -427,6 +428,14 @@ export default {
         return allAmounts;
       },
       set: function () {},
+    },
+    impactedClientData:{
+      get: function () {
+        return ""
+      },
+      set: function () {
+        return ""
+      }
     },
     selectedMunicipalities: function () {
       let selection = this.report.municipalities;
