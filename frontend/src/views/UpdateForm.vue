@@ -61,60 +61,11 @@
         <!-- Beginning of Dropdown lists. -->
         <b-col id="report-repetitive">
           <b-form-group>
-            <!-- Service Dropdown lists. -->
+            <!-- SERVICE DROPDOWN -->
             <b-form-group>
               <b-dropdown
                 variant="danger"
                 text="Servicios Impactados"
-                class="m-2 d-grid mt-4"
-                menu-class="w-100"
-              >
-                <b-dropdown-form>
-                  <b-row align-h="center">
-                    <table class="table">
-                      <thead>
-                        <tr>
-                          <th scope="col">Servicios</th>
-                          <th scope="col">Cantidad Impactda</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr v-for="(service, index) in services" :key="index">
-                          <td>
-                            <div>
-                              <b-form-checkbox
-                                v-model="oldServices"
-                                :value="service"
-                                >&nbsp;{{ service }}</b-form-checkbox
-                              >
-                            </div>
-                          </td>
-                          <td>
-                            <div>
-                              <input
-                                type="number"
-                                name="amountSlots"
-                                value="report.service[index].values"
-                                required
-                                min="0"
-                                :id="service"
-                                v-if="service[index] == oldServices[index]"
-                              />
-                              <input type="text" v-else>
-                            </div>
-                          </td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </b-row>
-                </b-dropdown-form>
-              </b-dropdown>
-            </b-form-group>
-            <!-- ALT SERVICE DROPDOWN -->
-            <b-form-group>
-              <b-dropdown
-                variant="danger"
-                text="Servicios Impactados ALTERNO"
                 class="m-2 d-grid mt-4"
                 menu-class="w-100"
               >
@@ -157,7 +108,7 @@
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
-            <!-- END ALT SERVICE DROPDOWN -->
+            <!-- SERVICE DROPDOWN -->
             <!-- Cause type dropdown -->
             <b-form-group>
               <b-dropdown
@@ -277,6 +228,7 @@
               v-model="report.municipalities"
               :options="municipalities"
               stacked
+              disabled
             ></b-form-checkbox-group>
           </div>
         </b-col>
@@ -300,7 +252,13 @@
             </div>
           </div>
           <div>
-            <input type="text" class="form-control" id="notes" v-model="report.notes" :maxlength="500">
+            <input
+              type="text"
+              class="form-control"
+              id="notes"
+              v-model="report.notes"
+              :maxlength="500"
+            />
           </div>
         </b-col>
         <!-- Portion SVG Map End. -->
@@ -419,59 +377,63 @@ export default {
         "Yabucoa",
         "Yauco",
       ],
-      PuertoRico
+      PuertoRico,
     };
   },
   computed: {
     //   TODO: seperate into setter and getter functions or run meta setter.
     oldServices: {
       get: function () {
-        let oldServ = [] 
+        let oldServ = [];
         oldServ = this.report.services;
-        let arrayServices = []
+        let arrayServices = [];
         arrayServices = Object.keys(oldServ);
         return arrayServices;
       },
       set: function () {},
     },
-    oldServAmount:{
-      get: function(){
-        let oldServAmount = []
-        let oldServices = []
-        let allServices =[]
-        allServices = this.services
-        console.log("all services: "+allServices)
-        oldServices = Object.keys(this.report.services)
-        console.log("report services: "+oldServices)
-        oldServAmount = this.report.services;
-        let arrayAmounts = Object.values(oldServAmount)
-        console.log(arrayAmounts)
+    oldServAmount: {
+      get: function () {
+        let allServices = [];
+        let oldServices = [];
+        let allAmounts = [];
+        let oldServiceAmount = [];
+        allServices = this.services;
+        oldServices = Object.keys(this.report.services);
+        oldServiceAmount = Object.values(this.report.services);
 
-        // this is where we need to run the for loop with existance check
+        //* Here I initialize an array that is for the amounts started at zero and change them later in the second for loop.
+        for (let entry = 0; entry < allServices.length; entry++) {
+          allAmounts.push(0);
+        }
+        //* this is where we need to run the for loop with existance check
         for (let index = 0; index < allServices.length; index++) {
-          let currentService = allServices[index]
-          console.log("the current LIST ervice is :" + currentService)
+          let currentService = allServices[index];
+          console.log("the current LIST service is :" + currentService);
+
           for (let subIndex = 0; subIndex < oldServices.length; subIndex++) {
             let reportService = oldServices[subIndex];
-            console.log("the current OLD report service is : "+ reportService)
-            // Here we compare if the service from our api list matches the selected service from our report:
+            console.log("the current OLD report service is : " + reportService);
+            //* Here we compare if the service from our api list matches the selected service from our report:
+
             if (currentService == reportService) {
-              console.log(currentService +" :services Match:" + reportService )
+              console.log(currentService + " :services Match:" + reportService);
+              allAmounts[index] = oldServiceAmount[subIndex];
             }
-            console.log("there should be a zero here.")
           }
         }
+        console.log("amounts zero: " + allAmounts);
 
-        return arrayAmounts
+        return allAmounts;
       },
-      set: function(){}
+      set: function () {},
     },
     selectedMunicipalities: function () {
       let selection = this.report.municipalities;
       return selection;
     },
   },
-  watch:{
+  watch: {
     selectedMunicipalities: function () {
       this.selectedMunicipalities = [];
       this.selectedMunicipalities = this.report.municipalities;
@@ -490,11 +452,11 @@ export default {
           this.report.date_of_outage = response.data.date_of_outage;
           this.report.time_of_outage = response.data.time_of_outage;
           this.report.notes = response.data.notes;
-          let stringMunicipalities = response.data.municipalities
-          this.report.municipalities = stringMunicipalities.split(',')
-          let stringOutageType = response.data.outage_type
+          let stringMunicipalities = response.data.municipalities;
+          this.report.municipalities = stringMunicipalities.split(",");
+          let stringOutageType = response.data.outage_type;
           // this.report.outage_type = response.data.outage_type;
-          this.report.outage_type = stringOutageType.split(',')
+          this.report.outage_type = stringOutageType.split(",");
           this.report.causes = response.data.causes;
           this.report.services = JSON.parse(response.data.services);
           this.report.clients = JSON.stringify(response.data.clients);
