@@ -11,7 +11,7 @@
           <th>Taquilla NOC</th>
           <th>Boleto de Tercero</th>
           <th>Municipios Impactados</th>
-          <th>Total de Clientes Impactados</th>
+          <th>Tipo de Averia</th>
         </tr>
         <tr
           v-for="report in updateableList"
@@ -30,14 +30,7 @@
           </td>
           <td>{{ report.third_party_ticket }}</td>
           <td>{{ report.municipalities }}</td>
-          <td>
-            <p
-              v-for="outage_type in report.outage_type"
-              :key="outage_type.outage_type"
-            >
-              {{ outage_type.outage_type }}
-            </p>
-          </td>
+          <td>{{ report.outage_type }}</td>
         </tr>
       </table>
     </div>
@@ -73,5 +66,4 @@ export default {
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
