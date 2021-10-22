@@ -7,18 +7,16 @@ ports:
 tasks:
   - name: Python Server
     command: >
-        sleep 3
-        pipenv --rm
-        sleep 3
-        echo 'y'|pipenv shell
-        sleep 3
-        pipenv install
-        sleep 3
-        python manage.py runserver
+      pipenv --rm
+      sleep 3
+      echo 'y'|pipenv shell
+      sleep 3
+      pipenv install
+      sleep 3
+      python manage.py runserver
 
   - name: NPM Server
     command: >
-        sleep 3
         cd frontend
         sleep 3
         npm run serve
