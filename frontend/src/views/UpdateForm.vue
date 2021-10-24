@@ -405,9 +405,9 @@ export default {
         oldServiceAmount = Object.values(this.report.services);
 
         /*
-        *Here I initialize an array that is for the amounts started at zero
-        *and change them later in the second for loop.
-        */
+         *Here I initialize an array that is for the amounts started at zero
+         *and change them later in the second for loop.
+         */
         for (let entry = 0; entry < allServices.length; entry++) {
           allAmounts.push(0);
         }
@@ -433,8 +433,8 @@ export default {
     },
     reportImpactedClients: {
       get: function () {
-        let oldImpClients = []
-        oldImpClients = this.report.clients
+        let oldImpClients = [];
+        oldImpClients = this.report.clients;
         let reportImpClient = [];
         reportImpClient = Object.keys(oldImpClients);
         console.log("report clients: " + reportImpClient);
@@ -448,46 +448,45 @@ export default {
       get: function () {
         let allClients = [];
         let reportClients = [];
-        let allCliAmounts = []
+        let allCliAmounts = [];
         let reportCliAmounts = [];
 
         allClients = this.clients;
         reportClients = Object.keys(this.report.clients);
-        reportCliAmounts = Object.values(this.report.clients)
+        reportCliAmounts = Object.values(this.report.clients);
 
         /*
-        *Here we beggin an array full of zeroes the same size as
-        *the array of all the impacted clients. 
-        */
+         *Here we beggin an array full of zeroes the same size as
+         *the array of all the impacted clients.
+         */
         for (let index = 0; index < allClients.length; index++) {
           allCliAmounts.push(0);
         }
 
         /*
-        * For loop that iterates through all the services then nest into
-        * the report services and inserts the corresponding values into the 
-        * zero arra.
-        */
+         * For loop that iterates through all the services then nest into
+         * the report services and inserts the corresponding values into the
+         * zero arra.
+         */
 
-       for (let index = 0; index < allClients.length; index++) {
-         let currentClient = allClients[index]
-         
-         for (let subIndex = 0; subIndex < reportClients.length; subIndex++) {
-           let oldImpClients = reportClients[subIndex]
+        for (let index = 0; index < allClients.length; index++) {
+          let currentClient = allClients[index];
 
-           /*
-           * Conditional that sets value array after comparing existing
-           * entries to both arrays.
-           */
+          for (let subIndex = 0; subIndex < reportClients.length; subIndex++) {
+            let oldImpClients = reportClients[subIndex];
 
-          if (currentClient ==oldImpClients) {
-            console.log(currentClient + " :clinet match: " + oldImpClients)
-            allCliAmounts[index] = reportCliAmounts[subIndex]
+            /*
+             * Conditional that sets value array after comparing existing
+             * entries to both arrays.
+             */
+
+            if (currentClient == oldImpClients) {
+              console.log(currentClient + " :clinet match: " + oldImpClients);
+              allCliAmounts[index] = reportCliAmounts[subIndex];
+            }
           }
-           
-         }
-       }
-        console.log("cli amounts: "+ allCliAmounts)
+        }
+        console.log("cli amounts: " + allCliAmounts);
         return allCliAmounts;
       },
       set: function () {
