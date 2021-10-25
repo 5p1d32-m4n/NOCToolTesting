@@ -14,7 +14,7 @@
           <th>Tipo de Averia</th>
         </tr>
         <tr
-          v-for="report in updateableList"
+          v-for="report in finalizableList"
           :key="report.noc_ticket"
           v-bind:report="report"
         >
@@ -52,7 +52,7 @@ export default {
       axios
         .get("/api/report-update-list/")
         .then((response) => {
-          this.updateableList = response.data;
+          this.finalizableList = response.data;
         })
         .catch((error) => {
           console.log(error.response);
