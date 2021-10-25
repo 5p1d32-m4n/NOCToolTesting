@@ -28,7 +28,10 @@
       </div>
       <div class="button has-background-success has-text-white is-large">
         <div class="card-content font-weight-bolder">
-          <p class="media-content">Finalizar Reporte</p>
+          <span><router-link
+          class="media-content has-text-white-bis"
+          :to="{name:'FinalizeList'}"
+          >Finalizar Reporte</router-link></span>
         </div>
       </div>
     </div>
