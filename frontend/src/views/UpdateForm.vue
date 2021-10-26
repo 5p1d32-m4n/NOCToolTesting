@@ -79,11 +79,14 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(service, index) in services" :key="index">
+                        <tr
+                          v-for="(service, index) in APIservices"
+                          :key="index"
+                        >
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="report.services"
+                                v-model="servicesFormArray"
                                 :value="service"
                                 >&nbsp;{{ service }}</b-form-checkbox
                               >
@@ -94,7 +97,7 @@
                               <input
                                 type="number"
                                 name="amountSlots"
-                                v-model="report.amountServices[index]"
+                                v-model="servAmountFormArray[index]"
                                 required
                                 min="0"
                                 :id="service"
@@ -127,7 +130,7 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(cause, index) in cause" :key="index">
+                        <tr v-for="(cause, index) in APIcause" :key="index">
                           <td>
                             <div>
                               <b-form-checkbox
@@ -164,11 +167,11 @@
                         </tr>
                       </thead>
                       <tbody>
-                        <tr v-for="(client, index) in clients" :key="index">
+                        <tr v-for="(client, index) in APIclients" :key="index">
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="computedImpactedClients"
+                                v-model="clientsFormArray"
                                 :value="client"
                                 >&nbsp;{{ client }}</b-form-checkbox
                               >
@@ -180,7 +183,7 @@
                                 type="number"
                                 name="clientAmount"
                                 min="0"
-                                v-model="computedImpCliAmounts[index]"
+                                v-model="cliAmountFormArray[index]"
                                 :id="client"
                               />
                             </div>
@@ -203,13 +206,14 @@
               >
                 <b-dropdown-form>
                   <b-form-checkbox-group
-                    :options="outage_type"
+                    :options="APIoutage_type"
                     v-model="report.outage_type"
                     stacked
                   ></b-form-checkbox-group>
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
+            <!-- Outage Type Dropdown End -->
           </b-form-group>
         </b-col>
       </b-row>
@@ -300,19 +304,19 @@ export default {
         municipalities: [],
         outage_type: [],
         causes: [],
-        services: null,
-        amountServices:null,
+        services: {},
         clients: {},
       },
-      servicesArray: {
-        type: Array,
-      },
+      servicesFormArray: [],
+      servAmountFormArray: [],
+      clientsFormArray: [],
+      cliAmountFormArray: [],
       clientArray: [],
       reportType: "Actualización",
-      services: [],
-      clients: [],
-      outage_type: [],
-      cause: [],
+      APIservices: [],
+      APIclients: [],
+      APIoutage_type: [],
+      APIcause: [],
       municipalities: [
         "Adjuntas",
         "Aguada",
@@ -397,116 +401,112 @@ export default {
     };
   },
   computed: {
-    reportedServices: {
-      get: function () {
-        let oldServ = [];
-        oldServ = this.report.services;
-        let arrayServices = [];
-        arrayServices = Object.keys(oldServ);
-        return arrayServices;
-      },
-      set: function () {},
-    },
-    computedServAmount: {
-      get: function () {
-        let allServices = [];
-        let oldServices = [];
-        let allAmounts = [];
-        let oldServiceAmount = [];
+    // reportedServices: {
+    //   get: function () {
+    //     let oldServ = [];
+    //     oldServ = this.report.services;
+    //     let arrayServices = [];
+    //     arrayServices = Object.keys(oldServ);
+    //     return arrayServices;
+    //   },
+    //   set: function () {},
+    // },
+    // computedServAmount: {
+    //   get: function () {
+    //     let allServices = [];
+    //     let oldServices = [];
+    //     let allAmounts = [];
+    //     let oldServiceAmount = [];
 
-        allServices = this.services;
-        oldServices = Object.keys(this.report.services);
-        oldServiceAmount = Object.values(this.report.services);
+    //     allServices = this.services;
+    //     oldServices = Object.keys(this.report.services);
+    //     oldServiceAmount = Object.values(this.report.services);
 
-        /*
-         *Here I initialize an array that is for the amounts started at zero
-         *and change them later in the second for loop.
-         */
-        for (let entry = 0; entry < allServices.length; entry++) {
-          allAmounts.push(0);
-        }
-        //* this is where we need to run the for loop with existance check
-        for (let index = 0; index < allServices.length; index++) {
-          let currentService = allServices[index];
+    //     /*
+    //      *Here I initialize an array that is for the amounts started at zero
+    //      *and change them later in the second for loop.
+    //      */
+    //     for (let entry = 0; entry < allServices.length; entry++) {
+    //       allAmounts.push(0);
+    //     }
+    //     //* this is where we need to run the for loop with existance check
+    //     for (let index = 0; index < allServices.length; index++) {
+    //       let currentService = allServices[index];
 
-          for (let subIndex = 0; subIndex < oldServices.length; subIndex++) {
-            let reportService = oldServices[subIndex];
-            //* Here we compare if the service from our api list matches the selected service from our report:
+    //       for (let subIndex = 0; subIndex < oldServices.length; subIndex++) {
+    //         let reportService = oldServices[subIndex];
+    //         //* Here we compare if the service from our api list matches the selected service from our report:
 
-            if (currentService == reportService) {
-              console.log(currentService + " :services Match:" + reportService);
-              allAmounts[index] = oldServiceAmount[subIndex];
-            }
-          }
-        }
-        console.log("amounts zero: " + allAmounts);
+    //         if (currentService == reportService) {
+    //           allAmounts[index] = oldServiceAmount[subIndex];
+    //         }
+    //       }
+    //     }
 
-        return allAmounts;
-      },
-      set: function () {},
-    },
-    computedImpactedClients: {
-      get: function () {
-        let oldImpClients = [];
-        oldImpClients = this.report.clients;
-        let reportImpClient = [];
-        reportImpClient = Object.keys(oldImpClients);
-        console.log("report clients: " + reportImpClient);
-        return reportImpClient;
-      },
-      set: function () {
-        return "";
-      },
-    },
-    computedImpCliAmounts: {
-      get: function () {
-        let allClients = [];
-        let reportClients = [];
-        let allCliAmounts = [];
-        let reportCliAmounts = [];
+    //     return allAmounts;
+    //   },
+    //   set: function () {},
+    // },
+    // computedImpactedClients: {
+    //   get: function () {
+    //     let oldImpClients = [];
+    //     oldImpClients = this.report.clients;
+    //     let reportImpClient = [];
+    //     reportImpClient = Object.keys(oldImpClients);
+    //     return reportImpClient;
+    //   },
+    //   set: function () {
+    //     return "";
+    //   },
+    // },
+    // computedImpCliAmounts: {
+    //   get: function () {
+    //     let allClients = [];
+    //     let reportClients = [];
+    //     let allCliAmounts = [];
+    //     let reportCliAmounts = [];
 
-        allClients = this.clients;
-        reportClients = Object.keys(this.report.clients);
-        reportCliAmounts = Object.values(this.report.clients);
+    //     allClients = this.clients;
+    //     reportClients = Object.keys(this.report.clients);
+    //     reportCliAmounts = Object.values(this.report.clients);
 
-        /*
-         *Here we beggin an array full of zeroes the same size as
-         *the array of all the impacted clients.
-         */
-        for (let index = 0; index < allClients.length; index++) {
-          allCliAmounts.push(0);
-        }
+    //     /*
+    //      *Here we beggin an array full of zeroes the same size as
+    //      *the array of all the impacted clients.
+    //      */
+    //     for (let index = 0; index < allClients.length; index++) {
+    //       allCliAmounts.push(0);
+    //     }
 
-        /*
-         * For loop that iterates through all the services then nest into
-         * the report services and inserts the corresponding values into the
-         * zero arra.
-         */
+    //     /*
+    //      * For loop that iterates through all the services then nest into
+    //      * the report services and inserts the corresponding values into the
+    //      * zero arra.
+    //      */
 
-        for (let index = 0; index < allClients.length; index++) {
-          let currentClient = allClients[index];
+    //     for (let index = 0; index < allClients.length; index++) {
+    //       let currentClient = allClients[index];
 
-          for (let subIndex = 0; subIndex < reportClients.length; subIndex++) {
-            let oldImpClients = reportClients[subIndex];
+    //       for (let subIndex = 0; subIndex < reportClients.length; subIndex++) {
+    //         let oldImpClients = reportClients[subIndex];
 
-            /*
-             * Conditional that sets value array after comparing existing
-             * entries to both arrays.
-             */
+    //         /*
+    //          * Conditional that sets value array after comparing existing
+    //          * entries to both arrays.
+    //          */
 
-            if (currentClient == oldImpClients) {
-              console.log(currentClient + " :clinet match: " + oldImpClients);
-              allCliAmounts[index] = reportCliAmounts[subIndex];
-            }
-          }
-        }
-        console.log("cli amounts: " + allCliAmounts);
-        return allCliAmounts;
-      },
-      set: function () {
-        // return "";
-      },
-    },
+    //         if (currentClient == oldImpClients) {
+    //           allCliAmounts[index] = reportCliAmounts[subIndex];
+    //         }
+    //       }
+    //     }
+    //     console.log("cli amounts: " + allCliAmounts);
+    //     return allCliAmounts;
+    //   },
+    //   set: function () {
+    //     // return "";
+    //   },
+    // },
 
     selectedMunicipalities: function () {
       let selection = this.report.municipalities;
@@ -535,7 +535,21 @@ export default {
       console.log(this.servicesArray);
     },
     testFucntion() {
-      this.servicesArray = this.computedServices;
+      // ! Testing making the report update
+      let tempReport = {
+        report_type: this.report.report_type,
+        noc_ticket: null,
+        third_party_ticket: null,
+        date_of_outage: null,
+        time_of_outage: null,
+        notes: null,
+        municipalities: null,
+        outage_type: null,
+        causes: null,
+        services: null,
+        clients: null,
+      }
+      console.log("testing new update report: " + tempReport.report_type)
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
@@ -543,31 +557,138 @@ export default {
       axios
         .get(`/api/report-detail/${noc_ticket_url}/`)
         .then((response) => {
-          this.report.report_type = response.data.report_type;
+          /**
+           * *Unique Report felds
+           * *These are easily just set
+           */
+          this.report.report_type = "Actualización";
           this.report.noc_ticket = response.data.noc_ticket;
           this.report.third_party_ticket = response.data.third_party_ticket;
           this.report.date_of_outage = response.data.date_of_outage;
           this.report.time_of_outage = response.data.time_of_outage;
           this.report.notes = response.data.notes;
-          let stringMunicipalities = response.data.municipalities;
-          this.report.municipalities = stringMunicipalities.split(",");
+          this.report.causes = response.data.causes;
+          /**
+           * *This part of the report requires some string splicing.
+           */
           let stringOutageType = response.data.outage_type;
           this.report.outage_type = stringOutageType.split(",");
-          this.report.causes = response.data.causes;
+          let stringMunicipalities = response.data.municipalities;
+          this.report.municipalities = stringMunicipalities.split(",");
+          /**
+           * *This section is parcing the clients and services into objects
+           */
           this.report.clients = JSON.parse(response.data.clients);
+          this.report.services = JSON.parse(response.data.services);
+
+          /**
+           * the order of function calls has been fixed, we now have access to everything.
+           */
           //* parsing services into an array
-          let servicesArray  = []
+          let servicesArray = [];
           servicesArray = Object.keys(JSON.parse(response.data.services));
-          this.report.services = servicesArray;
-          
-          // We need to make this array work somehow.
-          // the order of function calls has been fixed, we now have access to everything.
-          this.getServices();
-          let serviceList = this.services
-          console.log("getReport service call: "+ serviceList)
-          let amountSerArray = Object.values(JSON.parse(response.data.services))
-          this.report.amountServices = amountSerArray
-          console.log(this.report)
+          //* putting services in API into an array.
+          let serviceList = [];
+          serviceList = this.APIservices;
+          //* putting all the service values into an array
+          let serviceAmountArray = [];
+          let reportedServAmount = Object.values(
+            JSON.parse(response.data.services)
+          );
+
+          /**
+           ** This is the for loop that fills our larger array with zeroes.
+           */
+          for (let index = 0; index < serviceList.length; index++) {
+            serviceAmountArray.push(0);
+          }
+
+          /**
+           * For loop that searches services and sets the matching ones
+           * to the reported amount.
+           */
+          for (let index = 0; index < serviceList.length; index++) {
+            let currentService = serviceList[index];
+
+            for (let subInex = 0; subInex < servicesArray.length; subInex++) {
+              let reportService = servicesArray[subInex];
+
+              if (currentService == reportService) {
+                serviceAmountArray[index] = reportedServAmount[subInex];
+              }
+            }
+          }
+          /**
+           * This is just the console log to test my objects and what not.
+           */
+          console.log(
+            "API service call: " +
+              serviceList +
+              "\n" +
+              "reported services: " +
+              servicesArray +
+              "\n" +
+              "service amounts with zero: " +
+              serviceAmountArray +
+              "\n" +
+              "service amounts from report:" +
+              reportedServAmount +
+              "\n"
+          );
+          this.servicesFormArray = servicesArray;
+          this.servAmountFormArray = serviceAmountArray;
+
+          /**
+           * *This section is just repeating the process of the services
+           * *with clients.
+           */
+          //* parsing clients into an array.
+          let clientsArray = [];
+          clientsArray = Object.keys(JSON.parse(response.data.clients));
+          //* putting clients in API into an array.
+          let clientList = [];
+          clientList = this.APIclients;
+          //* client amount values into an array
+          let cliAmountArray = []
+          let reportedCliAmount = Object.values(JSON.parse(response.data.clients))
+          /**
+           ** This is the for loop that fills our larger array with zeroes.
+           */
+          for (let index = 0; index < clientList.length; index++) {
+            cliAmountArray.push(0);
+          }
+          /**
+           * For loop that searches services and sets the matching ones
+           * to the reported amount.
+           */
+          for (let index = 0; index < clientList.length; index++) {
+            let currentService = clientList[index];
+
+            for (let subInex = 0; subInex < clientsArray.length; subInex++) {
+              let reportService = clientsArray[subInex];
+
+              if (currentService == reportService) {
+                cliAmountArray[index] = reportedCliAmount[subInex];
+              }
+            }
+          }
+          /**
+           * * Console log to test client form data fetched from report.
+           */
+          console.log(
+            "reported clients: " +
+              clientsArray +
+              "\n" +
+              "API clients: " +
+              clientList +
+              "\n"+
+              "reported client amount: "+ reportedCliAmount +
+              "\n" +
+              "client amount with zero: " + cliAmountArray
+          );
+          this.clientsFormArray = clientsArray
+          this.cliAmountFormArray = cliAmountArray
+          // console.log("report object" + this.report);
         })
         .catch((error) => {
           console.log(error);
@@ -601,7 +722,7 @@ export default {
               uniqueServices.push(entry);
             }
           });
-          this.services = uniqueServices;
+          this.APIservices = uniqueServices;
         })
         .catch((error) => {
           console.log(error.response);
@@ -626,8 +747,7 @@ export default {
               uniqueClients.push(entry);
             }
           });
-          console.log(uniqueClients);
-          this.clients = uniqueClients;
+          this.APIclients = uniqueClients;
         })
         .catch((error) => {
           console.log(error.response);
@@ -651,8 +771,7 @@ export default {
               uniqueCause.push(entry);
             }
           });
-          console.log(uniqueCause);
-          this.cause = uniqueCause;
+          this.APIcause = uniqueCause;
         })
         .catch((error) => {
           console.log(error.response);
@@ -678,7 +797,7 @@ export default {
             }
           });
           console.log(uniqueOutageType);
-          this.outage_type = uniqueOutageType;
+          this.APIoutage_type = uniqueOutageType;
         })
         .catch((error) => {
           console.log(error.response);
@@ -705,7 +824,6 @@ export default {
       let servicesString = this.ServicesObject;
       servicesString.replace(RegExp("\\\\", "g"), "");
       this.ServicesObject = servicesString;
-      console.log("Stringy Service: " + this.ServicesObject);
     },
     //* Fucntion that builds the Client portion of the outage report in Json format.
     buildClientObject() {
@@ -716,13 +834,11 @@ export default {
       for (let entry = 0; entry < clientName.length; entry++) {
         clientAmount.push(document.getElementById(clientName[entry]).value);
       }
-      //*  TESTING: stringify this so it will match the Djando service field.
       let clientObject = clientName.reduce(
         (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
         {}
       );
       this.ClientsObject = JSON.stringify(clientObject);
-      console.log("Stringy Client: " + this.ClientsObject);
     },
     // * Function that Updates report Objects
     UpdateReport() {
@@ -772,8 +888,8 @@ export default {
     this.getCause();
     this.getOutageType();
     this.setReportServiceObjects();
-    this.getReportData();
     this.testFucntion();
+    this.getReportData();
   },
 };
 </script>
