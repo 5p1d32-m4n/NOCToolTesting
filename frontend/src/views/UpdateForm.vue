@@ -83,8 +83,7 @@
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="computedServices"
-                                @change="computedServices"
+                                v-model="report.services"
                                 :value="service"
                                 >&nbsp;{{ service }}</b-form-checkbox
                               >
@@ -95,7 +94,7 @@
                               <input
                                 type="number"
                                 name="amountSlots"
-                                v-model="computedServAmount[index]"
+                                v-model="report.amountServices[index]"
                                 required
                                 min="0"
                                 :id="service"
@@ -299,13 +298,16 @@ export default {
         time_of_outage: "",
         notes: "",
         municipalities: [],
-        outage_type: null,
-        causes: null,
+        outage_type: [],
+        causes: [],
         services: null,
-        clients: null,
+        amountServices:null,
+        clients: {},
       },
-      ServicesObject: [],
-      ClientsObject: null,
+      servicesArray: {
+        type: Array,
+      },
+      clientArray: [],
       reportType: "Actualización",
       services: [],
       clients: [],
@@ -395,7 +397,7 @@ export default {
     };
   },
   computed: {
-    computedServices: {
+    reportedServices: {
       get: function () {
         let oldServ = [];
         oldServ = this.report.services;
@@ -517,14 +519,23 @@ export default {
       this.selectedMunicipalities = this.report.municipalities;
     },
     // TODO: create an array handler.
-    computedServices:{
-      handler:'',
+    servicesArray: {
+      deep: true,
       immediate: true,
+      // handler: "testServiceArray",
     },
   },
   methods: {
+    testServiceArray() {
+      console.log("Setting Array!");
+      let oldServices = [];
+      oldServices = this.report.services;
+      let passArray = Object.keys(oldServices);
+      this.servicesArray = passArray;
+      console.log(this.servicesArray);
+    },
     testFucntion() {
-      console.log("testing oldService as log:" + this.oldServices);
+      this.servicesArray = this.computedServices;
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
@@ -541,18 +552,29 @@ export default {
           let stringMunicipalities = response.data.municipalities;
           this.report.municipalities = stringMunicipalities.split(",");
           let stringOutageType = response.data.outage_type;
-          // this.report.outage_type = response.data.outage_type;
           this.report.outage_type = stringOutageType.split(",");
           this.report.causes = response.data.causes;
-          this.report.services = JSON.parse(response.data.services);
           this.report.clients = JSON.parse(response.data.clients);
+          //* parsing services into an array
+          let servicesArray  = []
+          servicesArray = Object.keys(JSON.parse(response.data.services));
+          this.report.services = servicesArray;
+          
+          // We need to make this array work somehow.
+          // the order of function calls has been fixed, we now have access to everything.
+          this.getServices();
+          let serviceList = this.services
+          console.log("getReport service call: "+ serviceList)
+          let amountSerArray = Object.values(JSON.parse(response.data.services))
+          this.report.amountServices = amountSerArray
+          console.log(this.report)
         })
         .catch((error) => {
           console.log(error);
         });
     },
-    setReportServiceObjects(){
-      this.ServicesObject = this.oldServ
+    setReportServiceObjects() {
+      this.ServicesObject = this.oldServ;
     },
     thirdPartyTicketCheck(object) {
       if (object == null || object == "") {
@@ -743,17 +765,15 @@ export default {
   },
   beforeMounted() {
     document.title = "Forumulario de Actualizacion";
-        this.setReportServiceObjects();
-
   },
   mounted() {
-    this.getReportData();
     this.getServices();
-    // this.setServiceAmounts();
     this.getClients();
     this.getCause();
     this.getOutageType();
     this.setReportServiceObjects();
+    this.getReportData();
+    this.testFucntion();
   },
 };
 </script>
