@@ -34,7 +34,7 @@ class Cause(models.Model):
 class Report(models.Model):
     STATES = (
         ("Inicial", "Inicial"),
-        ("Actualizacion", "Actualizacion"),
+        ("Actualización", "Actualización"),
         ("Final", "Final")
     )
     # Unique per report fields
