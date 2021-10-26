@@ -257,7 +257,13 @@
             </div>
           </div>
           <div>
-            <input type="text" class="form-control" id="notes" v-model="reportNotes" :maxlength="500">
+            <input
+              type="text"
+              class="form-control"
+              id="notes"
+              v-model="reportNotes"
+              :maxlength="500"
+            />
           </div>
         </b-col>
         <!-- Portion SVG Map End. -->
@@ -445,12 +451,13 @@ export default {
       );
       // console.log("Hey service Object: " + serviceObject);
       this.ServicesObject = JSON.stringify(serviceObject);
-      let servicesString = this.ServicesObject
-      servicesString.replace(RegExp("\\\\","g"),"");
-      this.ServicesObject = servicesString
+      let servicesString = this.ServicesObject;
+      servicesString.replace(RegExp("\\\\", "g"), "");
+      this.ServicesObject = servicesString;
       console.log("Stringy Service: " + this.ServicesObject);
       // this.stringifiedServices;
     },
+    //* Fucntion that builds the Client portion of the outage report in Json format.
     buildClientObject() {
       // ! Testing
       let clientName = this.selectedClients;

@@ -282,7 +282,7 @@ export default {
   data() {
     return {
       report: {
-        report_type: "",
+        report_type: "Final",
         noc_ticket: "",
         third_party_ticket: "",
         date_of_outage: "",

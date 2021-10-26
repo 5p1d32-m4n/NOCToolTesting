@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form action="">
+    <form v-on:submit.prevent="testFucntion">
       <!-- These are the text input fields (date and time included) -->
       <b-row>
         <b-col id="report-specific">
@@ -83,7 +83,8 @@
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="oldServices"
+                                v-model="computedServices"
+                                @change="computedServices"
                                 :value="service"
                                 >&nbsp;{{ service }}</b-form-checkbox
                               >
@@ -94,7 +95,7 @@
                               <input
                                 type="number"
                                 name="amountSlots"
-                                v-model="oldServAmount[index]"
+                                v-model="computedServAmount[index]"
                                 required
                                 min="0"
                                 :id="service"
@@ -108,7 +109,7 @@
                 </b-dropdown-form>
               </b-dropdown>
             </b-form-group>
-            <!-- SERVICE DROPDOWN -->
+            <!-- SERVICE DROPDOWN END-->
             <!-- CAUSE TYPE dropdown -->
             <b-form-group>
               <b-dropdown
@@ -168,7 +169,7 @@
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="reportImpactedClients"
+                                v-model="computedImpactedClients"
                                 :value="client"
                                 >&nbsp;{{ client }}</b-form-checkbox
                               >
@@ -180,7 +181,7 @@
                                 type="number"
                                 name="clientAmount"
                                 min="0"
-                                v-model="reportImpCliAmounts[index]"
+                                v-model="computedImpCliAmounts[index]"
                                 :id="client"
                               />
                             </div>
@@ -263,12 +264,21 @@
         </b-col>
         <!-- Portion SVG Map End. -->
       </b-row>
+      <!-- Submit Button row -->
+      <b-row>
+        <div style="center">
+          <b-button type="submit" variant="danger" class="btn-lg btn-block mt-4"
+            >Crear Reporte</b-button
+          >
+        </div>
+      </b-row>
     </form>
   </b-container>
 </template>
 
 <script>
 // TODO: Duplicate the functionality from Impacted Services with Impacted Clients.
+// TODO: Need to create new watchers for the service and clienta arryas.
 import axios from "axios";
 import { CheckboxSvgMap } from "vue-svg-map";
 import PuertoRico from "../assets/puerto-rico";
@@ -282,7 +292,7 @@ export default {
   data() {
     return {
       report: {
-        report_type: "",
+        report_type: "Actualización",
         noc_ticket: "",
         third_party_ticket: "",
         date_of_outage: "",
@@ -294,6 +304,9 @@ export default {
         services: null,
         clients: null,
       },
+      ServicesObject: [],
+      ClientsObject: null,
+      reportType: "Actualización",
       services: [],
       clients: [],
       outage_type: [],
@@ -382,8 +395,7 @@ export default {
     };
   },
   computed: {
-    //   TODO: seperate into setter and getter functions or run meta setter.
-    oldServices: {
+    computedServices: {
       get: function () {
         let oldServ = [];
         oldServ = this.report.services;
@@ -393,7 +405,7 @@ export default {
       },
       set: function () {},
     },
-    oldServAmount: {
+    computedServAmount: {
       get: function () {
         let allServices = [];
         let oldServices = [];
@@ -431,7 +443,7 @@ export default {
       },
       set: function () {},
     },
-    reportImpactedClients: {
+    computedImpactedClients: {
       get: function () {
         let oldImpClients = [];
         oldImpClients = this.report.clients;
@@ -444,7 +456,7 @@ export default {
         return "";
       },
     },
-    reportImpCliAmounts: {
+    computedImpCliAmounts: {
       get: function () {
         let allClients = [];
         let reportClients = [];
@@ -504,8 +516,16 @@ export default {
       this.selectedMunicipalities = [];
       this.selectedMunicipalities = this.report.municipalities;
     },
+    // TODO: create an array handler.
+    computedServices:{
+      handler:'',
+      immediate: true,
+    },
   },
   methods: {
+    testFucntion() {
+      console.log("testing oldService as log:" + this.oldServices);
+    },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
 
@@ -526,11 +546,13 @@ export default {
           this.report.causes = response.data.causes;
           this.report.services = JSON.parse(response.data.services);
           this.report.clients = JSON.parse(response.data.clients);
-          console.log(this.report.clients);
         })
         .catch((error) => {
           console.log(error);
         });
+    },
+    setReportServiceObjects(){
+      this.ServicesObject = this.oldServ
     },
     thirdPartyTicketCheck(object) {
       if (object == null || object == "") {
@@ -597,7 +619,6 @@ export default {
       axios
         .get("/api/cause-list/")
         .then((response) => {
-          // this.cause = response.data;
           let temp_cause = response.data;
           for (let item = 0; item < temp_cause.length; item++) {
             element.push(temp_cause[item].causes);
@@ -641,15 +662,70 @@ export default {
           console.log(error.response);
         });
     },
-    // setServiceAmounts() {
-    //   let oldServ = this.report.services;
-    //   let arrayServices = []
-    //   arrayServices = Object.keys(oldServ);
-    //   let arrayAmounts = []
-    //   arrayAmounts = Object.values(oldServ);
-    //   console.log("array services: " + arrayServices);
-    //   console.log("array amounts: " + arrayAmounts);
-    // },
+    //* Function that builds the Service portion of the Outage report in Json forma
+    buildServiceObject() {
+      // !Testing new Objec building method.
+      let serviceName = this.oldServices;
+      let serviceAmount = [];
+
+      for (let entry = 0; entry < serviceName.length; entry++) {
+        serviceAmount.push(document.getElementById(serviceName[entry]).value);
+      }
+      // * WORKS: stringify this so it will match the Djando service field.
+      console.log(serviceName);
+      console.log(serviceAmount);
+      let serviceObject = serviceName.reduce(
+        (acc, key, index) =>
+          Object.assign(acc, { [key]: serviceAmount[index] }),
+        {}
+      );
+      this.ServicesObject = JSON.stringify(serviceObject);
+      let servicesString = this.ServicesObject;
+      servicesString.replace(RegExp("\\\\", "g"), "");
+      this.ServicesObject = servicesString;
+      console.log("Stringy Service: " + this.ServicesObject);
+    },
+    //* Fucntion that builds the Client portion of the outage report in Json format.
+    buildClientObject() {
+      // ! Testing
+      let clientName = this.selectedClients;
+      let clientAmount = [];
+
+      for (let entry = 0; entry < clientName.length; entry++) {
+        clientAmount.push(document.getElementById(clientName[entry]).value);
+      }
+      //*  TESTING: stringify this so it will match the Djando service field.
+      let clientObject = clientName.reduce(
+        (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
+        {}
+      );
+      this.ClientsObject = JSON.stringify(clientObject);
+      console.log("Stringy Client: " + this.ClientsObject);
+    },
+    // * Function that Updates report Objects
+    UpdateReport() {
+      this.buildServiceObject();
+      this.buildClientObject();
+      let tempReport = {
+        report_type: this.report.report_type,
+        noc_ticket: this.report.noc_ticket,
+        third_party_ticket: this.report.third_party_ticket,
+        date_of_outage: this.report.date_of_outage,
+        time_of_outage: this.report.time_of_outage,
+        notes: this.report.notes,
+        municipalities: this.report.municipalities.toString(),
+        outage_type: this.report.outage_type.toString(),
+        causes: this.causes.toString(),
+        services: this.ServicesObject,
+        clients: this.ClientsObject,
+      };
+      // * The problem data here seems to be causes, municipalities and outage_type.
+      // * The string format appears to be incorrect.
+      console.log(tempReport);
+      axios.post("/api/report-create/", tempReport).catch((error) => {
+        console.log(error.response);
+      });
+    },
     //* Svg map Checkbox functions for evets.
     pointLocation(event) {
       this.pointedLocation = getLocationName(event.target);
@@ -667,6 +743,8 @@ export default {
   },
   beforeMounted() {
     document.title = "Forumulario de Actualizacion";
+        this.setReportServiceObjects();
+
   },
   mounted() {
     this.getReportData();
@@ -675,6 +753,7 @@ export default {
     this.getClients();
     this.getCause();
     this.getOutageType();
+    this.setReportServiceObjects();
   },
 };
 </script>
