@@ -538,18 +538,18 @@ export default {
       // ! Testing making the report update
       let tempReport = {
         report_type: this.report.report_type,
-        noc_ticket: null,
-        third_party_ticket: null,
-        date_of_outage: null,
-        time_of_outage: null,
-        notes: null,
-        municipalities: null,
-        outage_type: null,
+        noc_ticket: this.report.noc_ticket,
+        third_party_ticket: this.report.third_party_ticket,
+        date_of_outage: this.report.date_of_outage,
+        time_of_outage: this.report.time_of_outage,
+        notes: this.report.notes,
+        municipalities: this.report.municipalities,
+        outage_type: this.report.outage_type,
         causes: null,
         services: null,
         clients: null,
       }
-      console.log("testing new update report: " + tempReport.report_type)
+      console.log("testing new update report: " + tempReport.outage_type)
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
