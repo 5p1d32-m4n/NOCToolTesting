@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="testFucntion">
+    <form v-on:submit.prevent="buildNewClientObject">
       <!-- These are the text input fields (date and time included) -->
       <b-row>
         <b-col id="report-specific">
@@ -397,6 +397,8 @@ export default {
         "Yabucoa",
         "Yauco",
       ],
+      newServices:{},
+      newClients:{},
       PuertoRico,
     };
   },
@@ -536,6 +538,8 @@ export default {
     },
     testFucntion() {
       // ! Testing making the report update
+      this.buildNewClientObject();
+      this.buildNewServiceObject();
       let tempReport = {
         report_type: this.report.report_type,
         noc_ticket: this.report.noc_ticket,
@@ -545,11 +549,11 @@ export default {
         notes: this.report.notes,
         municipalities: this.report.municipalities,
         outage_type: this.report.outage_type,
-        causes: null,
-        services: null,
-        clients: null,
+        causes: this.report.causes,
+        services: this.newServices,
+        clients: this.newClients,
       }
-      console.log("testing new update report: " + tempReport.outage_type)
+      console.log("testing new update report: " + tempReport)
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
@@ -804,9 +808,9 @@ export default {
         });
     },
     //* Function that builds the Service portion of the Outage report in Json forma
-    buildServiceObject() {
+    buildNewServiceObject() {
       // !Testing new Objec building method.
-      let serviceName = this.oldServices;
+      let serviceName = this.servicesFormArray;
       let serviceAmount = [];
 
       for (let entry = 0; entry < serviceName.length; entry++) {
@@ -820,15 +824,16 @@ export default {
           Object.assign(acc, { [key]: serviceAmount[index] }),
         {}
       );
-      this.ServicesObject = JSON.stringify(serviceObject);
-      let servicesString = this.ServicesObject;
+      this.newServices = JSON.stringify(serviceObject);
+      let servicesString = this.servicesFormArray;
       servicesString.replace(RegExp("\\\\", "g"), "");
-      this.ServicesObject = servicesString;
+      this.newServices = servicesString;
+      console.log("new service Object: "+this.newServices)
     },
     //* Fucntion that builds the Client portion of the outage report in Json format.
-    buildClientObject() {
+    buildNewClientObject() {
       // ! Testing
-      let clientName = this.selectedClients;
+      let clientName = this.clientsFormArray;
       let clientAmount = [];
 
       for (let entry = 0; entry < clientName.length; entry++) {
@@ -838,7 +843,8 @@ export default {
         (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
         {}
       );
-      this.ClientsObject = JSON.stringify(clientObject);
+      this.newClients = JSON.stringify(clientObject);
+      console.log("testing client object: "+ this.newClients)
     },
     // * Function that Updates report Objects
     UpdateReport() {
