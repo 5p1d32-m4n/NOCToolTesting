@@ -397,119 +397,12 @@ export default {
         "Yabucoa",
         "Yauco",
       ],
-      newServices:{},
-      newClients:{},
+      newServices: {},
+      newClients: {},
       PuertoRico,
     };
   },
   computed: {
-    // reportedServices: {
-    //   get: function () {
-    //     let oldServ = [];
-    //     oldServ = this.report.services;
-    //     let arrayServices = [];
-    //     arrayServices = Object.keys(oldServ);
-    //     return arrayServices;
-    //   },
-    //   set: function () {},
-    // },
-    // computedServAmount: {
-    //   get: function () {
-    //     let allServices = [];
-    //     let oldServices = [];
-    //     let allAmounts = [];
-    //     let oldServiceAmount = [];
-
-    //     allServices = this.services;
-    //     oldServices = Object.keys(this.report.services);
-    //     oldServiceAmount = Object.values(this.report.services);
-
-    //     /*
-    //      *Here I initialize an array that is for the amounts started at zero
-    //      *and change them later in the second for loop.
-    //      */
-    //     for (let entry = 0; entry < allServices.length; entry++) {
-    //       allAmounts.push(0);
-    //     }
-    //     //* this is where we need to run the for loop with existance check
-    //     for (let index = 0; index < allServices.length; index++) {
-    //       let currentService = allServices[index];
-
-    //       for (let subIndex = 0; subIndex < oldServices.length; subIndex++) {
-    //         let reportService = oldServices[subIndex];
-    //         //* Here we compare if the service from our api list matches the selected service from our report:
-
-    //         if (currentService == reportService) {
-    //           allAmounts[index] = oldServiceAmount[subIndex];
-    //         }
-    //       }
-    //     }
-
-    //     return allAmounts;
-    //   },
-    //   set: function () {},
-    // },
-    // computedImpactedClients: {
-    //   get: function () {
-    //     let oldImpClients = [];
-    //     oldImpClients = this.report.clients;
-    //     let reportImpClient = [];
-    //     reportImpClient = Object.keys(oldImpClients);
-    //     return reportImpClient;
-    //   },
-    //   set: function () {
-    //     return "";
-    //   },
-    // },
-    // computedImpCliAmounts: {
-    //   get: function () {
-    //     let allClients = [];
-    //     let reportClients = [];
-    //     let allCliAmounts = [];
-    //     let reportCliAmounts = [];
-
-    //     allClients = this.clients;
-    //     reportClients = Object.keys(this.report.clients);
-    //     reportCliAmounts = Object.values(this.report.clients);
-
-    //     /*
-    //      *Here we beggin an array full of zeroes the same size as
-    //      *the array of all the impacted clients.
-    //      */
-    //     for (let index = 0; index < allClients.length; index++) {
-    //       allCliAmounts.push(0);
-    //     }
-
-    //     /*
-    //      * For loop that iterates through all the services then nest into
-    //      * the report services and inserts the corresponding values into the
-    //      * zero arra.
-    //      */
-
-    //     for (let index = 0; index < allClients.length; index++) {
-    //       let currentClient = allClients[index];
-
-    //       for (let subIndex = 0; subIndex < reportClients.length; subIndex++) {
-    //         let oldImpClients = reportClients[subIndex];
-
-    //         /*
-    //          * Conditional that sets value array after comparing existing
-    //          * entries to both arrays.
-    //          */
-
-    //         if (currentClient == oldImpClients) {
-    //           allCliAmounts[index] = reportCliAmounts[subIndex];
-    //         }
-    //       }
-    //     }
-    //     console.log("cli amounts: " + allCliAmounts);
-    //     return allCliAmounts;
-    //   },
-    //   set: function () {
-    //     // return "";
-    //   },
-    // },
-
     selectedMunicipalities: function () {
       let selection = this.report.municipalities;
       return selection;
@@ -552,8 +445,8 @@ export default {
         causes: this.report.causes,
         services: this.newServices,
         clients: this.newClients,
-      }
-      console.log("testing new update report: " + tempReport)
+      };
+      console.log("testing new update report: " + JSON.parse(tempReport));
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
@@ -653,8 +546,10 @@ export default {
           let clientList = [];
           clientList = this.APIclients;
           //* client amount values into an array
-          let cliAmountArray = []
-          let reportedCliAmount = Object.values(JSON.parse(response.data.clients))
+          let cliAmountArray = [];
+          let reportedCliAmount = Object.values(
+            JSON.parse(response.data.clients)
+          );
           /**
            ** This is the for loop that fills our larger array with zeroes.
            */
@@ -685,13 +580,15 @@ export default {
               "\n" +
               "API clients: " +
               clientList +
-              "\n"+
-              "reported client amount: "+ reportedCliAmount +
               "\n" +
-              "client amount with zero: " + cliAmountArray
+              "reported client amount: " +
+              reportedCliAmount +
+              "\n" +
+              "client amount with zero: " +
+              cliAmountArray
           );
-          this.clientsFormArray = clientsArray
-          this.cliAmountFormArray = cliAmountArray
+          this.clientsFormArray = clientsArray;
+          this.cliAmountFormArray = cliAmountArray;
           // console.log("report object" + this.report);
         })
         .catch((error) => {
@@ -826,9 +723,9 @@ export default {
       );
       this.newServices = JSON.stringify(serviceObject);
       let servicesString = this.servicesFormArray;
-      servicesString.replace(RegExp("\\\\", "g"), "");
+      // servicesString.replace(RegExp("\\\\", "g"), "");
       this.newServices = servicesString;
-      console.log("new service Object: "+this.newServices)
+      console.log("new service Object: " + this.newServices);
     },
     //* Fucntion that builds the Client portion of the outage report in Json format.
     buildNewClientObject() {
@@ -844,7 +741,7 @@ export default {
         {}
       );
       this.newClients = JSON.stringify(clientObject);
-      console.log("testing client object: "+ this.newClients)
+      console.log("testing client object: " + this.newClients);
     },
     // * Function that Updates report Objects
     UpdateReport() {
