@@ -45,6 +45,7 @@ class ReportUpdateListAPIView(generics.ListAPIView):
 
 class ReportUpdateAPIView(generics.RetrieveUpdateAPIView):
     serializer_class = ReportSerializer
+    queryset = Report.objects.all()
 
 
 class ServicesCreateAPIView(generics.CreateAPIView):
