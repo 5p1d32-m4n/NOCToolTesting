@@ -449,13 +449,11 @@ export default {
           Object.assign(acc, { [key]: serviceAmount[index] }),
         {}
       );
-      // console.log("Hey service Object: " + serviceObject);
       this.ServicesObject = JSON.stringify(serviceObject);
       let servicesString = this.ServicesObject;
       servicesString.replace(RegExp("\\\\", "g"), "");
       this.ServicesObject = servicesString;
       console.log("Stringy Service: " + this.ServicesObject);
-      // this.stringifiedServices;
     },
     //* Fucntion that builds the Client portion of the outage report in Json format.
     buildClientObject() {

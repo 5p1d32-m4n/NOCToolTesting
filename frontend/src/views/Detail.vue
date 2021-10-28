@@ -170,7 +170,8 @@ export default {
       );
     },
     selectedMunicipalities: function () {
-      let selection = this.report.municipalities;
+      let selection = []
+      selection = this.report.municipalities;
       // console.log(selection);
       let newSelection = selection.split(",");
       console.log(newSelection);

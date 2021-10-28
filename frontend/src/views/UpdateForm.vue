@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="buildNewClientObject">
+    <form v-on:submit.prevent="testFucntion">
       <!-- These are the text input fields (date and time included) -->
       <b-row>
         <b-col id="report-specific">
@@ -413,40 +413,38 @@ export default {
       this.selectedMunicipalities = [];
       this.selectedMunicipalities = this.report.municipalities;
     },
-    // TODO: create an array handler.
-    servicesArray: {
-      deep: true,
-      immediate: true,
-      // handler: "testServiceArray",
-    },
   },
   methods: {
-    testServiceArray() {
-      console.log("Setting Array!");
-      let oldServices = [];
-      oldServices = this.report.services;
-      let passArray = Object.keys(oldServices);
-      this.servicesArray = passArray;
-      console.log(this.servicesArray);
-    },
     testFucntion() {
       // ! Testing making the report update
       this.buildNewClientObject();
       this.buildNewServiceObject();
-      let tempReport = {
+      var tempReport = {
         report_type: this.report.report_type,
         noc_ticket: this.report.noc_ticket,
         third_party_ticket: this.report.third_party_ticket,
         date_of_outage: this.report.date_of_outage,
         time_of_outage: this.report.time_of_outage,
         notes: this.report.notes,
-        municipalities: this.report.municipalities,
-        outage_type: this.report.outage_type,
-        causes: this.report.causes,
+        municipalities: this.report.municipalities.toString(),
+        outage_type: this.report.outage_type.toString(),
+        causes: this.report.causes.toString(),
         services: this.newServices,
         clients: this.newClients,
       };
-      console.log("testing new update report: " + JSON.parse(tempReport));
+      console.log("testing new update report: " + JSON.stringify(tempReport));
+
+      /**
+       * Axios PUT verb for backend API
+       */
+      axios
+      .put(`/api/report-update/${tempReport.noc_ticket}/`, tempReport)
+      .then(response => {
+        console.log(response)
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
@@ -722,8 +720,8 @@ export default {
         {}
       );
       this.newServices = JSON.stringify(serviceObject);
-      let servicesString = this.servicesFormArray;
-      // servicesString.replace(RegExp("\\\\", "g"), "");
+      let servicesString = this.newServices;
+      servicesString.replace(RegExp("\\\\", "g"), "");
       this.newServices = servicesString;
       console.log("new service Object: " + this.newServices);
     },
@@ -783,7 +781,7 @@ export default {
     getSelectedLocationName,
   },
   beforeMounted() {
-    document.title = "Forumulario de Actualizacion";
+    document.title = `Forumulario de Actualizacion ${this.$route.params.noc_ticket}`;
   },
   mounted() {
     this.getServices();
