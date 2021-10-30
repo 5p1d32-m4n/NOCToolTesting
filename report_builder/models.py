@@ -35,7 +35,7 @@ class Report(models.Model):
     STATES = (
         ("Inicial", "Inicial"),
         ("Actualización", "Actualización"),
-        ("Final", "Final")
+        ("Finalizado", "Finalizado")
     )
     # Unique per report fields
     report_type = models.CharField(max_length=15, choices=STATES, default=None)
