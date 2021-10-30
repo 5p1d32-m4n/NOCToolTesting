@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="testFucntion">
+    <form v-on:submit.prevent="UpdateReport">
       <!-- These are the text input fields (date and time included) -->
       <b-row>
         <b-col id="report-specific">
@@ -415,7 +415,7 @@ export default {
     },
   },
   methods: {
-    testFucntion() {
+    UpdateReport() {
       // ! Testing making the report update
       this.buildNewClientObject();
       this.buildNewServiceObject();
@@ -445,6 +445,8 @@ export default {
       .catch((error) => {
         console.log(error.response);
       });
+      this.$router.push({name: 'Detail', params:{noc_ticket: tempReport.noc_ticket}});
+      window.location.reload();
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
@@ -741,30 +743,7 @@ export default {
       this.newClients = JSON.stringify(clientObject);
       console.log("testing client object: " + this.newClients);
     },
-    // * Function that Updates report Objects
-    UpdateReport() {
-      this.buildServiceObject();
-      this.buildClientObject();
-      let tempReport = {
-        report_type: this.report.report_type,
-        noc_ticket: this.report.noc_ticket,
-        third_party_ticket: this.report.third_party_ticket,
-        date_of_outage: this.report.date_of_outage,
-        time_of_outage: this.report.time_of_outage,
-        notes: this.report.notes,
-        municipalities: this.report.municipalities.toString(),
-        outage_type: this.report.outage_type.toString(),
-        causes: this.causes.toString(),
-        services: this.ServicesObject,
-        clients: this.ClientsObject,
-      };
-      // * The problem data here seems to be causes, municipalities and outage_type.
-      // * The string format appears to be incorrect.
-      console.log(tempReport);
-      axios.post("/api/report-create/", tempReport).catch((error) => {
-        console.log(error.response);
-      });
-    },
+    
     //* Svg map Checkbox functions for evets.
     pointLocation(event) {
       this.pointedLocation = getLocationName(event.target);
@@ -789,7 +768,6 @@ export default {
     this.getCause();
     this.getOutageType();
     this.setReportServiceObjects();
-    this.testFucntion();
     this.getReportData();
   },
 };

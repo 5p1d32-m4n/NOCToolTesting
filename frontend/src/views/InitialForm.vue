@@ -431,6 +431,8 @@ export default {
       axios.post("/api/report-create/", tempReport).catch((error) => {
         console.log(error.response);
       });
+      this.$router.push({name: 'Detail', params:{noc_ticket: tempReport.noc_ticket}})
+      window.location.reload();
     },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {

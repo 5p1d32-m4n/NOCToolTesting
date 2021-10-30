@@ -109,9 +109,9 @@
             :value="selectedMunicipalities"
           />
         </div>
-      <div id="commentSection" class="border row border-light">
-        <p>{{report.notes}}</p>
-      </div>
+        <div id="commentSection" class="border row border-light">
+          <p>{{ report.notes }}</p>
+        </div>
       </div>
     </div>
   </div>
@@ -170,7 +170,7 @@ export default {
       );
     },
     selectedMunicipalities: function () {
-      let selection = []
+      let selection = [];
       selection = this.report.municipalities;
       // console.log(selection);
       let newSelection = selection.split(",");
@@ -185,20 +185,18 @@ export default {
       axios
         .get(`/api/report-detail/${noc_ticket_url}/`)
         .then((response) => {
-          // this.report = response.data
-          this.report.report_type = response.data.report_type
-          this.report.noc_ticket = response.data.noc_ticket
-          this.report.third_party_ticket = response.data.third_party_ticket
-          this.report.date_of_outage = response.data.date_of_outage
-          this.report.time_of_outage = response.data.time_of_outage
-          this.report.notes = response.data.notes
-          this.report.municipalities = response.data.municipalities
-          this.report.outage_type = response.data.outage_type
-          this.report.causes = response.data.causes
-          this.report.services = JSON.parse(response.data.services)
-          this.report.clients = JSON.parse(response.data.clients)
+          this.report.report_type = response.data.report_type;
+          this.report.noc_ticket = response.data.noc_ticket;
+          this.report.third_party_ticket = response.data.third_party_ticket;
+          this.report.date_of_outage = response.data.date_of_outage;
+          this.report.time_of_outage = response.data.time_of_outage;
+          this.report.notes = response.data.notes;
+          this.report.municipalities = response.data.municipalities;
+          this.report.outage_type = response.data.outage_type;
+          this.report.causes = response.data.causes;
+          this.report.services = JSON.parse(response.data.services);
+          this.report.clients = JSON.parse(response.data.clients);
           console.log(this.report);
-
         })
         .catch((error) => {
           console.log(error);
@@ -225,6 +223,8 @@ export default {
     document.title = `Detalles de Reporte ${this.$route.params.noc_ticket}`;
     this.getReportData();
     this.setMap();
+  },
+  mounted() {
   },
 };
 </script>
