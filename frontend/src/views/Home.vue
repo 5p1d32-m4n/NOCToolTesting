@@ -8,8 +8,8 @@
     <div id="button-row" class="buttons is-centered is-grouped text-center gap-2 d-md-block"
     >
       <div class="button has-background-info has-text-white is-large">
-        <div class="font-weight-bolder">
-          <span><p class="media-content">Archivos de Reporte</p></span>
+        <div class="card-content font-weight-bolder">
+          <span><router-link class="media-content has-text-white-bis" :to="{name: 'Archive'}">Archivo de Reportes</router-link></span>
         </div>
       </div>
       <div class="button has-background-danger has-text-white is-large">
