@@ -7,6 +7,7 @@ import InitialForm from "../views/InitialForm.vue"
 import UpdateForm from "../views/UpdateForm.vue"
 import FinalizeList from '../views/FinalizeList.vue';
 import FinalizeForm from "../views/FinalizeForm.vue"
+import Archive from "../views/Archive.vue"
 Vue.use(VueRouter);
 
 const routes = [{
@@ -43,6 +44,11 @@ const routes = [{
     path: "/report-create/",
     name: "InitialForm",
     component: InitialForm,
+  },
+  {
+    path: "/report-list/",
+    name: "Archive",
+    component: Archive,
   },
   {
     path: "/about",
