@@ -1,18 +1,10 @@
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
-ports:
-  - port: 8000-8080
-    visibility: public
-    onOpen: ignore
 tasks:
   - name: Python Server
     command: >
-      pipenv --rm
-      sleep 3
-      echo 'y'|pipenv shell
-      sleep 3
+      echo 'Y'|pipenv shell
       pipenv install
-      sleep 3
       python manage.py runserver
 
   - name: NPM Server
@@ -24,6 +16,10 @@ tasks:
     command: >
         sleep 3
         git status
+ports:
+  - port: 8000-8080
+    visibility: public
+    onOpen: ignore
 
 
 vscode:
