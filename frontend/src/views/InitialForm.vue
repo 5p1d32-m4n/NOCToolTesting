@@ -154,6 +154,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(client, index) in clients" :key="index">
+                          <!-- checkbox -->
                           <td>
                             <div>
                               <b-form-checkbox
@@ -163,8 +164,9 @@
                               >
                             </div>
                           </td>
+                          <!-- Number input. -->
                           <td>
-                            <div>
+                            <!-- <div>
                               <input
                                 type="number"
                                 name="clientAmount"
@@ -172,7 +174,14 @@
                                 min="0"
                                 :id="client"
                               />
-                            </div>
+                            </div> -->
+                            
+                              <b-form-radio-group
+                                :id="client"
+                                :options="amountOptions"
+                                stacked
+                              >
+                              </b-form-radio-group>
                           </td>
                         </tr>
                       </tbody>
@@ -300,6 +309,16 @@ export default {
       reportOutageDate: null,
       reportOutageTime: null,
       reportNotes: "",
+      amountOptions: [
+        {
+          text: "1,000",
+          value: "1,000",
+        },
+        {text: "5,000",
+          value: "5,000",},
+        {text: "10,000",
+          value: "10,000",},
+      ],
       selectedMunicipalities: [],
       selectedOutageTypes: [],
       selectedCauses: [],
@@ -428,11 +447,14 @@ export default {
       // * The problem data here seems to be causes, municipalities and outage_type.
       // * The string format appears to be incorrect.
       console.log(tempReport);
-      axios.post("/api/report-create/", tempReport).catch((error) => {
-        console.log(error.response);
-      });
-      this.$router.push({name: 'Detail', params:{noc_ticket: tempReport.noc_ticket}})
-      window.location.reload();
+      // axios.post("/api/report-create/", tempReport).catch((error) => {
+      //   console.log(error.response);
+      // });
+      // this.$router.push({
+      //   name: "Detail",
+      //   params: { noc_ticket: tempReport.noc_ticket },
+      // });
+      // window.location.reload();
     },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
