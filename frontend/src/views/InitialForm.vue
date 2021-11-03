@@ -80,6 +80,7 @@
                             </div>
                           </td>
                           <td>
+                            <!-- Original number input for client amount -->
                             <div>
                               <input
                                 type="number"
@@ -90,6 +91,7 @@
                                 :id="service"
                               />
                             </div>
+                            <!-- Radio Button Implementation -->
                           </td>
                         </tr>
                       </tbody>
@@ -175,13 +177,18 @@
                                 :id="client"
                               />
                             </div> -->
-                            
-                              <b-form-radio-group
-                                :id="client"
-                                :options="amountOptions"
-                                stacked
-                              >
-                              </b-form-radio-group>
+
+                            <!-- <b-form-radio-group
+                              :id="client"
+                              :options="amountOptions"
+                              
+                            >
+                            </b-form-radio-group> -->
+                            <div>
+                              <input type="radio" :name="client" value="1,000">1,000
+                              <input type="radio" :name="client" value="5,000">5,000
+                              <input type="radio" :name="client" value="10,000">10,000
+                            </div>
                           </td>
                         </tr>
                       </tbody>
@@ -310,14 +317,9 @@ export default {
       reportOutageTime: null,
       reportNotes: "",
       amountOptions: [
-        {
-          text: "1,000",
-          value: "1,000",
-        },
-        {text: "5,000",
-          value: "5,000",},
-        {text: "10,000",
-          value: "10,000",},
+        { text: "1,000", value: "1,000" },
+        { text: "5,000", value: "5,000" },
+        { text: "10,000", value: "10,000" },
       ],
       selectedMunicipalities: [],
       selectedOutageTypes: [],
@@ -484,17 +486,21 @@ export default {
       // ! Testing
       let clientName = this.selectedClients;
       let clientAmount = [];
-
+      
       for (let entry = 0; entry < clientName.length; entry++) {
-        clientAmount.push(document.getElementById(clientName[entry]).value);
+        let radios = document.getElementsByName(clientName[entry])
+        if (radios.checked) {
+          console.log(radios.value)
+        }
       }
+      console.log("client amount array: "+clientAmount)
       //*  TESTING: stringify this so it will match the Djando service field.
-      let clientObject = clientName.reduce(
-        (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
-        {}
-      );
-      this.ClientsObject = JSON.stringify(clientObject);
-      console.log("Stringy Client: " + this.ClientsObject);
+      // let clientObject = clientName.reduce(
+      //   (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
+      //   {}
+      // );
+      // this.ClientsObject = JSON.stringify(clientObject);
+      // console.log("Stringy Client: " + this.ClientsObject);
     },
     setServiceZeroes() {
       let amountSlots = [];
