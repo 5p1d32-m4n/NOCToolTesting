@@ -3,21 +3,21 @@
 tasks:
   - name: Python Server
     command: >
-      echo 'Y'|pipenv shell
-      pipenv install
+      echo 'Y'|pipenv shell &&
+      pipenv install &&
       python manage.py runserver
 
   - name: NPM Server
     command: >
-        cd frontend
-        sleep 3
-        npm run serve
+        cd frontend &&
+        sleep 3 &&
+        npm run serve &&
   - name: Misc Server
     command: >
         sleep 3
         git status
 ports:
-  - port: 8000-8080
+  - port: 8000-8081
     visibility: public
     onOpen: ignore
 
