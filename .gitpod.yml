@@ -3,9 +3,10 @@
 workspaceLocation: "."
 tasks:
   - name: Python Server
-    command: |
+    init: |
       echo 'Y'|pipenv shell &&
-      pipenv install &&
+      pipenv install
+    command: |
       python manage.py runserver
 
   - name: NPM Server
