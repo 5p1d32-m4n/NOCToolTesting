@@ -4,6 +4,7 @@ workspaceLocation: "."
 tasks:
   - name: Python Server
     init: |
+      pipenv --rm &&
       echo 'Y'|pipenv shell &&
       pipenv install
     command: |
