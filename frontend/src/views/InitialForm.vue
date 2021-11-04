@@ -486,13 +486,20 @@ export default {
       // ! Testing
       let clientName = this.selectedClients;
       let clientAmount = [];
+      let elements = document.getElementsByTagName("input");
       
+      // Client Name for loop
       for (let entry = 0; entry < clientName.length; entry++) {
-        let radios = document.getElementsByName(clientName[entry])
-        if (radios.checked) {
-          console.log(radios.value)
+        let name = clientName[entry]
+        console.log("type of client: " + name)
+        // input element for loop
+        for (let elementIndex = 0; elementIndex < elements.length; elementIndex++) {
+          if (elements[elementIndex].type == "radio") {
+            console.log("hello")
+          }
         }
       }
+      console.log(elements)
       console.log("client amount array: "+clientAmount)
       //*  TESTING: stringify this so it will match the Djando service field.
       // let clientObject = clientName.reduce(
