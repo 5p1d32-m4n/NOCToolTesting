@@ -168,26 +168,10 @@
                           </td>
                           <!-- Number input. -->
                           <td>
-                            <!-- <div>
-                              <input
-                                type="number"
-                                name="clientAmount"
-                                value="0"
-                                min="0"
-                                :id="client"
-                              />
-                            </div> -->
-
-                            <!-- <b-form-radio-group
-                              :id="client"
-                              :options="amountOptions"
-                              
-                            >
-                            </b-form-radio-group> -->
                             <div>
-                              <input type="radio" :name="client" value="1,000">1,000
-                              <input type="radio" :name="client" value="5,000">5,000
-                              <input type="radio" :name="client" value="10,000">10,000
+                              <input type="radio" :name="client" value="1000">1,000+
+                              <input type="radio" :name="client" value="5000">5,000+
+                              <input type="radio" :name="client" value="10000">10,000+
                             </div>
                           </td>
                         </tr>
@@ -220,7 +204,7 @@
                             <div>
                               <b-form-checkbox
                                 v-model="selectedOutageTypes"
-                                :value="outage_type"
+                                :value="type"
                                 >&nbsp;{{ type }}</b-form-checkbox
                               >
                             </div>
@@ -449,14 +433,14 @@ export default {
       // * The problem data here seems to be causes, municipalities and outage_type.
       // * The string format appears to be incorrect.
       console.log(tempReport);
-      // axios.post("/api/report-create/", tempReport).catch((error) => {
-      //   console.log(error.response);
-      // });
-      // this.$router.push({
-      //   name: "Detail",
-      //   params: { noc_ticket: tempReport.noc_ticket },
-      // });
-      // window.location.reload();
+      axios.post("/api/report-create/", tempReport).catch((error) => {
+        console.log(error.response);
+      });
+      this.$router.push({
+        name: "Detail",
+        params: { noc_ticket: tempReport.noc_ticket },
+      });
+      window.location.reload();
     },
     //* Function that builds the Service portion of the Outage report in JS forma
     buildServiceObject() {
@@ -486,28 +470,25 @@ export default {
       // ! Testing
       let clientName = this.selectedClients;
       let clientAmount = [];
-      let elements = document.getElementsByTagName("input");
-      
+
       // Client Name for loop
       for (let entry = 0; entry < clientName.length; entry++) {
-        let name = clientName[entry]
-        console.log("type of client: " + name)
-        // input element for loop
-        for (let elementIndex = 0; elementIndex < elements.length; elementIndex++) {
-          if (elements[elementIndex].type == "radio") {
-            console.log("hello")
-          }
+        let radioGroupName = document.getElementsByName(clientName[entry])
+        // radio button input element for loop
+        for (let button = 0; button < radioGroupName.length; button++) {
+          // checking if radio button was checked or "selected"
+          if (radioGroupName[button].checked) {
+            clientAmount.push(radioGroupName[button].value)
+          }          
         }
       }
-      console.log(elements)
-      console.log("client amount array: "+clientAmount)
       //*  TESTING: stringify this so it will match the Djando service field.
-      // let clientObject = clientName.reduce(
-      //   (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
-      //   {}
-      // );
-      // this.ClientsObject = JSON.stringify(clientObject);
-      // console.log("Stringy Client: " + this.ClientsObject);
+      let clientObject = clientName.reduce(
+        (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
+        {}
+      );
+      this.ClientsObject = JSON.stringify(clientObject);
+      console.log("Stringy Client: " + this.ClientsObject);
     },
     setServiceZeroes() {
       let amountSlots = [];

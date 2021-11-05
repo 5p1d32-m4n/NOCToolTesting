@@ -165,17 +165,14 @@ export default {
     },
     totalImpactedClients() {
       return Object.keys(this.report.clients).reduce(
-        (sum, values) => sum + parseFloat(this.report.clients[values] || 0),
+        (sum, values) => sum + parseInt(this.report.clients[values] || 0),
         0
       );
     },
     selectedMunicipalities: function () {
       let selection = [];
-      selection = this.report.municipalities;
-      // console.log(selection);
-      let newSelection = selection.split(",");
-      console.log(newSelection);
-      return newSelection;
+      selection = this.report.municipalities.split(",");
+      return selection;
     },
   },
   methods: {
