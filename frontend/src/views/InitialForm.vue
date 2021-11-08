@@ -156,7 +156,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(client, index) in clients" :key="index">
-                          <!-- checkbox -->
+                          <!-- Checkbox -->
                           <td>
                             <div>
                               <b-form-checkbox

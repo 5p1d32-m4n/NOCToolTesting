@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="UpdateReport">
+    <form v-on:submit.prevent="clientObjectBuilder">
       <!-- These are the text input fields (date and time included) -->
       <b-row>
         <b-col id="report-specific">
@@ -157,7 +157,7 @@
                 class="m-2 d-grid mt-3"
                 menu-class="w-100"
               >
-                <b-dropdown-form>
+                <b-dropdown-form >
                   <b-row align-h="center">
                     <table class="table">
                       <thead>
@@ -168,24 +168,22 @@
                       </thead>
                       <tbody>
                         <tr v-for="(client, index) in APIclients" :key="index">
+                          <!-- Checkbox -->
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="clientsFormArray"
+                                v-model="report.clients[index]"
                                 :value="client"
                                 >&nbsp;{{ client }}</b-form-checkbox
                               >
                             </div>
                           </td>
+                          <!-- Number Input -->
                           <td>
                             <div>
-                              <input
-                                type="number"
-                                name="clientAmount"
-                                min="0"
-                                v-model="cliAmountFormArray[index]"
-                                :id="client"
-                              />
+                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="1000">1,000+
+                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="5000">5,000+
+                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="10000">10,000+
                             </div>
                           </td>
                         </tr>
@@ -311,7 +309,7 @@ export default {
       servAmountFormArray: [],
       clientsFormArray: [],
       cliAmountFormArray: [],
-      clientArray: [],
+      clientObject: null,
       reportType: "Actualización",
       APIservices: [],
       APIclients: [],
@@ -518,20 +516,20 @@ export default {
           /**
            * This is just the console log to test my objects and what not.
            */
-          console.log(
-            "API service call: " +
-              serviceList +
-              "\n" +
-              "reported services: " +
-              servicesArray +
-              "\n" +
-              "service amounts with zero: " +
-              serviceAmountArray +
-              "\n" +
-              "service amounts from report:" +
-              reportedServAmount +
-              "\n"
-          );
+          // console.log(
+          //   "API service call: " +
+          //     serviceList +
+          //     "\n" +
+          //     "reported services: " +
+          //     servicesArray +
+          //     "\n" +
+          //     "service amounts with zero: " +
+          //     serviceAmountArray +
+          //     "\n" +
+          //     "service amounts from report:" +
+          //     reportedServAmount +
+          //     "\n"
+          // );
           this.servicesFormArray = servicesArray;
           this.servAmountFormArray = serviceAmountArray;
 
@@ -574,19 +572,19 @@ export default {
           /**
            * * Console log to test client form data fetched from report.
            */
-          console.log(
-            "reported clients: " +
-              clientsArray +
-              "\n" +
-              "API clients: " +
-              clientList +
-              "\n" +
-              "reported client amount: " +
-              reportedCliAmount +
-              "\n" +
-              "client amount with zero: " +
-              cliAmountArray
-          );
+          // console.log(
+          //   "reported clients: " +
+          //     clientsArray +
+          //     "\n" +
+          //     "API clients: " +
+          //     clientList +
+          //     "\n" +
+          //     "reported client amount: " +
+          //     reportedCliAmount +
+          //     "\n" +
+          //     "client amount with zero: " +
+          //     cliAmountArray
+          // );
           this.clientsFormArray = clientsArray;
           this.cliAmountFormArray = cliAmountArray;
           // console.log("report object" + this.report);
@@ -743,6 +741,46 @@ export default {
       this.newClients = JSON.stringify(clientObject);
       console.log("testing client object: " + this.newClients);
     },
+
+    //* Setting the radio buttons.
+    setClientRadio(){
+      // this is the client amount array fetched from the report.
+      let reportedCliAmount = this.cliAmountFormArray
+      let presetAmount = []
+      let reportedClients = Object.keys((this.report.clients))
+
+      // For Loop to remove zeroes from the amount array.
+      // for (let index = 0; index < reportedCliAmount.length; index++) {
+      //   if (reportedCliAmount[index] == 0) {
+      //     reportedCliAmount.splice(index,1)
+      //   }        
+      // }
+
+      // Reported client name for loop.
+      for (let name = 0; name < reportedClients.length; name++) {
+        let radioGroupName = document.getElementsByName(reportedClients[name])
+        let amountToCheck = reportedCliAmount[name]
+        
+        // Radio Button input element for loop
+        for (let button = 0; button < radioGroupName.length; button++) {
+          if (amountToCheck == radioGroupName[button].value){
+            radioGroupName[button].checked = true;
+          }
+        }
+      }
+      this.cliAmountFormArray = reportedCliAmount;
+      // console Log testing output:
+      console.log("reported client amount: " + reportedCliAmount)
+      console.log("client amount array" + this.cliAmountFormArray)
+      console.log("new amount with zeros: " + presetAmount)
+    },
+
+    clientObjectBuilder(){
+      let testObject = {}
+      testObject = this.report.clients;
+
+      console.log("test object" + JSON.stringify(testObject))
+    },
     
     //* Svg map Checkbox functions for evets.
     pointLocation(event) {
@@ -767,8 +805,9 @@ export default {
     this.getClients();
     this.getCause();
     this.getOutageType();
-    this.setReportServiceObjects();
     this.getReportData();
+    this.setClientRadio();
+    this.setReportServiceObjects();
   },
 };
 </script>
