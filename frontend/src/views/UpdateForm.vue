@@ -1,6 +1,6 @@
 <template>
   <b-container fluid>
-    <form v-on:submit.prevent="clientObjectBuilder">
+    <form v-on:submit.prevent="UpdateReport">
       <!-- These are the text input fields (date and time included) -->
       <b-row>
         <b-col id="report-specific">
@@ -172,7 +172,7 @@
                           <td>
                             <div>
                               <b-form-checkbox
-                                v-model="report.clients[index]"
+                                v-model="clientsFormArray"
                                 :value="client"
                                 >&nbsp;{{ client }}</b-form-checkbox
                               >
@@ -309,7 +309,8 @@ export default {
       servAmountFormArray: [],
       clientsFormArray: [],
       cliAmountFormArray: [],
-      clientObject: null,
+      clientRawAmount: [],
+      clientRadioObject: [],
       reportType: "Actualización",
       APIservices: [],
       APIclients: [],
@@ -516,20 +517,6 @@ export default {
           /**
            * This is just the console log to test my objects and what not.
            */
-          // console.log(
-          //   "API service call: " +
-          //     serviceList +
-          //     "\n" +
-          //     "reported services: " +
-          //     servicesArray +
-          //     "\n" +
-          //     "service amounts with zero: " +
-          //     serviceAmountArray +
-          //     "\n" +
-          //     "service amounts from report:" +
-          //     reportedServAmount +
-          //     "\n"
-          // );
           this.servicesFormArray = servicesArray;
           this.servAmountFormArray = serviceAmountArray;
 
@@ -548,6 +535,8 @@ export default {
           let reportedCliAmount = Object.values(
             JSON.parse(response.data.clients)
           );
+          // ! I need to add original amount array
+          this.clientRawAmount = reportedCliAmount;
           /**
            ** This is the for loop that fills our larger array with zeroes.
            */
@@ -730,10 +719,22 @@ export default {
       // ! Testing
       let clientName = this.clientsFormArray;
       let clientAmount = [];
+      // Client amount fetching
+      for (let index = 0; index < clientName.length; index++) {
+        let radioGroupName = document.getElementsByName(clientName[index])
+        // let amountToCheck = clientName[index]
 
-      for (let entry = 0; entry < clientName.length; entry++) {
-        clientAmount.push(document.getElementById(clientName[entry]).value);
+        // Radio group loop.
+        for (let button = 0; button < radioGroupName.length; button++) {
+          if (radioGroupName[button].checked == true) {
+            console.log("checked"+ radioGroupName[button].value)
+            clientAmount.push(radioGroupName[button].value)
+          }
+        }
       }
+      // for (let entry = 0; entry < clientName.length; entry++) {
+      //   clientAmount.push(document.getElementById(clientName[entry]).value);
+      // }
       let clientObject = clientName.reduce(
         (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
         {}
@@ -776,10 +777,37 @@ export default {
     },
 
     clientObjectBuilder(){
-      let testObject = {}
-      testObject = this.report.clients;
+      let testObject = []
+      let allClients = this.APIclients;
+      let checkedClients = this.clientsFormArray;
+      let checkedClientAmounts = this.clientRawAmount;
 
-      console.log("test object" + JSON.stringify(testObject))
+      // For Loop that goes through all the API clients:
+      for (let index = 0; index < allClients.length; index++) {
+        let client = allClients[index]
+        // console.log("API client in loop: " + client)
+
+        // for loop that has the previously checked clients:
+        for (let subIndex = 0; subIndex < checkedClients.length; subIndex++) {
+          let checked = checkedClients[subIndex]
+          // console.log("Checked client in loop: " + checked)
+          
+          // match conditional
+          if (client == checked) {
+            console.log("match")
+            
+          }else{
+            console.log("no match.")
+            
+          }
+        }
+      }
+
+      console.log("test object: " + JSON.stringify(testObject));
+      console.log("API Clients: " + allClients);
+      console.log("Prev selected Clients: " + checkedClients);
+      console.log("Amounts in form: " + this.cliAmountFormArray);
+      console.log("Prev selected amounts: " + checkedClientAmounts);
     },
     
     //* Svg map Checkbox functions for evets.

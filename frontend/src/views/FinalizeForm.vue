@@ -157,7 +157,7 @@
                 class="m-2 d-grid mt-3"
                 menu-class="w-100"
               >
-                <b-dropdown-form>
+                <b-dropdown-form >
                   <b-row align-h="center">
                     <table class="table">
                       <thead>
@@ -168,6 +168,7 @@
                       </thead>
                       <tbody>
                         <tr v-for="(client, index) in APIclients" :key="index">
+                          <!-- Checkbox -->
                           <td>
                             <div>
                               <b-form-checkbox
@@ -177,15 +178,12 @@
                               >
                             </div>
                           </td>
+                          <!-- Number Input -->
                           <td>
                             <div>
-                              <input
-                                type="number"
-                                name="clientAmount"
-                                min="0"
-                                v-model="cliAmountFormArray[index]"
-                                :id="client"
-                              />
+                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="1000">1,000+
+                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="5000">5,000+
+                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="10000">10,000+
                             </div>
                           </td>
                         </tr>
@@ -311,8 +309,9 @@ export default {
       servAmountFormArray: [],
       clientsFormArray: [],
       cliAmountFormArray: [],
-      clientArray: [],
-      reportType: "Finalizado",
+      clientRawAmount: [],
+      clientRadioObject: [],
+      reportType: "Actualización",
       APIservices: [],
       APIclients: [],
       APIoutage_type: [],
@@ -445,7 +444,7 @@ export default {
       .catch((error) => {
         console.log(error.response);
       });
-      this.$router.push({name: 'Detail', params:{noc_ticket: tempReport.noc_ticket}})
+      this.$router.push({name: 'Detail', params:{noc_ticket: tempReport.noc_ticket}});
       window.location.reload();
     },
     getReportData() {
@@ -458,7 +457,7 @@ export default {
            * *Unique Report felds
            * *These are easily just set
            */
-          this.report.report_type = "Finalizado";
+          this.report.report_type = "Actualización";
           this.report.noc_ticket = response.data.noc_ticket;
           this.report.third_party_ticket = response.data.third_party_ticket;
           this.report.date_of_outage = response.data.date_of_outage;
@@ -518,20 +517,6 @@ export default {
           /**
            * This is just the console log to test my objects and what not.
            */
-          console.log(
-            "API service call: " +
-              serviceList +
-              "\n" +
-              "reported services: " +
-              servicesArray +
-              "\n" +
-              "service amounts with zero: " +
-              serviceAmountArray +
-              "\n" +
-              "service amounts from report:" +
-              reportedServAmount +
-              "\n"
-          );
           this.servicesFormArray = servicesArray;
           this.servAmountFormArray = serviceAmountArray;
 
@@ -550,6 +535,8 @@ export default {
           let reportedCliAmount = Object.values(
             JSON.parse(response.data.clients)
           );
+          // ! I need to add original amount array
+          this.clientRawAmount = reportedCliAmount;
           /**
            ** This is the for loop that fills our larger array with zeroes.
            */
@@ -574,19 +561,19 @@ export default {
           /**
            * * Console log to test client form data fetched from report.
            */
-          console.log(
-            "reported clients: " +
-              clientsArray +
-              "\n" +
-              "API clients: " +
-              clientList +
-              "\n" +
-              "reported client amount: " +
-              reportedCliAmount +
-              "\n" +
-              "client amount with zero: " +
-              cliAmountArray
-          );
+          // console.log(
+          //   "reported clients: " +
+          //     clientsArray +
+          //     "\n" +
+          //     "API clients: " +
+          //     clientList +
+          //     "\n" +
+          //     "reported client amount: " +
+          //     reportedCliAmount +
+          //     "\n" +
+          //     "client amount with zero: " +
+          //     cliAmountArray
+          // );
           this.clientsFormArray = clientsArray;
           this.cliAmountFormArray = cliAmountArray;
           // console.log("report object" + this.report);
@@ -732,16 +719,95 @@ export default {
       // ! Testing
       let clientName = this.clientsFormArray;
       let clientAmount = [];
+      // Client amount fetching
+      for (let index = 0; index < clientName.length; index++) {
+        let radioGroupName = document.getElementsByName(clientName[index])
+        // let amountToCheck = clientName[index]
 
-      for (let entry = 0; entry < clientName.length; entry++) {
-        clientAmount.push(document.getElementById(clientName[entry]).value);
+        // Radio group loop.
+        for (let button = 0; button < radioGroupName.length; button++) {
+          if (radioGroupName[button].checked == true) {
+            console.log("checked"+ radioGroupName[button].value)
+            clientAmount.push(radioGroupName[button].value)
+          }
+        }
       }
+      // for (let entry = 0; entry < clientName.length; entry++) {
+      //   clientAmount.push(document.getElementById(clientName[entry]).value);
+      // }
       let clientObject = clientName.reduce(
         (acc, value, index) => ((acc[value] = clientAmount[index]), acc),
         {}
       );
       this.newClients = JSON.stringify(clientObject);
       console.log("testing client object: " + this.newClients);
+    },
+
+    //* Setting the radio buttons.
+    setClientRadio(){
+      // this is the client amount array fetched from the report.
+      let reportedCliAmount = this.cliAmountFormArray
+      let presetAmount = []
+      let reportedClients = Object.keys((this.report.clients))
+
+      // For Loop to remove zeroes from the amount array.
+      // for (let index = 0; index < reportedCliAmount.length; index++) {
+      //   if (reportedCliAmount[index] == 0) {
+      //     reportedCliAmount.splice(index,1)
+      //   }        
+      // }
+
+      // Reported client name for loop.
+      for (let name = 0; name < reportedClients.length; name++) {
+        let radioGroupName = document.getElementsByName(reportedClients[name])
+        let amountToCheck = reportedCliAmount[name]
+        
+        // Radio Button input element for loop
+        for (let button = 0; button < radioGroupName.length; button++) {
+          if (amountToCheck == radioGroupName[button].value){
+            radioGroupName[button].checked = true;
+          }
+        }
+      }
+      this.cliAmountFormArray = reportedCliAmount;
+      // console Log testing output:
+      console.log("reported client amount: " + reportedCliAmount)
+      console.log("client amount array" + this.cliAmountFormArray)
+      console.log("new amount with zeros: " + presetAmount)
+    },
+
+    clientObjectBuilder(){
+      let testObject = []
+      let allClients = this.APIclients;
+      let checkedClients = this.clientsFormArray;
+      let checkedClientAmounts = this.clientRawAmount;
+
+      // For Loop that goes through all the API clients:
+      for (let index = 0; index < allClients.length; index++) {
+        let client = allClients[index]
+        // console.log("API client in loop: " + client)
+
+        // for loop that has the previously checked clients:
+        for (let subIndex = 0; subIndex < checkedClients.length; subIndex++) {
+          let checked = checkedClients[subIndex]
+          // console.log("Checked client in loop: " + checked)
+          
+          // match conditional
+          if (client == checked) {
+            console.log("match")
+            
+          }else{
+            console.log("no match.")
+            
+          }
+        }
+      }
+
+      console.log("test object: " + JSON.stringify(testObject));
+      console.log("API Clients: " + allClients);
+      console.log("Prev selected Clients: " + checkedClients);
+      console.log("Amounts in form: " + this.cliAmountFormArray);
+      console.log("Prev selected amounts: " + checkedClientAmounts);
     },
     
     //* Svg map Checkbox functions for evets.
@@ -760,15 +826,16 @@ export default {
     getSelectedLocationName,
   },
   beforeMounted() {
-    document.title = `Forumulario de Finalización ${this.$route.params.noc_ticket}`;
+    document.title = `Forumulario de Finalizacion ${this.$route.params.noc_ticket}`;
   },
   mounted() {
     this.getServices();
     this.getClients();
     this.getCause();
     this.getOutageType();
-    this.setReportServiceObjects();
     this.getReportData();
+    this.setClientRadio();
+    this.setReportServiceObjects();
   },
 };
 </script>
