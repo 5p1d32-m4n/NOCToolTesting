@@ -102,16 +102,16 @@
       </div>
       <div class="column" id="map_column">
         <strong class="title">Mapa de Impacto Municipal:</strong>
-        <div>
+        
           <CheckboxSvgMap
             v-model="selectedMunicipalities"
             :map="PuertoRico"
             :value="selectedMunicipalities"
           />
-        </div>
-        <div id="commentSection" class="border row border-light">
-          <p>{{ report.notes }}</p>
-        </div>
+        
+          <b-alert variant="danger" show class="w-100 h-50 mt-0"
+            ><p>{{ report.notes }}</p></b-alert
+          >
       </div>
     </div>
   </div>
@@ -221,7 +221,6 @@ export default {
     this.getReportData();
     this.setMap();
   },
-  mounted() {
-  },
+  mounted() {},
 };
 </script>

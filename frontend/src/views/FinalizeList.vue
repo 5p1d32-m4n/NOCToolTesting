@@ -14,7 +14,7 @@
           <th>Tipo de Averia</th>
         </tr>
         <tr
-          v-for="report in finalizableList"
+          v-for="report in filteredList"
           :key="report.noc_ticket"
           v-bind:report="report"
         >
@@ -47,6 +47,20 @@ export default {
     };
   },
   components: {},
+  computed:{
+    filteredList: function () {
+      let shortList = []
+      let fullList = this.finalizableList;
+
+      for (let index = 0; index < fullList.length; index++) {
+        if (fullList[index].report_type != "Finalizado") {
+          shortList.push(fullList[index])
+        }
+      }
+
+      return shortList
+    }
+  },
   methods: {
     getFinalizableList() {
       axios

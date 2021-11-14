@@ -286,7 +286,7 @@ import PuertoRico from "../assets/puerto-rico";
 import { getLocationName, getSelectedLocationName } from "../utilities";
 
 export default {
-  name: "UpdateForm",
+  name: "FinalizeForm",
   components: {
     CheckboxSvgMap,
   },
@@ -419,7 +419,7 @@ export default {
       this.buildNewClientObject();
       this.buildNewServiceObject();
       var tempReport = {
-        report_type: this.report.report_type,
+        report_type: "Finalizado",
         noc_ticket: this.report.noc_ticket,
         third_party_ticket: this.report.third_party_ticket,
         date_of_outage: this.report.date_of_outage,
