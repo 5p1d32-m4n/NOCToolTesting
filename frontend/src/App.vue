@@ -25,7 +25,7 @@
       >
         <div class="navbar-end">
           <!-- TODO: Replace these links with router-link-->
-          <a href="" class="navbar-item">Notificacion</a>
+          <router-link :to="{name:'EmailList'}" class="navbar-item">Notificacion</router-link>
           <a href="" class="navbar-item">Manejo de Usuarios</a>
           <a href="" class="navbar-item">Cuenta</a>
         </div>
