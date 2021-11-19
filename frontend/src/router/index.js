@@ -8,12 +8,22 @@ import UpdateForm from "../views/UpdateForm.vue"
 import FinalizeList from '../views/FinalizeList.vue';
 import FinalizeForm from "../views/FinalizeForm.vue"
 import Archive from "../views/Archive.vue"
+import EmailList from "../views/EmailList.vue"
+import EmailNotificationForm from "../views/EmailNotificationForm.vue"
 Vue.use(VueRouter);
 
 const routes = [{
     path: "/",
     name: "Home",
     component: Home,
+  },{
+    path: "/",
+    name: "EmailList",
+    component: EmailList,
+  },{
+    path: "/",
+    name: "EmailNotificationForm",
+    component: EmailNotificationForm,
   },
   {
     path: "/report-detail/:noc_ticket/",
