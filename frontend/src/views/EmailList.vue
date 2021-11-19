@@ -22,7 +22,7 @@
           <td>
             <router-link
               v-bind:to="{
-                name: 'Detail',
+                name: 'EmailNotificationForm',
                 params: { noc_ticket: report.noc_ticket },
               }"
             >
