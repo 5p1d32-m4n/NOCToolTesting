@@ -73,11 +73,15 @@ class Report(models.Model):
 
 
 class Comment(models.Model):
-    comment = models.TextField()
+    content = models.TextField()
     report = models.ForeignKey(
-        Report, on_delete=models.DO_NOTHING, null=True, blank=True)
+        Report, on_delete=models.CASCADE, null=True, blank=True)
     user = models.ForeignKey(
-        CustomUser, on_delete=models.DO_NOTHING, null=True, blank=True)
+        CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+    published = models.DateField(auto_now=True)
 
     def __str__(self):
         return f'{self.comment}'
+
+    class Meta:
+        ordering = ("published",)
