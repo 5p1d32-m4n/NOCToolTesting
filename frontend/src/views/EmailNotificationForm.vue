@@ -236,7 +236,7 @@ export default {
     getSelectedLocationName,
   },
   created() {
-    document.title = `Detalles de Reporte ${this.$route.params.noc_ticket}`;
+    document.title = `Notificación de Reporte ${this.$route.params.noc_ticket}`;
     this.getReportData();
     this.setMap();
   },
