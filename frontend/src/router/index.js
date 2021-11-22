@@ -10,8 +10,7 @@ import FinalizeForm from "../views/FinalizeForm.vue"
 import EmailList from "../views/EmailList.vue"
 import EmailNotificationForm from "../views/EmailNotificationForm.vue"
 import Archive from "../views/Archive.vue"
-import EmailList from "../views/EmailList.vue"
-import EmailNotificationForm from "../views/EmailNotificationForm.vue"
+
 Vue.use(VueRouter);
 
 const routes = [{
