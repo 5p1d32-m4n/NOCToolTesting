@@ -1,117 +1,161 @@
 <template>
   <div class="detail">
-    <div class="hero is-small is-gray is-light mb-2">
-      <div class="hero-body has-text-centered">
-        <p class="title mb-4">Reporte De Averia Mayor</p>
-        <p class="subtitle mt-4">
-          Reporte Identificado: {{ report.noc_ticket }}
-        </p>
+    <div class="row">
+      <div class="hero is-small is-gray is-light mb-2">
+        <div class="hero-body has-text-centered">
+          <p class="title mb-4">Reporte De Averia Mayor</p>
+          <p class="subtitle mt-4">
+            Reporte Identificado: {{ report.noc_ticket }}
+          </p>
+        </div>
       </div>
     </div>
-    <div class="columns">
-      <div class="column" id="table-column">
-        <p class="title">
-          <strong>Tabla de Reporte:</strong>
-        </p>
-        <table class="table is-bordered is-striped is-hoverable">
-          <tbody>
-            <tr>
-              <td class="is-narrow">Taquilla del NOC:</td>
-              <td>{{ report.noc_ticket }}</td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Ultimo Estado de Reporte:</td>
-              <td>
-                <p>{{ report.report_type }}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Taquilla de Tercero:</td>
-              <td>
-                <p>{{ report.third_party_ticket }}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Fecha de Averia:</td>
-              <td>
-                <p>{{ report.date_of_outage }}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Tiempo de Averia:</td>
-              <td>
-                <p>{{ report.time_of_outage }}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Municipios Impactados:</td>
-              <td>
-                <p>{{ report.municipalities }}</p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Clientes Impactados</td>
-              <td>
-                <p
-                  v-for="(value, client) in report.clients"
-                  v-bind:key="client"
-                >
-                  {{ client }}: {{ value }}
-                </p>
-                <p>
-                  <strong>Total: {{ totalImpactedClients }}</strong>
-                </p>
-                <p></p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Tipo de Averia:</td>
-              <td>
-                <p>
-                  {{ report.outage_type }}
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Causa de Averia:</td>
-              <td>
-                <p>
-                  {{ report.causes }}
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Equipos Impactados:</td>
-              <td>
-                <p
-                  v-for="(value, service) in report.services"
-                  v-bind:key="service"
-                >
-                  {{ service }}: {{ value }}
-                </p>
-              </td>
-            </tr>
-            <tr>
-              <td class="is-narrow">Descripcion de la Averia</td>
-              <td>
-                <p>{{ report.notes }}</p>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-      <div class="column" id="map_column">
-        <strong class="title">Mapa de Impacto Municipal:</strong>
-        
+
+    <div class="row">
+      <div class="columns">
+        <!-- This is the mega row. It contains the Report Details. -->
+        <!-- Report Detail Table Column -->
+        <div class="column" id="table-column">
+          <p class="title">
+            <strong>Tabla de Reporte:</strong>
+          </p>
+          <table class="table is-bordered is-striped is-hoverable">
+            <tbody>
+              <tr>
+                <td class="is-narrow">Taquilla del NOC:</td>
+                <td>{{ report.noc_ticket }}</td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Ultimo Estado de Reporte:</td>
+                <td>
+                  <p>{{ report.report_type }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Taquilla de Tercero:</td>
+                <td>
+                  <p>{{ report.third_party_ticket }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Fecha de Averia:</td>
+                <td>
+                  <p>{{ report.date_of_outage }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Tiempo de Averia:</td>
+                <td>
+                  <p>{{ report.time_of_outage }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Municipios Impactados:</td>
+                <td>
+                  <p>{{ report.municipalities }}</p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Clientes Impactados</td>
+                <td>
+                  <p
+                    v-for="(value, client) in report.clients"
+                    v-bind:key="client"
+                  >
+                    {{ client }}: {{ value }}
+                  </p>
+                  <p>
+                    <strong>Total: {{ totalImpactedClients }}</strong>
+                  </p>
+                  <p></p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Tipo de Averia:</td>
+                <td>
+                  <p>
+                    {{ report.outage_type }}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Causa de Averia:</td>
+                <td>
+                  <p>
+                    {{ report.causes }}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Equipos Impactados:</td>
+                <td>
+                  <p
+                    v-for="(value, service) in report.services"
+                    v-bind:key="service"
+                  >
+                    {{ service }}: {{ value }}
+                  </p>
+                </td>
+              </tr>
+              <tr>
+                <td class="is-narrow">Descripcion de la Averia</td>
+                <td>
+                  <p>{{ report.notes }}</p>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <!-- Map Column -->
+        <div class="column" id="map_column">
+          <strong class="title">Mapa de Impacto Municipal:</strong>
+
           <CheckboxSvgMap
             v-model="selectedMunicipalities"
             :map="PuertoRico"
             :value="selectedMunicipalities"
           />
-        
-          <b-alert variant="danger" show class="w-100 h-50 mt-0"
-            ><p>{{ report.notes }}</p></b-alert
-          >
+          <!-- Report Details row. -->
+          <div class="row">
+            <b-alert variant="danger" show class="w-100 h-50 mt-0"
+              ><p>{{ report.notes }}</p></b-alert
+            >
+          </div>
+        </div>
+      </div>
+      <!-- This is the second Mega row. This is where we are putting the Comments Section. -->
+      <div class="row">
+        <!-- Coment header row. -->
+        <div class="row">
+          <div class="hero is-small is-gray is-light mb-2">
+            <div class="hero-body has-text-centered">
+              <p class="title mb-4">Comentarios de Personal</p>
+              <p class="subtitle mt-4">
+                Ultimo Commentario: {{ report.noc_ticket }}
+              </p>
+            </div>
+          </div>
+        </div>
+        <!-- Comments Section Row. -->
+        <div class="row">
+          <!-- Comment list column -->
+          <div class="column">
+            <div>
+              <table class="table is-bordered is-hoverable">
+                <tbody>
+                  <tr>
+                    <td>
+                      <b-card title="User">
+                        <b-card-text>User Comment</b-card-text>
+                      </b-card>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="column">Commnet Form</div>
+        </div>
       </div>
     </div>
   </div>
