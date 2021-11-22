@@ -9,12 +9,18 @@ class Services(models.Model):
     def __str__(self):
         return f'Servicio: {self.services}'
 
+    class Meta:
+        verbose_name_plural = 'Services'
+
 
 class Clients(models.Model):
     clients = models.CharField(max_length=50)
 
     def __str__(self):
         return f'Cliente: {self.clients}'
+        
+    class Meta:
+        verbose_name_plural = 'Clients'
 
 
 class OutageType(models.Model):
