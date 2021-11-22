@@ -87,7 +87,7 @@ class Comment(models.Model):
     published = models.DateField(auto_now=True)
 
     def __str__(self):
-        return f'{self.comment}'
+        return f'{self.user}: {self.content}'
 
     class Meta:
         ordering = ("published",)
