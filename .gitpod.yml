@@ -1,8 +1,9 @@
 
 # List the ports to expose. Learn more https://www.gitpod.io/docs/config-ports/
-workspaceLocation: "."
+workspaceLocation: "./NOCToolTesting"
 tasks:
   - name: Python Server
+    before: pipenv --rm
     init: |
       echo 'Y'|pipenv shell &&
       pipenv install
