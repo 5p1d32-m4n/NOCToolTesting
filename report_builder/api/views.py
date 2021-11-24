@@ -7,18 +7,43 @@ from report_builder.models import (
     Clients,
     OutageType,
     Cause,
-    Report)
+    Report,
+    Comment)
 from report_builder.api.serializers import (
     ClientsSerializer,
     ServicesSerializer,
     OutageTypeSerializer,
     CauseSerializer,
+    CommentSerializer,
     ReportSerializer)
 
 
 class ReportCreateAPIView(generics.CreateAPIView):
     queryset = Report.objects.all()
     serializer_class = ReportSerializer
+
+
+class CommentCreateAPIView(generics.CreateAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class CommentDetailAPIView(generics.RetrieveAPIView):
+    queryset = Comment.objects.all()
+    serializer_class = CommentSerializer
+
+
+class CommentListAPIView(APIView):
+    def get(self, request, format=None):
+        comments = Comment.objects.all()
+        serializer_class = CommentSerializer(comments, many=True)
+
+        return Response(serializer.data)
+
+
+class ComentUpdateAPIView(generics.RetrieveUpdateAPIView):
+    serializer_class = CommentSerializer
+    queryset = Comment.objects.all()
 
 
 class ReportDetailAPIView(generics.RetrieveAPIView):
