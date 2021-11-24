@@ -169,9 +169,21 @@
                           <!-- Number input. -->
                           <td>
                             <div>
-                              <input type="radio" :name="client" value="1000">1,000+
-                              <input type="radio" :name="client" value="5000">5,000+
-                              <input type="radio" :name="client" value="10000">10,000+
+                              <input
+                                type="radio"
+                                :name="client"
+                                value="1000"
+                              />1,000+
+                              <input
+                                type="radio"
+                                :name="client"
+                                value="5000"
+                              />5,000+
+                              <input
+                                type="radio"
+                                :name="client"
+                                value="10000"
+                              />10,000+
                             </div>
                           </td>
                         </tr>
@@ -436,11 +448,11 @@ export default {
       axios.post("/api/report-create/", tempReport).catch((error) => {
         console.log(error.response);
       });
+      setTimeout(3000);
       this.$router.push({
         name: "Detail",
         params: { noc_ticket: tempReport.noc_ticket },
       });
-      window.location.reload();
       window.location.reload();
     },
     //* Function that builds the Service portion of the Outage report in JS forma
@@ -474,13 +486,13 @@ export default {
 
       // Client Name for loop
       for (let entry = 0; entry < clientName.length; entry++) {
-        let radioGroupName = document.getElementsByName(clientName[entry])
+        let radioGroupName = document.getElementsByName(clientName[entry]);
         // radio button input element for loop
         for (let button = 0; button < radioGroupName.length; button++) {
           // checking if radio button was checked or "selected"
           if (radioGroupName[button].checked) {
-            clientAmount.push(radioGroupName[button].value)
-          }          
+            clientAmount.push(radioGroupName[button].value);
+          }
         }
       }
       //*  TESTING: stringify this so it will match the Djando service field.
