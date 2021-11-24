@@ -18,7 +18,7 @@ class Clients(models.Model):
 
     def __str__(self):
         return f'Cliente: {self.clients}'
-        
+
     class Meta:
         verbose_name_plural = 'Clients'
 
@@ -56,21 +56,10 @@ class Report(models.Model):
     notes = models.TextField(blank=True, null=True, max_length=500)
     municipalities = models.CharField(max_length=200)
 
-    # Repeatedly used fields.
-    # TODO: Deprecate these fields.
-    # services = models.CharField(blank=True, default=None, max_length=250,
-    #                             null=True)
-    # service_amount = models.CharField(blank=True, default="0",max_length=250,
-    #                                   null=True)
-    # clients = models.CharField(blank=True, default=None, max_length=250,
-    #                            null=True)
-    # client_amount = models.CharField(blank=True, default="0", max_length=250,
-    #                                  null=True)
     outage_type = models.CharField(blank=True, default=None, max_length=250,
                                    null=True)
     causes = models.CharField(blank=True, default=None, max_length=250,
                               null=True)
-    # Testing Json fileds
     services = models.JSONField(default=dict)
     clients = models.JSONField(default=dict)
 
@@ -79,15 +68,28 @@ class Report(models.Model):
 
 
 class Comment(models.Model):
-    content = models.TextField()
+    content = models.TextField(max_length=255)
     report = models.ForeignKey(
-        Report, on_delete=models.CASCADE, null=True, blank=True)
-    user = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, null=True, blank=True)
+        Report, on_delete=models.CASCADE, null=True, blank=True,
+        related_name='comments')
+    author = models.ForeignKey(
+        CustomUser, on_delete=models.CASCADE)
     published = models.DateField(auto_now=True)
+    parent = models.ForeignKey(
+        'self', null=True, blank=True, on_delete=models.CASCADE)
 
     def __str__(self):
-        return f'{self.user}: {self.content}'
+        return f'Comment by: {self.user}; on report: {self.report}'
 
     class Meta:
         ordering = ("published",)
+    
+    def children(self):
+        return Comment.objects.filter(parent=self)
+
+    @property
+    def is_parent(self):
+        if self.parent is not Nonte:
+            return False
+        return True
+ 
