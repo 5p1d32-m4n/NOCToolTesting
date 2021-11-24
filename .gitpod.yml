@@ -5,14 +5,17 @@ tasks:
   - name: Python Server
     before: pipenv --rm
     init: |
+      cd NOCToolTesting/
+      pipenv --rm &&
       echo 'Y'|pipenv shell &&
       pipenv install
+      python manage.py migrate
     command: |
       python manage.py runserver
 
   - name: NPM Server
     command: |
-        cd frontend &&
+        cd NOCToolTesting/frontend &&
         sleep 3 &&
         npm run serve &&
   - name: Misc Server
