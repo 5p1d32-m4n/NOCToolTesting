@@ -21,6 +21,7 @@ tasks:
   - name: Misc Server
     command: |
         sleep 3
+        cd NOCToolTesting/
         git status
 ports:
   - port: 8000-8081
