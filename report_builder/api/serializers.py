@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from report_builder.models import (Report,
-                                   Clients, Services, OutageType, Cause, Comment
+                                   Clients, Services, OutageType,
+                                   Cause, Comment
                                    )
 
 
@@ -39,6 +40,8 @@ class CommentSerializer(serializers.ModelSerializer):
                   'report',
                   'user',
                   'published']
+
+
 class ReportSerializer(WritableNestedModelSerializer):
 
     class Meta:
@@ -55,4 +58,3 @@ class ReportSerializer(WritableNestedModelSerializer):
                   'services',
                   'clients'
                   ]
-
