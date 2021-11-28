@@ -35,15 +35,55 @@ class CauseSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
     author = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = ['id',
+                  'content',
+                  'report',
+                  'author',
+                  'published',
+                  'parent']
+
+    def get_author(self, obj):
+        return obj.author.username
+
+
+class CommentChildSerializer(serializers.ModelSerializer):
+    author = serializers.SerializerMethodField()
+
+    class Meta:
+        model = Comment
+        fields = [
+            'content',
+            'id',
+            'published']
+        read_only_fields = ['author']
+
+    def get_author(self, obj):
+        return obj.author.username
+
+
+class CommentDetailSerializer(serializers.ModelSerializer):
+    author = serializers.SerializerMethodField()
+    replies = serializers.SerializerMethodField()
+
     class Meta:
         model = Comment
         fields = ['content',
-                  'report',
+                  'id',
                   'author',
-                  'published']
+                  'published',
+                  'replies']
         read_only_fields = ['author']
+
     def get_author(self, obj):
         return obj.author.username
+
+    def get_replies(self, obj):
+        if obj.is_parent:
+            return CommentChildSerializer(obj.children(), many=True).data
+        return None
 
 
 class ReportSerializer(WritableNestedModelSerializer):

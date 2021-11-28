@@ -1,3 +1,5 @@
+from django.db.models.query import QuerySet
+from django.db.models import Q
 from rest_framework import generics
 
 from rest_framework.response import Response
@@ -31,14 +33,23 @@ class CommentCreateAPIView(generics.CreateAPIView):
 class CommentDetailAPIView(generics.RetrieveAPIView):
     queryset = Comment.objects.all()
     serializer_class = CommentSerializer
+    lookup_field = 'pk'
 
 
 class CommentListAPIView(APIView):
-    def get(self, request, format=None):
-        comments = Comment.objects.all()
-        serializer_class = CommentSerializer(comments, many=True)
+    serializer_class = CommentSerializer
 
-        return Response(serializer.data)
+    def get_queryset(self, *args, **kwargs):
+        queryset_list = Comment.objects.all()
+        query = self.request.GET.get("q")
+        if query:
+            queryset_list = queryset_list.filter(
+                Q(content__contains=query) |
+                Q(author__contains=query) |
+                Q(published__contains=query)
+            ).distinct()
+
+        return queryset_list
 
 
 class ComentUpdateAPIView(generics.RetrieveUpdateAPIView):

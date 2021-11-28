@@ -67,5 +67,7 @@ urlpatterns = [
          rv.CauseUpdateListAPIView.as_view(), name='cause-update-list'),
     path('cause-update/<str:pk>/',
          rv.CauseUpdateAPIView.as_view(), name='cause-update'),
-#     path(),
+    path('comment-list/', rv.CommentListAPIView.as_view(), name='comment-list'),
+    path('comment/<str:pk>/', rv.CommentDetailAPIView.as_view(), name='comment-detail'),
+    path('comment-create/', rv.CommentCreateAPIView.as_view(), name='comment-create')
 ]

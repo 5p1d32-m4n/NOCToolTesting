@@ -67,6 +67,12 @@ class Report(models.Model):
         return f'Evento: {self.noc_ticket}, en la fecha {self.date_of_outage}'
 
 
+# class CommentManager(models.Manager):
+#     def all(self):
+#         qs = super(CommentManager, self).filter(parent=None)
+#         return qs
+
+
 class Comment(models.Model):
     content = models.TextField(max_length=255)
     report = models.ForeignKey(
@@ -77,19 +83,20 @@ class Comment(models.Model):
     published = models.DateField(auto_now=True)
     parent = models.ForeignKey(
         'self', null=True, blank=True, on_delete=models.CASCADE)
+    # objects = CommentManager()
 
     def __str__(self):
-        return f'Comment by: {self.user}; on report: {self.report}'
+        return f'Comment by: {self.author}; on report: {self.report}'
 
     class Meta:
         ordering = ("published",)
-    
+
+    @property
     def children(self):
-        return Comment.objects.filter(parent=self)
+        return Comment.objects.filter(parent=self).order_by('-published').all()
 
     @property
     def is_parent(self):
-        if self.parent is not Nonte:
+        if self.parent is not None:
             return False
         return True
- 
