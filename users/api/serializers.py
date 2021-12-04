@@ -1,9 +1,16 @@
+from django.db.models import fields
 from rest_framework import serializers
 from users.models import CustomUser
 
 
-class UserDisplaySerializer(serializers.ModelSerializer):
+class CustomUserSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = CustomUser
-        fields = ["username"]
+        fields = ["first_name",
+                  "last_name",
+                  "username",
+                  "employee_number",
+                  "department",
+                  "email",
+                  "is_admin", ]

@@ -1,6 +1,7 @@
 from django.db import models
 from datetime import date
 from users.models import CustomUser
+from django.contrib.contenttypes.models import ContentType
 
 
 class Services(models.Model):
@@ -66,11 +67,24 @@ class Report(models.Model):
     def __str__(self):
         return f'Evento: {self.noc_ticket}, en la fecha {self.date_of_outage}'
 
+    @property
+    def comments(self):
+        instance = self
+        qs = Comment.objects.filter_by_instance(instance)
+        return qs
 
-# class CommentManager(models.Manager):
-#     def all(self):
-#         qs = super(CommentManager, self).filter(parent=None)
-#         return qs
+
+class CommentManager(models.Manager):
+    def all(self):
+        qs = super(CommentManager, self).filter(parent=None)
+        return qs
+
+    def filter_by_instance(self, instance):
+        content_type = ContentType.objects.get_for_model(instance.__class__)
+        obj_id = instance.id
+        qs = super(CommentManager, self).filter(
+            content_type=content_type, obj_id=obj_id)
+        return qs
 
 
 class Comment(models.Model):
@@ -79,24 +93,12 @@ class Comment(models.Model):
         Report, on_delete=models.CASCADE, null=True, blank=True,
         related_name='comments')
     author = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE)
+        CustomUser, on_delete=models.CASCADE, default=0,
+        related_name='comments')
     published = models.DateField(auto_now=True)
-    parent = models.ForeignKey(
-        'self', null=True, blank=True, on_delete=models.CASCADE)
-    # objects = CommentManager()
 
     def __str__(self):
         return f'Comment by: {self.author}; on report: {self.report}'
 
     class Meta:
         ordering = ("published",)
-
-    @property
-    def children(self):
-        return Comment.objects.filter(parent=self).order_by('-published').all()
-
-    @property
-    def is_parent(self):
-        if self.parent is not None:
-            return False
-        return True

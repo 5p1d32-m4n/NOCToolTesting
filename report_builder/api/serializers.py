@@ -34,59 +34,25 @@ class CauseSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.SerializerMethodField()
+
+    author = serializers.ReadOnlyField(source='auth.username')
 
     class Meta:
         model = Comment
         fields = ['id',
                   'content',
                   'report',
-                  'author',
                   'published',
-                  'parent']
+                  'author', ]
 
     def get_author(self, obj):
-        return obj.author.username
-
-
-class CommentChildSerializer(serializers.ModelSerializer):
-    author = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Comment
-        fields = [
-            'content',
-            'id',
-            'published']
-        read_only_fields = ['author']
-
-    def get_author(self, obj):
-        return obj.author.username
-
-
-class CommentDetailSerializer(serializers.ModelSerializer):
-    author = serializers.SerializerMethodField()
-    replies = serializers.SerializerMethodField()
-
-    class Meta:
-        model = Comment
-        fields = ['content',
-                  'id',
-                  'author',
-                  'published',
-                  'replies']
-        read_only_fields = ['author']
-
-    def get_author(self, obj):
-        return obj.author.username
-
-    def get_replies(self, obj):
-        if obj.is_parent:
-            return CommentChildSerializer(obj.children(), many=True).data
-        return None
+        return str(obj.author.username)
 
 
 class ReportSerializer(WritableNestedModelSerializer):
+    comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
+    author = serializers.ReadOnlyField(source="auth.CustomUser")
+
     class Meta:
         model = Report
         fields = ['report_type',
@@ -100,4 +66,6 @@ class ReportSerializer(WritableNestedModelSerializer):
                   'causes',
                   'services',
                   'clients',
+                  'comments',
+                  'author'
                   ]

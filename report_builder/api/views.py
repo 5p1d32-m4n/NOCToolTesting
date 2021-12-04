@@ -37,19 +37,14 @@ class CommentDetailAPIView(generics.RetrieveAPIView):
 
 
 class CommentListAPIView(APIView):
+    queryset = Comment.objects.all()
     serializer_class = CommentSerializer
 
-    def get_queryset(self, *args, **kwargs):
-        queryset_list = Comment.objects.all()
-        query = self.request.GET.get("q")
-        if query:
-            queryset_list = queryset_list.filter(
-                Q(content__contains=query) |
-                Q(author__contains=query) |
-                Q(published__contains=query)
-            ).distinct()
+    def get(self, request, format=None):
+        comments = Comment.objects.all()
+        serializer = CommentSerializer(comments, many=True)
 
-        return queryset_list
+        return Response(serializer.data)
 
 
 class ComentUpdateAPIView(generics.RetrieveUpdateAPIView):
