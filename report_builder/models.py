@@ -93,7 +93,7 @@ class Comment(models.Model):
         Report, on_delete=models.CASCADE, null=True, blank=True,
         related_name='comments')
     author = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, default=0,
+        CustomUser, on_delete=models.CASCADE, default='',
         related_name='comments')
     published = models.DateField(auto_now=True)
 

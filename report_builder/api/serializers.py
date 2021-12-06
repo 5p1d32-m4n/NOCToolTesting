@@ -35,8 +35,6 @@ class CauseSerializer(serializers.ModelSerializer):
 
 class CommentSerializer(serializers.ModelSerializer):
 
-    author = serializers.ReadOnlyField(source='auth.username')
-
     class Meta:
         model = Comment
         fields = ['id',
@@ -44,9 +42,6 @@ class CommentSerializer(serializers.ModelSerializer):
                   'report',
                   'published',
                   'author', ]
-
-    def get_author(self, obj):
-        return str(obj.author.username)
 
 
 class ReportSerializer(WritableNestedModelSerializer):
