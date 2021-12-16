@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include, re_path
 from django_registration.backends.one_step.views import RegistrationView
-from users.forms import CustomUserForm
+from users.forms import CustomUserCreationForm, CustomUserChangeForm
 from core.views import IndexTemplateView
 
 urlpatterns = [

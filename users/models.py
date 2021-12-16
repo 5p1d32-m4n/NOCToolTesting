@@ -1,6 +1,6 @@
 from django.contrib.auth.base_user import BaseUserManager
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from django.core import validators
 from django.db.models.expressions import F
 
@@ -31,7 +31,7 @@ class CustomUserManager(BaseUserManager):
         user.save()
         return user
 
-    def create_superuser(self, email, password, **extra_fields):
+    def create_superuser(self, username, email, password, **extra_fields):
         """
         Create and save a SuperUser with the given email and password.
         """
@@ -42,10 +42,10 @@ class CustomUserManager(BaseUserManager):
             raise ValueError(_('Superuser must have is_staff=True.'))
         if extra_fields.get('is_superuser') is not True:
             raise ValueError(_('Superuser must have is_superuser=True.'))
-        return self.create_user(email, password, **extra_fields)
+        return self.create_user(username=username, email=email, password=password, **extra_fields)
 
 
-class CustomUser(AbstractUser):
+class CustomUser(AbstractBaseUser, PermissionsMixin):
     first_name = models.CharField(max_length=25, default='')
     last_name = models.CharField(max_length=25, default='')
     username = models.CharField(max_length=25, default='', unique=True)
@@ -56,6 +56,9 @@ class CustomUser(AbstractUser):
         max_length=50, choices=DEPARTMENTS, default=DEPARTMENTS[0][0])
     email = models.EmailField(
         verbose_name='email address', max_length=255, unique=True)
+    USERNAME_FIELD = 'username'
+    EMAIL_FIELD = 'email'
+    REQUIRED_FIELDS = ['email']
     is_admin = models.BooleanField(default=False)
     is_active = models.BooleanField(default=True)
     is_staff = models.BooleanField(default=True)
@@ -64,4 +67,4 @@ class CustomUser(AbstractUser):
     objects = CustomUserManager()
 
     def __str__(self):
-        return self.username 
+        return self.username

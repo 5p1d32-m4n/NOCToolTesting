@@ -88,7 +88,7 @@ class CommentManager(models.Manager):
 
 
 class Comment(models.Model):
-    content = models.TextField(max_length=255)
+    content = models.TextField(max_length=255, default='')
     report = models.ForeignKey(
         Report, on_delete=models.CASCADE, null=True, blank=True,
         related_name='comments')
