@@ -14,6 +14,8 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.urls import path
+from rest_framework_simplejwt.views import (
+    TokenObtainPairView, TokenRefreshView)
 from report_builder.api import views as rv
 
 
@@ -68,6 +70,9 @@ urlpatterns = [
     path('cause-update/<str:pk>/',
          rv.CauseUpdateAPIView.as_view(), name='cause-update'),
     path('comment-list/', rv.CommentListAPIView.as_view(), name='comment-list'),
-    path('comment/<str:pk>/', rv.CommentDetailAPIView.as_view(), name='comment-detail'),
-    path('comment-create/', rv.CommentCreateAPIView.as_view(), name='comment-create')
+    path('comment/<str:pk>/', rv.CommentDetailAPIView.as_view(),
+         name='comment-detail'),
+    path('comment-create/', rv.CommentCreateAPIView.as_view(), name='comment-create'),
+    path('api-token/', TokenObtainPairView.as_view()),
+    path('api-token-refresh/', TokenRefreshView.as_view())
 ]

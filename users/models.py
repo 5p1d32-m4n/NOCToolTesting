@@ -50,7 +50,7 @@ class CustomUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(max_length=25, default='')
     username = models.CharField(max_length=25, default='', unique=True)
     employee_number = models.PositiveIntegerField(
-        primary_key=True, validators=[validators.MaxValueValidator(99999)],
+        validators=[validators.MaxValueValidator(99999)],
         default=0)
     department = models.CharField(
         max_length=50, choices=DEPARTMENTS, default=DEPARTMENTS[0][0])
