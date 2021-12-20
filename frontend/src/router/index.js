@@ -67,6 +67,8 @@ const routes = [{
   path: "/login",
   name: "LogIn",
   component: LogIn,
+  callback: false,
+  home: false
 },
 {
   path: "/logout",
@@ -82,6 +84,12 @@ const routes = [{
   component: () =>
     import( /* webpackChunkName: "about" */ "../views/About.vue"),
 },
+{
+  path: '*',
+  beforeEnter: (to, from, next) => {
+    next('/')
+  }
+}
 ];
 
 const router = new VueRouter({
@@ -90,16 +98,20 @@ const router = new VueRouter({
   routes,
 });
 
-router.beforeEach((to,from,next) => {
-  // redirect to loginpage if not logged in and trying to access a restricted page
-  const publicPages = ['/login'];
-  const authRequired = !publicPages.includes(to.path);
-  const loggedIn = localStorage.getItem('user');
+// router.beforeEach((to, from, next) => {
+//   // redirect to loginpage if not logged in and trying to access a restricted page
+//   const publicPages = ['/login'];
+//   const authRequired = !publicPages.includes(to.path);
+//   const loggedIn = localStorage.getItem('user');
 
-  if (authRequired && !loggedIn){
-    return next('/login')
-  }
-  next();
-})
+//   if (authRequired && !loggedIn) {
+//     return next('/login')
+//   }
+//   next()
+// })
+
+// router.safeNavigate = function(route, dest){
+//   if (route.name !=dest) this.push({name:dest});
+// }
 
 export default router;

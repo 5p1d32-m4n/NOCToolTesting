@@ -22,8 +22,8 @@ from core.views import IndexTemplateView
 urlpatterns = [
     # django URLs
     path('admin/', admin.site.urls),
-    path('/api/', include('djoser.urls')),
-    path('/api/', include('djoser.urls.authtoken')),
+    path('api/v1/', include('djoser.urls')),
+    path('api/v1/', include('djoser.urls.jwt')),
     # path("accounts/registration/",
     #      RegistrationView.as_view(form_class=CustomUserForm, success_url='/'),
     #      name="django_registration_register"),

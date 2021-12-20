@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import axios from 'axios';
 export default {
   name: "Login",
   data() {
@@ -52,18 +53,31 @@ export default {
   },
   methods: {
     login() {
-      this.$store
-        .dispatch("userLogin", {
-          username: this.username,
-          password: this.password,
-        })
-        .then(() => {
-          this.$router.push({ name: "Home" });
-        })
-        .catch((err) => {
-          console.log(err);
-          this.incorrectAuth = true;
-        });
+      axios.defaults.headers.common['Authorization'] =''
+      localStorage.removeItem("access")
+
+      const formData = {
+        username : this.username,
+        password : this.password
+      }
+
+      axios
+      .post('/api/v1/jwt/create/', formData)
+      .then(response => {
+        console.log(response)
+
+        const accessToken = response.data.accessToken
+        const refreshToken = response.data.refreshToken
+        this.$store.commit('setAccessToken', accessToken)
+        this.$store.commit('setRefreshToken', refreshToken)
+        axios.defaults.headers.common['Authorization'] = 'JWT' + accessToken
+        localStorage.setItem("accessToken", accessToken)
+        localStorage.setItem("refreshToken", refreshToken)
+        this.$router.push('/')
+      })
+      .catch(error => {
+        console.log(error)
+      })
     },
   },
 };
