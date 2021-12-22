@@ -6,7 +6,7 @@
           <div class="card-body">
             <h1 class="text-center card-title">Login</h1>
             <div class="row col justify-content-center">
-              <p v-if="incorrectAuth">Incorrect username or password - please try again.</p>
+              <!-- <p v-if="incorrectAuth">Incorrect username or password - please try again.</p> -->
               <form v-on:submit.prevent="login">
                 <div class="form-group">
                   <input
@@ -48,36 +48,55 @@ export default {
     return {
       username: "",
       password: "",
-      incorrectAuth: false,
     };
   },
   methods: {
     login() {
-      axios.defaults.headers.common['Authorization'] =''
-      localStorage.removeItem("access")
-
-      const formData = {
-        username : this.username,
-        password : this.password
+      const payload = {
+        username: this.username,
+        password: this.password,
       }
 
       axios
-      .post('/api/v1/jwt/create/', formData)
-      .then(response => {
-        console.log(response)
+        .post(this.$store.state.endpoints.accessToken, payload)
+        .then((response)=>{
+          this.$store.commit('updateToken', response.data.access)
 
-        const accessToken = response.data.accessToken
-        const refreshToken = response.data.refreshToken
-        this.$store.commit('setAccessToken', accessToken)
-        this.$store.commit('setRefreshToken', refreshToken)
-        axios.defaults.headers.common['Authorization'] = 'JWT' + accessToken
-        localStorage.setItem("accessToken", accessToken)
-        localStorage.setItem("refreshToken", refreshToken)
-        this.$router.push('/')
-      })
-      .catch(error => {
-        console.log(error)
-      })
+          // get and set the authUser.
+          const base = {
+            baseUrl: this.$store.state.endpoints.baseUrl,
+            headers:{
+              /**
+               * This is where we set our @Authorization to @JWT
+               */
+              Authorization: `JWT ${this.$store.state.access}`,
+              'Content-Type': 'application/json'
+            },
+            xhrFields:{
+              withCredentials: true,
+            },
+          }
+
+          /**
+           * Even though the authentication returned a user object that can be
+            decoded, we fetch it again. This way we aren't super dependant on
+            JWT and can plug in something else.
+          */
+         const axiosInstance = axios.create(base)
+         axiosInstance({
+           url:'/api/v1/users/me/',
+           method: 'get',
+           params:{},
+         }).then((response)=>{
+           this.$store.commit('SET_AUTH_USER',{
+             authUser: response.data,
+             isAuthenticated: true
+           })
+           this.$router.push({name: 'Home'})
+         }).catch((error)=>{
+           console.log(error)
+         })
+        })
     },
   },
 };

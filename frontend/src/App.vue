@@ -41,16 +41,6 @@
 import axios from "axios";
 export default {
   name: 'App',
-  beforeCreate(){
-    this.$store.commit("initializeStore")
-    const accessToken = this.$store.state.accessToken
-
-    if (accessToken){
-      axios.defaults.heasers.common['Authorization'] = "JWT " + accessToken
-    } else {
-      axios.defaults.headers.common['Authorization'] = ''
-    }
-  },
   mounted(){
     setInterval(()=> {
       this.getAccess()

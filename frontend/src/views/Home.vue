@@ -94,6 +94,7 @@ export default {
   mounted() {
     document.title = "Herramienta de Reporte del Claro NOC";
     this.getReportList();
+    console.log(this.$store.access)
   },
 };
 </script>

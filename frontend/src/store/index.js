@@ -1,42 +1,38 @@
 import Vue from "vue";
 import Vuex from "vuex";
-
+import axios from "axios";
 Vue.use(Vuex);
+
+axios.defaults.xsrfCookieName = "csrftoken";
+axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
 export default new Vuex.Store({
   state: {
-    accessToken: null,
-    refreshToken: null,
+    authUser: {},
     isAuthenticated: false,
-    username: ''
+    access: localStorage.getItem("access"),
+    endpoints: {
+      accessToken: "http://127.0.0.1:8000/api/api-token/",
+      refreshToken: "http://127.0.0.1:8000/api/api-token-refresh/",
+      baseUrl: "http://127.0.0.1:8000",
+    },
   },
   mutations: {
-    initializeStore(state) {
-      if (localStorage.getItem("accessToken") && localStorage.getItem("refreshToken")) {
-        state.accessToken = localStorage.getItem("accessToken")
-        state.refreshToken = localStorage.getItem("refreshToken")
-        state.isAuthenticated = true
-      } else {
-        state.accessToken = ''
-        state.refreshToken = ''
-        state.isAuthenticated = false
-      }
+    SET_AUTH_USER(state, { authUser, isAuthenticated }) {
+      Vue.set(state, "authUser", authUser);
+      Vue.set(state, "isAuthenticated", isAuthenticated);
     },
-    setAccessToken(state, accessToken) {
-      state.accessToken = accessToken
-      state.isAuthenticated = true 
+    updateToken(state, newToken) {
+      // TODO: some day take this out of local storage. I know, but not now.
+      localStorage.setItem("access", newToken);
+      state.access = newToken;
     },
-    setRefreshToken(state, refreshToken){
-      state.refreshToken = refreshToken
+    removeToken(state) {
+      // TODO: same, take out local storage.
+      localStorage.removeItem("access");
+      state.access = "";
     },
-    removeTokens(state){
-      state.accessToken = ''
-      state.refreshToken = ''
-      state.isAuthenticated = false
-    }
   },
 
-  actions: {
-
-  },
+  actions: {},
 });
