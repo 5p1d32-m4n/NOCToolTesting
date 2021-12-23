@@ -50,7 +50,15 @@ export default {
   methods: {
     getUpdatableList() {
       axios
-        .get("/api/report-update-list/")
+        .get("/api/report-update-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           this.updateableList = response.data;
         })

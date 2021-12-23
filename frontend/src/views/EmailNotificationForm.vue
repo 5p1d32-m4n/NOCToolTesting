@@ -126,9 +126,7 @@
       <form>
         <div class="columns">
           <div class="column">
-            <div class="row">
-              thing 1
-            </div>
+            <div class="row">thing 1</div>
           </div>
         </div>
       </form>
@@ -199,7 +197,15 @@ export default {
       const noc_ticket_url = this.$route.params.noc_ticket;
 
       axios
-        .get(`/api/report-detail/${noc_ticket_url}/`)
+        .get(`/api/report-detail/${noc_ticket_url}/`, {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           this.report.report_type = response.data.report_type;
           this.report.noc_ticket = response.data.noc_ticket;

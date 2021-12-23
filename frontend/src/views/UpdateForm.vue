@@ -157,7 +157,7 @@
                 class="m-2 d-grid mt-3"
                 menu-class="w-100"
               >
-                <b-dropdown-form >
+                <b-dropdown-form>
                   <b-row align-h="center">
                     <table class="table">
                       <thead>
@@ -181,9 +181,24 @@
                           <!-- Number Input -->
                           <td>
                             <div>
-                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="1000">1,000+
-                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="5000">5,000+
-                              <input type="radio" :name="client" v-model="cliAmountFormArray[index]" :value="10000">10,000+
+                              <input
+                                type="radio"
+                                :name="client"
+                                v-model="cliAmountFormArray[index]"
+                                :value="1000"
+                              />1,000+
+                              <input
+                                type="radio"
+                                :name="client"
+                                v-model="cliAmountFormArray[index]"
+                                :value="5000"
+                              />5,000+
+                              <input
+                                type="radio"
+                                :name="client"
+                                v-model="cliAmountFormArray[index]"
+                                :value="10000"
+                              />10,000+
                             </div>
                           </td>
                         </tr>
@@ -269,7 +284,7 @@
       <b-row>
         <div style="center">
           <b-button type="submit" variant="danger" class="btn-lg btn-block mt-4"
-            >Crear Reporte</b-button
+            >Actualizar Reporte</b-button
           >
         </div>
       </b-row>
@@ -437,21 +452,40 @@ export default {
        * Axios PUT verb for backend API
        */
       axios
-      .put(`/api/report-update/${tempReport.noc_ticket}/`, tempReport)
-      .then(response => {
-        console.log(response)
-      })
-      .catch((error) => {
-        console.log(error.response);
+        .put(`/api/report-update/${tempReport.noc_ticket}/`, tempReport, {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log(response);
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
+      this.$router.push({
+        name: "Detail",
+        params: { noc_ticket: tempReport.noc_ticket },
       });
-      this.$router.push({name: 'Detail', params:{noc_ticket: tempReport.noc_ticket}});
       window.location.reload();
     },
     getReportData() {
       const noc_ticket_url = this.$route.params.noc_ticket;
 
       axios
-        .get(`/api/report-detail/${noc_ticket_url}/`)
+        .get(`/api/report-detail/${noc_ticket_url}/`, {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           /**
            * *Unique Report felds
@@ -598,7 +632,15 @@ export default {
       let element = [];
       let uniqueServices = [];
       axios
-        .get("/api/services-list/")
+        .get("/api/services-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           let temp_services = response.data;
           for (let item = 0; item < temp_services.length; item++) {
@@ -622,7 +664,15 @@ export default {
       let element = [];
       let uniqueClients = [];
       axios
-        .get("/api/clients-list/")
+        .get("/api/clients-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           // this.clients = response.data;
           let temp_clients = response.data;
@@ -647,7 +697,15 @@ export default {
       let element = [];
       let uniqueCause = [];
       axios
-        .get("/api/cause-list/")
+        .get("/api/cause-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           let temp_cause = response.data;
           for (let item = 0; item < temp_cause.length; item++) {
@@ -672,7 +730,15 @@ export default {
       let element = [];
       let uniqueOutageType = [];
       axios
-        .get("/api/outage_type-list/")
+        .get("/api/outage_type-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           let temp_outage_type = response.data;
           for (let item = 0; item < temp_outage_type.length; item++) {
@@ -721,14 +787,14 @@ export default {
       let clientAmount = [];
       // Client amount fetching
       for (let index = 0; index < clientName.length; index++) {
-        let radioGroupName = document.getElementsByName(clientName[index])
+        let radioGroupName = document.getElementsByName(clientName[index]);
         // let amountToCheck = clientName[index]
 
         // Radio group loop.
         for (let button = 0; button < radioGroupName.length; button++) {
           if (radioGroupName[button].checked == true) {
-            console.log("checked"+ radioGroupName[button].value)
-            clientAmount.push(radioGroupName[button].value)
+            console.log("checked" + radioGroupName[button].value);
+            clientAmount.push(radioGroupName[button].value);
           }
         }
       }
@@ -744,61 +810,59 @@ export default {
     },
 
     //* Setting the radio buttons.
-    setClientRadio(){
+    setClientRadio() {
       // this is the client amount array fetched from the report.
-      let reportedCliAmount = this.cliAmountFormArray
-      let presetAmount = []
-      let reportedClients = Object.keys((this.report.clients))
+      let reportedCliAmount = this.cliAmountFormArray;
+      let presetAmount = [];
+      let reportedClients = Object.keys(this.report.clients);
 
       // For Loop to remove zeroes from the amount array.
       // for (let index = 0; index < reportedCliAmount.length; index++) {
       //   if (reportedCliAmount[index] == 0) {
       //     reportedCliAmount.splice(index,1)
-      //   }        
+      //   }
       // }
 
       // Reported client name for loop.
       for (let name = 0; name < reportedClients.length; name++) {
-        let radioGroupName = document.getElementsByName(reportedClients[name])
-        let amountToCheck = reportedCliAmount[name]
-        
+        let radioGroupName = document.getElementsByName(reportedClients[name]);
+        let amountToCheck = reportedCliAmount[name];
+
         // Radio Button input element for loop
         for (let button = 0; button < radioGroupName.length; button++) {
-          if (amountToCheck == radioGroupName[button].value){
+          if (amountToCheck == radioGroupName[button].value) {
             radioGroupName[button].checked = true;
           }
         }
       }
       this.cliAmountFormArray = reportedCliAmount;
       // console Log testing output:
-      console.log("reported client amount: " + reportedCliAmount)
-      console.log("client amount array" + this.cliAmountFormArray)
-      console.log("new amount with zeros: " + presetAmount)
+      console.log("reported client amount: " + reportedCliAmount);
+      console.log("client amount array" + this.cliAmountFormArray);
+      console.log("new amount with zeros: " + presetAmount);
     },
 
-    clientObjectBuilder(){
-      let testObject = []
+    clientObjectBuilder() {
+      let testObject = [];
       let allClients = this.APIclients;
       let checkedClients = this.clientsFormArray;
       let checkedClientAmounts = this.clientRawAmount;
 
       // For Loop that goes through all the API clients:
       for (let index = 0; index < allClients.length; index++) {
-        let client = allClients[index]
+        let client = allClients[index];
         // console.log("API client in loop: " + client)
 
         // for loop that has the previously checked clients:
         for (let subIndex = 0; subIndex < checkedClients.length; subIndex++) {
-          let checked = checkedClients[subIndex]
+          let checked = checkedClients[subIndex];
           // console.log("Checked client in loop: " + checked)
-          
+
           // match conditional
           if (client == checked) {
-            console.log("match")
-            
-          }else{
-            console.log("no match.")
-            
+            console.log("match");
+          } else {
+            console.log("no match.");
           }
         }
       }
@@ -809,7 +873,7 @@ export default {
       console.log("Amounts in form: " + this.cliAmountFormArray);
       console.log("Prev selected amounts: " + checkedClientAmounts);
     },
-    
+
     //* Svg map Checkbox functions for evets.
     pointLocation(event) {
       this.pointedLocation = getLocationName(event.target);

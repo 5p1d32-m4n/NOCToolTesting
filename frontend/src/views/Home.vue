@@ -82,7 +82,15 @@ export default {
   methods: {
     getReportList() {
       axios
-        .get("/api/report-list/")
+        .get("/api/report-list/",{
+          headers:{
+            /**
+               * This is where we set our @Authorization to @JWT
+               */
+              Authorization: `JWT ${this.$store.state.access}`,
+              'Content-Type': 'application/json'
+          }
+        })
         .then((response) => {
           this.reportList = response.data;
         })

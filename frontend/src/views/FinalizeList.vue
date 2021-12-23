@@ -47,24 +47,32 @@ export default {
     };
   },
   components: {},
-  computed:{
+  computed: {
     filteredList: function () {
-      let shortList = []
+      let shortList = [];
       let fullList = this.finalizableList;
 
       for (let index = 0; index < fullList.length; index++) {
         if (fullList[index].report_type != "Finalizado") {
-          shortList.push(fullList[index])
+          shortList.push(fullList[index]);
         }
       }
 
-      return shortList
-    }
+      return shortList;
+    },
   },
   methods: {
     getFinalizableList() {
       axios
-        .get("/api/report-update-list/")
+        .get("/api/report-update-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           this.finalizableList = response.data;
         })

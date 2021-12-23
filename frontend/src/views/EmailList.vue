@@ -6,7 +6,7 @@
       </div>
     </div>
     <!-- Table of reports -->
-    <div class="table-container is-centered ">
+    <div class="table-container is-centered">
       <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <tr>
           <th>Taquilla NOC</th>
@@ -31,7 +31,7 @@
           </td>
           <td>{{ report.third_party_ticket }}</td>
           <td>{{ report.municipalities }}</td>
-          <td>{{report.outage_type}}</td>
+          <td>{{ report.outage_type }}</td>
         </tr>
       </table>
     </div>
@@ -43,14 +43,22 @@ import axios from "axios";
 export default {
   name: "EmailList",
   data() {
-      return {
-          reportList:[],
-      };
+    return {
+      reportList: [],
+    };
   },
   methods: {
-      getReportList() {
+    getReportList() {
       axios
-        .get("/api/report-list/")
+        .get("/api/report-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           this.reportList = response.data;
         })
@@ -59,9 +67,9 @@ export default {
         });
     },
   },
-  mounted(){
-      document.title = "Lista de Reportes a Notificar"
-      this.getReportList();
-  }
+  mounted() {
+    document.title = "Lista de Reportes a Notificar";
+    this.getReportList();
+  },
 };
 </script>

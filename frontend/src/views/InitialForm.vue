@@ -445,15 +445,25 @@ export default {
       // * The problem data here seems to be causes, municipalities and outage_type.
       // * The string format appears to be incorrect.
       console.log(tempReport);
-      axios.post("/api/report-create/", tempReport).catch((error) => {
-        console.log(error.response);
-      });
+      axios
+        .post("/api/report-create/", tempReport, {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .catch((error) => {
+          console.log(error.response);
+        });
       setTimeout(3000);
       this.$router.push({
         name: "Detail",
         params: { noc_ticket: tempReport.noc_ticket },
       });
-      
+
       window.location.reload();
     },
     //* Function that builds the Service portion of the Outage report in JS forma
@@ -519,7 +529,15 @@ export default {
       let element = [];
       let uniqueServices = [];
       axios
-        .get("/api/services-list/")
+        .get("/api/services-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           let temp_services = response.data;
           for (let item = 0; item < temp_services.length; item++) {
@@ -544,7 +562,15 @@ export default {
       let element = [];
       let uniqueClients = [];
       axios
-        .get("/api/clients-list/")
+        .get("/api/clients-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           // this.clients = response.data;
           let temp_clients = response.data;
@@ -570,7 +596,15 @@ export default {
       let element = [];
       let uniqueCause = [];
       axios
-        .get("/api/cause-list/")
+        .get("/api/cause-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           // this.cause = response.data;
           let temp_cause = response.data;
@@ -597,7 +631,15 @@ export default {
       let element = [];
       let uniqueOutageType = [];
       axios
-        .get("/api/outage_type-list/")
+        .get("/api/outage_type-list/", {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
         .then((response) => {
           let temp_outage_type = response.data;
           for (let item = 0; item < temp_outage_type.length; item++) {
