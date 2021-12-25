@@ -33,6 +33,10 @@ export default new Vuex.Store({
       state.access = "";
     },
   },
-
   actions: {},
+  getters: {
+    isAuthenticated(state) {
+      return state.isAuthenticated;
+    },
+  },
 });

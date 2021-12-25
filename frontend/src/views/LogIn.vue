@@ -41,7 +41,7 @@
 </template>
 
 <script>
-import axios from 'axios';
+import axios from "axios";
 export default {
   name: "Login",
   data() {
@@ -55,52 +55,54 @@ export default {
       const payload = {
         username: this.username,
         password: this.password,
-      }
+      };
 
       axios
         .post(this.$store.state.endpoints.accessToken, payload)
-        .then((response)=>{
-          this.$store.commit('updateToken', response.data.access)
+        .then((response) => {
+          this.$store.commit("updateToken", response.data.access);
 
           // get and set the authUser.
           const base = {
             baseUrl: this.$store.state.endpoints.baseUrl,
-            headers:{
+            headers: {
               /**
                * This is where we set our @Authorization to @JWT
                */
               Authorization: `JWT ${this.$store.state.access}`,
-              'Content-Type': 'application/json'
+              "Content-Type": "application/json",
             },
-            xhrFields:{
+            xhrFields: {
               withCredentials: true,
             },
-          }
+          };
 
           /**
            * Even though the authentication returned a user object that can be
             decoded, we fetch it again. This way we aren't super dependant on
             JWT and can plug in something else.
           */
-         const axiosInstance = axios.create(base)
-         axiosInstance({
-           url:'/api/v1/users/me/',
-           method: 'get',
-           params:{},
-         }).then((response)=>{
-           this.$store.commit('SET_AUTH_USER',{
-             authUser: response.data,
-             isAuthenticated: true
-           })
-           this.$router.push({name: 'Home'})
-         }).catch((error)=>{
-           console.log(error)
-         })
-        })
+          const axiosInstance = axios.create(base);
+          axiosInstance({
+            url: "/api/v1/users/me/",
+            method: "get",
+            params: {},
+          })
+            .then((response) => {
+              console.log(response.data);
+              this.$store.commit("SET_AUTH_USER", {
+                authUser: response.data.username,
+                isAuthenticated: true,
+              });
+              this.$router.push({ name: "Home" });
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+        });
     },
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>

@@ -5,16 +5,30 @@
         <p class="title mb-4">Tablero Principal De NOC Claro</p>
       </div>
     </div>
-    <div id="button-row" class="buttons is-centered is-grouped text-center gap-2 d-md-block"
+    <div
+      id="button-row"
+      class="buttons is-centered is-grouped text-center gap-2 d-md-block"
     >
       <div class="button has-background-info has-text-white is-large">
         <div class="card-content font-weight-bolder">
-          <span><router-link class="media-content has-text-white-bis" :to="{name: 'Archive'}">Archivo de Reportes</router-link></span>
+          <span
+            ><router-link
+              class="media-content has-text-white-bis"
+              :to="{ name: 'Archive' }"
+              >Archivo de Reportes</router-link
+            ></span
+          >
         </div>
       </div>
       <div class="button has-background-danger has-text-white is-large">
         <div class="card-content font-weight-bolder">
-          <span><router-link class="media-content has-text-white-bis" :to="{name: 'InitialForm'}">Iniciar Reporte</router-link></span>
+          <span
+            ><router-link
+              class="media-content has-text-white-bis"
+              :to="{ name: 'InitialForm' }"
+              >Iniciar Reporte</router-link
+            ></span
+          >
         </div>
       </div>
       <div class="button has-background-warning has-text-white is-large">
@@ -28,14 +42,17 @@
       </div>
       <div class="button has-background-success has-text-white is-large">
         <div class="card-content font-weight-bolder">
-          <span><router-link
-          class="media-content has-text-white-bis"
-          :to="{name:'FinalizeList'}"
-          >Finalizar Reporte</router-link></span>
+          <span
+            ><router-link
+              class="media-content has-text-white-bis"
+              :to="{ name: 'FinalizeList' }"
+              >Finalizar Reporte</router-link
+            ></span
+          >
         </div>
       </div>
     </div>
-    <div class="table-container is-centered ">
+    <div class="table-container is-centered">
       <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <tr>
           <th>Taquilla NOC</th>
@@ -60,7 +77,7 @@
           </td>
           <td>{{ report.third_party_ticket }}</td>
           <td>{{ report.municipalities }}</td>
-          <td>{{report.outage_type}}</td>
+          <td>{{ report.outage_type }}</td>
         </tr>
       </table>
     </div>
@@ -78,18 +95,17 @@ export default {
       reportList: [],
     };
   },
-  components: {},
   methods: {
     getReportList() {
       axios
-        .get("/api/report-list/",{
-          headers:{
+        .get("/api/report-list/", {
+          headers: {
             /**
-               * This is where we set our @Authorization to @JWT
-               */
-              Authorization: `JWT ${this.$store.state.access}`,
-              'Content-Type': 'application/json'
-          }
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
         })
         .then((response) => {
           this.reportList = response.data;
@@ -99,13 +115,22 @@ export default {
         });
     },
   },
+  computed: {
+    isAuthenticated: function () {
+      return this.$store.state.isAuthenticated;
+    },
+  },
   mounted() {
+    // if (!this.isAuthenticated) {
+    //   this.$router.push("/login");
+    // }
+    console.log(this.isAuthenticated);
+    // console.log(this.$store.state.isAuthenticated);
     document.title = "Herramienta de Reporte del Claro NOC";
     this.getReportList();
-    console.log(this.$store.access)
+    console.log(this.$store.state.access);
   },
 };
 </script>
 
-<style scoped>
-</style>
+<style scoped></style>
