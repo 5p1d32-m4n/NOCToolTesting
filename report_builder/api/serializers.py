@@ -34,6 +34,7 @@ class CauseSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
+    author = serializers.CurrentUserDefault()
 
     class Meta:
         model = Comment

@@ -144,9 +144,9 @@
               <table class="table is-bordered is-hoverable">
                 <tbody>
                   <tr>
-                    <td>
-                      <b-card title="User">
-                        <b-card-text>User Comment</b-card-text>
+                    <td v-for="comment in comments" v-bind:key="comment">
+                      <b-card :title="comment.author">
+                        <b-card-text>{{ comment.content }}</b-card-text>
                       </b-card>
                     </td>
                   </tr>
@@ -154,6 +154,7 @@
               </table>
             </div>
           </div>
+          <!-- Comment Form -->
           <div class="column">Commnet Form</div>
         </div>
       </div>
@@ -189,7 +190,7 @@ export default {
       pointedLocation: null,
       focusedLocation: null,
       PuertoRico,
-      componentKey: 0,
+      comments: [],
     };
   },
   watch: {
@@ -246,6 +247,24 @@ export default {
           this.report.services = JSON.parse(response.data.services);
           this.report.clients = JSON.parse(response.data.clients);
           console.log(this.report);
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+      // Here we are going to try the comment fetching for the api backend.
+      axios
+        .get(`/api/comment-list/`, {
+          headers: {
+            /**
+             * This is where we set our @Authorization to @JWT
+             */
+            Authorization: `JWT ${this.$store.state.access}`,
+            "Content-Type": "application/json",
+          },
+        })
+        .then((response) => {
+          console.log(response.data);
+          this.comments = response.data;
         })
         .catch((error) => {
           console.log(error);

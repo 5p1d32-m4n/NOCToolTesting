@@ -1,12 +1,18 @@
 import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
+import createPersistedState from "vuex-persistedstate";
 Vue.use(Vuex);
 
 axios.defaults.xsrfCookieName = "csrftoken";
 axios.defaults.xsrfHeaderName = "X-CSRFToken";
 
 export default new Vuex.Store({
+  plugins: [
+    createPersistedState({
+      storage: window.sessionStorage,
+    }),
+  ],
   state: {
     authUser: {},
     isAuthenticated: false,
