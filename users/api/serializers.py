@@ -4,6 +4,8 @@ from users.models import CustomUser
 
 
 class CustomUserSerializer(serializers.ModelSerializer):
+    id = serializers.PrimaryKeyRelatedField(
+        default=serializers.CurrentUserDefault(), read_only=True)
 
     class Meta:
         model = CustomUser
@@ -13,4 +15,5 @@ class CustomUserSerializer(serializers.ModelSerializer):
                   "employee_number",
                   "department",
                   "email",
-                  "is_admin", ]
+                  "is_admin",
+                  "id", ]
