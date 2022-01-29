@@ -55,7 +55,7 @@
             <b-form-group>
               <b-dropdown
                 variant="danger"
-                text="Servicios Impactados"
+                text="Equipos Impactados"
                 class="m-2 d-grid mt-4"
                 menu-class="w-100"
               >
@@ -64,7 +64,7 @@
                     <table class="table">
                       <thead>
                         <tr>
-                          <th scope="col">Servicios</th>
+                          <th scope="col">Equipos</th>
                           <th scope="col">Cantidad Impactda</th>
                         </tr>
                       </thead>
