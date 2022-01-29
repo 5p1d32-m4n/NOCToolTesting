@@ -3,6 +3,49 @@
     <div class="title">
       <p>Formulario de busqueda:</p>
     </div>
+    <div class="row">
+      <b-form action="">
+        <b-row>
+          <b-col>
+            <b-form-group label="Taquilla del NOC:">
+              <b-form-input></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Taquilla de Tercero:">
+              <b-form-input></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Fecha de Averia:">
+              <b-form-input type="date"></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <b-row>
+          <b-col>
+            <b-form-group label="Tipo de Averia:">
+              <b-form-input></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Causa de Averia:">
+              <b-form-input type="text"></b-form-input>
+            </b-form-group>
+          </b-col>
+          <b-col>
+            <b-form-group label="Equipos Impactados">
+              <b-form-input></b-form-input>
+            </b-form-group>
+          </b-col>
+        </b-row>
+        <hr>
+        <b-row>
+          <b-button size="w-25">Buscar</b-button>
+        </b-row>
+      </b-form>
+    </div>
+    <hr>
     <div class="table-container is-centered">
       <table class="table is-bordered is-striped is-hoverable is-fullwidth">
         <tr>
@@ -32,6 +75,7 @@
         </tr>
       </table>
     </div>
+    
   </b-container>
 </template>
 
