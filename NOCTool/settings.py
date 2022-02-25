@@ -43,42 +43,45 @@ INSTALLED_APPS = [
     'django.contrib.sites',
 
     'report_builder',
-    'users',
+    'account.apps.AccountConfig',
 
     'rest_framework',
     'rest_framework.authtoken',
+    # 'rest_auth',
+    'dj_rest_auth',
     'rest_auth.registration',
-    'rest_framework_simplejwt.token_blacklist',
-    'rest_auth',
     'corsheaders',
-    'djoser',
-
     'allauth',
-    'allauth.socialaccount',
-    'allauth.account',
+
     'crispy_forms',
     'webpack_loader',
 ]
 
 CORS_ALLOWED_ORIGINS = [
+    # TODO: set this properly for production
     'http://localhost:8000',
     'http://127.0.0.1:8000',
     'http://localhost:8080',
-    'http://127.0.0.1:8000',
+    'http://127.0.0.1:8080',
 ]
 CORS_ALLOW_HEADERS = list(default_headers) + [
-    'contenttype',
+    '*',
 ]
 CORS_ALLOW_ALL_ORIGINS = True
+CORS_ALLOW_CREDENTIALS = True
+# CORS_ALLOW_HEADERS = list(default_headers) + [
+#     'contenttype',
+# ]
 
+ALLOWED_HOSTS = ['*']
 MIDDLEWARE = [
-    'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     # CORS headers for axios to access data
     'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'django.middleware.security.SecurityMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -150,9 +153,9 @@ USE_L10N = True
 
 USE_TZ = True
 
-# LOGIN_URL = "accounts/login/"
-# LOGIN_REDIRECT = "/"
-# LOGOUT_REDIRECT = "/"
+LOGIN_URL = "accounts/login/"
+LOGIN_REDIRECT = "/"
+LOGOUT_REDIRECT = "/"
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -165,7 +168,6 @@ STATIC_URL = '/static/'
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 # Custom User Model
-AUTH_USER_MODEL = "users.CustomUser"
 
 #  Crispy forms
 CRIPSY_TEMPLATE_PACK = "bootstrap4"
@@ -176,24 +178,33 @@ SITE_ID = 1
 # django allauth
 ACCOUNT_EMAIL_VERIFICATION = "none"
 ACCOUNT_EMAIL_REQUIRED = (True)
-
+# DJOSER = {
+#     'LOGIN_FIELD': 'username'
+# }
+AUTH_USER_MODEL = "account.Accounts"
 # Django-REST-Framework
 REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
         'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
     ),
-    # 'DEFAULT_PERMISSION_CLASSES': (
-    #     'rest_framework.permissions.IsAuthenticated',
-    # ),
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
+    'PAGE_SIZE': 3,
 }
+REST_AUTH_SERIALIZERS = {
+    'LOGIN_SERIALIZER': 'account.api.serializers.AccountLoginUserSerializer',
+    'USER_DETAILS_SERIALIZER': 'account.api.serializers.AccountSerializer',
 
+}
 SIMPLE_JWT = {
-    'ACCESS_TOKEN_LIFETIME': timedelta(minutes=30),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=1),
     'AUTH_HEADER_TYPES': ('JWT',),
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=90),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=120),
+    'USER_ID_FIELD': 'id',
 }
 
 WEBPACK_LOADER = {
@@ -202,4 +213,3 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'frontend', 'webpack-stats.json')
     }
 }
-

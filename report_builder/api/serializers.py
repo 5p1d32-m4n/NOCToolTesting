@@ -1,7 +1,7 @@
 from rest_framework import serializers
 from drf_writable_nested.serializers import WritableNestedModelSerializer
 from report_builder.models import (Report,
-                                   Clients, Services, OutageType,
+                                   Clients, Equipment, OutageType,
                                    Cause, Comment
                                    )
 
@@ -17,8 +17,8 @@ class ClientsSerializer(serializers.ModelSerializer):
 
 class ServicesSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Services
-        fields = ['services']
+        model = Equipment
+        fields = ['equipment']
 
 
 class OutageTypeSerializer(serializers.ModelSerializer):
@@ -34,7 +34,8 @@ class CauseSerializer(serializers.ModelSerializer):
 
 
 class CommentSerializer(serializers.ModelSerializer):
-    author = serializers.CurrentUserDefault()
+    # author = serializers.C(
+    #     slug_field="username", read_only=True, source='auth.Accounts')
 
     class Meta:
         model = Comment
@@ -47,7 +48,7 @@ class CommentSerializer(serializers.ModelSerializer):
 
 class ReportSerializer(WritableNestedModelSerializer):
     comments = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
-    author = serializers.ReadOnlyField(source="auth.CustomUser")
+    author = serializers.ReadOnlyField(source="auth.Accounts")
 
     class Meta:
         model = Report
@@ -60,7 +61,7 @@ class ReportSerializer(WritableNestedModelSerializer):
                   'municipalities',
                   'outage_type',
                   'causes',
-                  'services',
+                  'equipment',
                   'clients',
                   'comments',
                   'author'

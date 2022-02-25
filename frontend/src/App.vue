@@ -1,80 +1,37 @@
 <template>
-  <div id="wrapper">
-    <nav class="navbar is-danger">
-      <div class="navbar-brand">
-        <router-link to="/" class="navbar-item"
-          ><strong>Claro NOC</strong></router-link
-        >
-
-        <a
-          class="navbar-burger"
-          aria-label="menu"
-          aria-expanded="false"
-          data-target="navbar-menu"
-          @click="showMobileMenu = !showMobileMenu"
-        >
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-          <span aria-hidden="true"></span>
-        </a>
-      </div>
-      <div
-        class="navbar-menu"
-        id="navbar-menu"
-        v-bind:class="{ 'is-active': showMobileMenu }"
-      >
-        <div class="navbar-end">
-          <!-- TODO: Replace these links with router-link-->
-          <router-link :to="{name:'EmailList'}" class="navbar-item">Notificacion</router-link>
-          <a href="" class="navbar-item">Manejo de Usuarios</a>
-          <a href="" class="navbar-item">Cuenta</a>
-        </div>
-      </div>
-    </nav>
-    <section class="section">
-      <router-view />
-    </section>
+  <div class="w-100">
+    <RepNavBar />
+    <NotificationContainer />
+    <router-view :key="$route.fullPath" />
   </div>
 </template>
-
 <script>
-import axios from "axios";
+import RepNavBar from '@/components/RepNavBar.vue'
+import NotificationContainer from './components/NotificationContainer.vue'
+import axios from 'axios'
 export default {
   name: 'App',
-  mounted(){
-    setInterval(()=> {
-      this.getAccess()
-    }, 1800000)
+  components: {
+    NotificationContainer,
+    RepNavBar,
   },
-  methods:{
-    getAccess(){
-      const accessData = {
-        refreshToken: this.$store.state.refreshToken
-      }
+  methods: {},
+  data() {
+    return {}
+  },
+  beforeCreate() {
+    this.$store.commit('initializeStore')
+    const access = this.$store.state.access
 
-      axios
-      .post('/api/v1/jwt/refresh/', accessData)
-      .then(response => {
-        const accessToken = response.data.accessToken
-
-        localStorage.setItem('accessToken', accessToken)
-        this.$$store.commit('setAccessToken', accessToken)
-      })
-      .catch(error => {
-        console.log(error)
-      })
+    if (access) {
+      axios.defaults.headers.common['Authorization'] = `JWT ${access}`
+    } else {
+      axios.defaults.headers.common['Authorization'] = ''
     }
   },
-  data() {
-    return {
-      showMobileMenu: false,
-    };
-  },
-};
+}
 </script>
-
-<style lang="scss">
-@import "~bulma";
+<style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -85,14 +42,20 @@ export default {
 
 #nav {
   padding: 30px;
+}
 
-  a {
-    font-weight: bold;
-    color: #2c3e50;
+#nav a {
+  font-weight: bold;
+  color: #2c3e50;
+}
 
-    &.router-link-exact-active {
-      color: #42b983;
-    }
-  }
+#nav a.router-link-exact-active {
+  color: #42b983;
+}
+.-text-error {
+  color: tomato;
+}
+.-text-success {
+  color: green;
 }
 </style>

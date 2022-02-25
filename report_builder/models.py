@@ -1,17 +1,18 @@
 from django.db import models
 from datetime import date
-from users.models import CustomUser
+# from users.models import CustomUser
 from django.contrib.contenttypes.models import ContentType
+from account.models import Accounts
 
 
-class Services(models.Model):
-    services = models.CharField(max_length=50, primary_key=False)
+class Equipment(models.Model):
+    equipment = models.CharField(max_length=50, primary_key=False)
 
     def __str__(self):
-        return f'Servicio: {self.services}'
+        return f'Equipo: {self.equipment}'
 
     class Meta:
-        verbose_name_plural = 'Services'
+        verbose_name_plural = 'Equipment'
 
 
 class Clients(models.Model):
@@ -61,8 +62,10 @@ class Report(models.Model):
                                    null=True)
     causes = models.CharField(blank=True, default=None, max_length=250,
                               null=True)
-    services = models.JSONField(default=dict)
+    equipment = models.JSONField(default=dict)
     clients = models.JSONField(default=dict)
+    author = models.ForeignKey(
+        Accounts, on_delete=models.CASCADE, related_name='authors', default='', null=True, blank=True)
 
     def __str__(self):
         return f'Evento: {self.noc_ticket}, en la fecha {self.date_of_outage}'
@@ -92,9 +95,7 @@ class Comment(models.Model):
     report = models.ForeignKey(
         Report, on_delete=models.CASCADE, null=True, blank=True,
         related_name='comments')
-    author = models.ForeignKey(
-        CustomUser, on_delete=models.CASCADE, default='',
-        related_name='comments')
+    author = models.CharField(default='', null=True, max_length=255)
     published = models.DateField(auto_now=True)
 
     def __str__(self):

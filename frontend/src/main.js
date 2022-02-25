@@ -1,23 +1,35 @@
-import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
-import store from "./store";
-import axios from "axios";
-import {
-  BootstrapVue,
-  IconsPlugin
-} from 'bootstrap-vue'
-import 'bootstrap/dist/css/bootstrap.css';
-import 'bootstrap-vue/dist/bootstrap-vue.css';
+import Vue from 'vue'
+import App from './App.vue'
+import router from './router'
+import store from './store'
+import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap.css'
+import 'bootstrap-vue/dist/bootstrap-vue.css'
+import { camelCase, upperFirst } from 'lodash'
+import 'nprogress/nprogress.css'
+import Vuelidate from 'vuelidate'
 
-Vue.use(BootstrapVue, IconsPlugin)
-// Vue.use(IconsPlugin)
-// Local URL for Django API http://127.0.0.1:8000
-//  Insert here custom url for live hosting url to fetch with axios: https://8000-lime-cattle-yegqyfpg.ws-us18.gitpod.io
-axios.defaults.baseURL = 'http://127.0.0.1:8000'
+const requireComponent = require.context(
+  './components',
+  false,
+  /Base[A-Z]\w+\.(vue|js)$/
+)
+
+requireComponent.keys().forEach((fileName) => {
+  const componentConfig = requireComponent(fileName)
+
+  const componentName = upperFirst(
+    camelCase(fileName.replace(/^\.\/(.*)\.\w+$/, '$1'))
+  )
+
+  Vue.component(componentName, componentConfig.default || componentConfig)
+})
+
+Vue.use(BootstrapVue, IconsPlugin, Vuelidate)
+Vue.config.productionTip = false
+
 new Vue({
   router,
   store,
-  axios,
   render: (h) => h(App),
-}).$mount("#app");
+}).$mount('#app')

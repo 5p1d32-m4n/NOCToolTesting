@@ -1,11 +1,11 @@
-import Vue from "vue";
-import Vuex from "vuex";
-import axios from "axios";
-import createPersistedState from "vuex-persistedstate";
-Vue.use(Vuex);
+import Vue from 'vue'
+import Vuex, { Store } from 'vuex'
+import createPersistedState from 'vuex-persistedstate'
+import * as report from '@/store/modules/report.js'
+import * as user from '@/store/modules/user.js'
+import * as notification from './modules/notification.js'
 
-axios.defaults.xsrfCookieName = "csrftoken";
-axios.defaults.xsrfHeaderName = "X-CSRFToken";
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   plugins: [
@@ -13,36 +13,30 @@ export default new Vuex.Store({
       storage: window.sessionStorage,
     }),
   ],
+  modules: {
+    user,
+    notification,
+    report,
+  },
   state: {
-    authUser: {},
-    isAuthenticated: false,
-    access: localStorage.getItem("access"),
-    endpoints: {
-      accessToken: "http://127.0.0.1:8000/api/api-token/",
-      refreshToken: "http://127.0.0.1:8000/api/api-token-refresh/",
-      baseUrl: "http://127.0.0.1:8000",
-    },
+    loggedIn: false,
   },
   mutations: {
-    SET_AUTH_USER(state, { authUser, isAuthenticated }) {
-      Vue.set(state, "authUser", authUser);
-      Vue.set(state, "isAuthenticated", isAuthenticated);
+    initializeStore() {
+      if (localStorage.getItem('access')) {
+        user.state.access = localStorage.getItem('access')
+      } else {
+        user.state.access = ''
+      }
     },
-    updateToken(state, newToken) {
-      // TODO: some day take this out of local storage. I know, but not now.
-      localStorage.setItem("access", newToken);
-      state.access = newToken;
-    },
-    removeToken(state) {
-      // TODO: same, take out local storage.
-      localStorage.removeItem("access");
-      state.access = "";
+    SET_LOGGED_IN(state, value) {
+      state.loggedIn = value
     },
   },
   actions: {},
   getters: {
-    isAuthenticated(state) {
-      return state.isAuthenticated;
+    isLoggedIn(state) {
+      return state.loggedIn
     },
   },
-});
+})

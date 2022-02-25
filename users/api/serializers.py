@@ -1,19 +1,12 @@
 from django.db.models import fields
 from rest_framework import serializers
-from users.models import CustomUser
+# from users.models import Account
 
 
-class CustomUserSerializer(serializers.ModelSerializer):
-    id = serializers.PrimaryKeyRelatedField(
-        default=serializers.CurrentUserDefault(), read_only=True)
+# class AccountSerializer(serializers.ModelSerializer):
+#     id = serializers.PrimaryKeyRelatedField(
+#         default=serializers.CurrentUserDefault(), read_only=True)
 
-    class Meta:
-        model = CustomUser
-        fields = ["first_name",
-                  "last_name",
-                  "username",
-                  "employee_number",
-                  "department",
-                  "email",
-                  "is_admin",
-                  "id", ]
+#     class Meta:
+#         model = Account
+#         fields = '__all__'

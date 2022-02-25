@@ -4,8 +4,8 @@
  * @param {Node} node - HTML node
  * @returns {string} Name of the location
  */
- export function getLocationName(node) {
-	return node && node.attributes.name.value
+export function getLocationName(node) {
+  return node && node.attributes.name.value
 }
 
 /**
@@ -16,5 +16,8 @@
  * @returns {string} Name of the selected location
  */
 export function getSelectedLocationName(map, locationId) {
-	return locationId && map.locations.find(location => location.id === locationId).name
+  return (
+    locationId &&
+    map.locations.find((location) => location.id === locationId).name
+  )
 }

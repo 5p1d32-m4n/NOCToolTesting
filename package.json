@@ -1,9 +1,0 @@
-{
-  "dependencies": {
-    "@svg-maps/cli": "^1.0.0-beta.5",
-    "axios": "^0.21.1",
-    "bootstrap-vue": "^2.21.2",
-    "bulma": "^0.9.3",
-    "vue": "^3.0.11"
-  }
-}
