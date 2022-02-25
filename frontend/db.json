@@ -1,0 +1,192 @@
+{"report-list":[
+    {
+        "report_type": "Inicial",
+        "noc_ticket": "6D87F6G8D7F6G8D",
+        "third_party_ticket": "algo",
+        "date_of_outage": "2022-01-06",
+        "time_of_outage": "15:13:34",
+        "notes": "Admin page created report.",
+        "municipalities": "Carolina",
+        "outage_type": "Voz",
+        "causes": "Mantenimiento",
+        "equipment": {
+            "4G": "3"
+        },
+        "clients": {
+            "Residencial": "1000",
+            "Comercial": "5000"
+        },
+        "comments": []
+    },
+    {
+        "report_type": "Inicial",
+        "noc_ticket": "7A9D8W90WVRG7RT",
+        "third_party_ticket": "algo",
+        "date_of_outage": "2022-01-06",
+        "time_of_outage": "15:13:34",
+        "notes": "Admin page created report.",
+        "municipalities": "San Juan",
+        "outage_type": "Power",
+        "causes": "Mantenimiento",
+        "equipment": {
+            "Voz": "3"
+        },
+        "clients": {
+            "Comercial4": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "9D0FG98S0DF9G80Z",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "SZPCMNJZGXDMJMU",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "YJKNG5XCP93RRA6",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "ZCC2UB5U5VT96VN",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "WFKWRUFWZWA3FCA",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "YBMCYJ37CX6QBMS",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "27CJHDBSMGY3L75",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "DBTQMK3W6WSRJS5",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    },{
+        "report_type": "Inicial",
+        "noc_ticket": "AB4S28XB45U23MT",
+        "third_party_ticket": "S8FG70SD9F7G0SD",
+        "date_of_outage": "2022-01-14",
+        "time_of_outage": "22:45:43",
+        "notes": "Test 1",
+        "municipalities": "Carolina",
+        "outage_type": "algo",
+        "causes": "algo",
+        "equipment": {
+            "Test": "1"
+        },
+        "clients": {
+            "Client Test": "1000"
+        },
+        "comments": []
+    }
+]}
